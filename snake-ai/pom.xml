@@ -19,22 +19,6 @@
       <url> http://nexus.talanlabs.com/content/repositories/releases/ </url>
     </repository>
   </repositories>
-  <reporting>
-   <plugins>
-     <plugin>
-       <groupId>org.apache.maven.plugins</groupId>
-       <artifactId>maven-checkstyle-plugin</artifactId>
-       <version>3.0.0</version>
-       <reportSets>
-         <reportSet>
-           <reports>
-             <report>checkstyle</report>
-           </reports>
-         </reportSet>
-       </reportSets>
-     </plugin>
-   </plugins>
- </reporting>
   <build>
     <plugins>
       <plugin>
@@ -70,9 +54,17 @@
           </executions>
       </plugin>
       <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-jxr-plugin</artifactId>
-          <version>2.5</version>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>2.17</version>
+        <configuration>
+          <configLocation>checkstyle.xml</configLocation>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jxr-plugin</artifactId>
+        <version>2.5</version>
       </plugin>
       <plugin>
           <groupId>org.jacoco</groupId>
