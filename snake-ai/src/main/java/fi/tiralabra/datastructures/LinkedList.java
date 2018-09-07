@@ -59,6 +59,9 @@ public class LinkedList<E> implements List<E> {
     }
 
     public boolean contains(Object o) {
+        if(this.first == null) {
+            return false;
+        }
         ListItem index = this.first;
         while (index.next != null) {
             Object value = (Object) index.value;
@@ -193,7 +196,7 @@ public class LinkedList<E> implements List<E> {
     }
 
     public E set(int index, E element) {
-        if (index <= this.size() || index > 0) {
+        if (index <= this.size() || index > 0 || this.first == null)   {
             throw new IndexOutOfBoundsException();
         }
         int count = 0;
@@ -211,7 +214,7 @@ public class LinkedList<E> implements List<E> {
     }
 
     public void add(int index, E element) {
-        if (index <= this.size() || index > 0) {
+        if (index <= this.size() || index > 0 || this.first == null) {
             throw new IndexOutOfBoundsException();
         }
         int count = 0;
@@ -239,7 +242,7 @@ public class LinkedList<E> implements List<E> {
     }
 
     public E remove(int index) {
-        if (index <= this.size() || index > 0) {
+        if (index <= this.size() || index > 0 || this.first == null) {
             throw new IndexOutOfBoundsException();
         }
         int count = 0;
@@ -276,11 +279,36 @@ public class LinkedList<E> implements List<E> {
     }
 
     public int indexOf(Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (this.first == null) {
+            return -1;
+        }
+        ListItem pointer = this.first;
+        int index = 0;
+        while(pointer.next != null) {
+            Object value = (Object) pointer.value;
+            if(value.equals(o)) {
+                return index; 
+            }
+            index++;
+        }
+        return -1;
     }
 
     public int lastIndexOf(Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (this.first == null) {
+            return -1;
+        }
+        ListItem pointer = this.first;
+        int index = 0;
+        int lastIndex = -1;
+        while(pointer.next != null) {
+            Object value = (Object) pointer.value;
+            if(value.equals(o)) {
+                lastIndex = index;
+            }
+            index++;
+        }
+        return lastIndex;
     }
 
     public ListIterator<E> listIterator() {
