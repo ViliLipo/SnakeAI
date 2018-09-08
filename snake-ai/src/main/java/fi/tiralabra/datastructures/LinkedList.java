@@ -40,38 +40,43 @@ public class LinkedList<E> implements List<E> {
             this.value = value;
         }
     }
+
     private class LinkedListIterator implements Iterator<E> {
-	 private LinkedList<E> iterable;
-	 private ListItem<E> pointer;
 
-	 LinkedListIterator(LinkedList<E> list) {
-		 this.iterable = list;
-		 this.pointer = null;
-	 }
+        private LinkedList<E> iterable;
+        private ListItem<E> pointer;
 
-	 @Override
-	 public E next() {
-		 if (this.pointer == null) {
-			this.pointer = this.iterable.first;
-			return this.pointer.value;
-		 }
-		 if (this.pointer.next == null) {
-		 	throw new NoSuchElementException();
-		 }
-		 this.pointer = this.pointer.next;
-		 return this.pointer.value;
-	 }
-	 public boolean hasNext() {
-		 return this.pointer.next == null;
-	 }
-	 public void forEachRemaining(Consumer<? super E> action) {
-		while(this.hasNext()) {
-			action.accept(this.next());
-		}
-	 }
-	 public void remove() {
-		 throw new UnsupportedOperationException();
-	 }
+        LinkedListIterator(LinkedList<E> list) {
+            this.iterable = list;
+            this.pointer = null;
+        }
+
+        @Override
+        public E next() {
+            if (this.pointer == null) {
+                this.pointer = this.iterable.first;
+                return this.pointer.value;
+            }
+            if (this.pointer.next == null) {
+                throw new NoSuchElementException();
+            }
+            this.pointer = this.pointer.next;
+            return this.pointer.value;
+        }
+
+        public boolean hasNext() {
+            return this.pointer.next == null;
+        }
+
+        public void forEachRemaining(Consumer<? super E> action) {
+            while (this.hasNext()) {
+                action.accept(this.next());
+            }
+        }
+
+        public void remove() {
+            throw new UnsupportedOperationException();
+        }
 
     }
 
@@ -95,10 +100,10 @@ public class LinkedList<E> implements List<E> {
     }
 
     public boolean contains(Object o) {
-        if(this.first == null) {
+        if (this.first == null) {
             return false;
         }
-	ListItem<E> index = this.first;
+        ListItem<E> index = this.first;
         while (index.next != null) {
             Object value = (Object) index.value;
             if (value.equals(o)) {
@@ -138,11 +143,11 @@ public class LinkedList<E> implements List<E> {
 
     public final boolean add(E e) {
         if (this.first == null) {
-    	    this.first = new ListItem<E>(e);
+            this.first = new ListItem<E>(e);
             return true;
         }
         ListItem<E> newElement = new ListItem<E>(e);
-	ListItem<E> index = this.last;
+        ListItem<E> index = this.last;
         while (index.next != null) {
             index = index.next;
         }
@@ -232,7 +237,7 @@ public class LinkedList<E> implements List<E> {
     }
 
     public E set(int index, E element) {
-        if (index <= this.size() || index > 0 || this.first == null)   {
+        if (index <= this.size() || index > 0 || this.first == null) {
             throw new IndexOutOfBoundsException();
         }
         int count = 0;
@@ -320,10 +325,10 @@ public class LinkedList<E> implements List<E> {
         }
         ListItem<E> pointer = this.first;
         int index = 0;
-        while(pointer.next != null) {
+        while (pointer.next != null) {
             Object value = (Object) pointer.value;
-            if(value.equals(o)) {
-                return index; 
+            if (value.equals(o)) {
+                return index;
             }
             index++;
         }
@@ -337,9 +342,9 @@ public class LinkedList<E> implements List<E> {
         ListItem<E> pointer = this.first;
         int index = 0;
         int lastIndex = -1;
-        while(pointer.next != null) {
+        while (pointer.next != null) {
             Object value = (Object) pointer.value;
-            if(value.equals(o)) {
+            if (value.equals(o)) {
                 lastIndex = index;
             }
             index++;
