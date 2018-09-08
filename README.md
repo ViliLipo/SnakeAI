@@ -1,7 +1,12 @@
 # SnakeAI
 Project for testing different algorithms for snake bots
 
+Projekti jossa, testataan erilaisia reitinhakualgoritmeja matopelin pelaamiseen.
 
 
-Projekti, testataan erilaisia reitinhaku
-algoritmeja matopelin pelaamiseen.
+## Dokumentaatio
+
+- [Määrittelydokumentti](https://github.com/ViliLipo/SnakeAI/blob/master/dokumentaatio/maarittely.md)
+
+## Raportit
+- [1. viikko](https://github.com/ViliLipo/SnakeAI/blob/master/raportit/viikko1.md)

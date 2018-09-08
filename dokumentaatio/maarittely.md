@@ -19,7 +19,8 @@ Syötteenä ohjelmalle annetaan haluttu algoritmi, sekä pelivuorojen määrä,
 jota algoritmi käyttää pelin tilan arviointiin omenan syömisen jälkeen.
 ## Aika- ja tilavaativuudet
 Tavoitteena olisi jokaista omenaa kohden saavuttaa Djikstran-algoritmin
-ominainen tila ja aikavaativuus O((E + V )log(V)).
+ominainen tila ja aikavaativuus O((E + V )log(V)). Leveysuuntainen läpikäynti
+vie tietysti O(|V| + |E|)
 
 ## Lähteet
 - [OTM kevät 2018 kurssimateriaali](https://github.com/mluukkai/otm-2018/blob/master/web/materiaali.md) M. Luukkainen 2018 Helsinki
