@@ -9,6 +9,8 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.NoSuchElementException;
+import java.util.function.Consumer;
 
 /**
  *
@@ -38,6 +40,40 @@ public class LinkedList<E> implements List<E> {
             this.value = value;
         }
     }
+    private class LinkedListIterator implements Iterator<E> {
+	 private LinkedList<E> iterable;
+	 private ListItem<E> pointer;
+
+	 LinkedListIterator(LinkedList<E> list) {
+		 this.iterable = list;
+		 this.pointer = null;
+	 }
+
+	 @Override
+	 public E next() {
+		 if (this.pointer == null) {
+			this.pointer = this.iterable.first;
+			return this.pointer.value;
+		 }
+		 if (this.pointer.next == null) {
+		 	throw new NoSuchElementException();
+		 }
+		 this.pointer = this.pointer.next;
+		 return this.pointer.value;
+	 }
+	 public boolean hasNext() {
+		 return this.pointer.next == null;
+	 }
+	 public void forEachRemaining(Consumer<? super E> action) {
+		while(this.hasNext()) {
+			action.accept(this.next());
+		}
+	 }
+	 public void remove() {
+		 throw new UnsupportedOperationException();
+	 }
+
+    }
 
     public LinkedList() {
         this.first = null;
@@ -45,7 +81,7 @@ public class LinkedList<E> implements List<E> {
     }
 
     public int size() {
-        ListItem index = this.first;
+        ListItem<E> index = this.first;
         int size = 0;
         while (index.next != null) {
             size++;
@@ -62,7 +98,7 @@ public class LinkedList<E> implements List<E> {
         if(this.first == null) {
             return false;
         }
-        ListItem index = this.first;
+	ListItem<E> index = this.first;
         while (index.next != null) {
             Object value = (Object) index.value;
             if (value.equals(o)) {
@@ -80,7 +116,7 @@ public class LinkedList<E> implements List<E> {
     public Object[] toArray() {
         Object[] array = new Object[this.size()];
         int i = 0;
-        ListItem index = this.first;
+        ListItem<E> index = this.first;
         while (index.next != null) {
             array[i] = (Object) index.value;
             i++;
@@ -102,11 +138,11 @@ public class LinkedList<E> implements List<E> {
 
     public final boolean add(E e) {
         if (this.first == null) {
-            this.first = new ListItem(e);
+    	    this.first = new ListItem<E>(e);
             return true;
         }
-        ListItem<E> newElement = new ListItem(e);
-        ListItem index = this.last;
+        ListItem<E> newElement = new ListItem<E>(e);
+	ListItem<E> index = this.last;
         while (index.next != null) {
             index = index.next;
         }
@@ -218,12 +254,12 @@ public class LinkedList<E> implements List<E> {
             throw new IndexOutOfBoundsException();
         }
         int count = 0;
-        ListItem newItem = new ListItem(element);
+        ListItem<E> newItem = new ListItem<>(element);
         ListItem<E> pointer = this.first;
         while (pointer.next != null) {
             if (count == index) {
                 if (pointer.prev != null) {
-                    ListItem previous = pointer.prev;
+                    ListItem<E> previous = pointer.prev;
                     pointer.prev = newItem;
                     newItem.next = pointer;
                     previous.next = newItem;
@@ -282,7 +318,7 @@ public class LinkedList<E> implements List<E> {
         if (this.first == null) {
             return -1;
         }
-        ListItem pointer = this.first;
+        ListItem<E> pointer = this.first;
         int index = 0;
         while(pointer.next != null) {
             Object value = (Object) pointer.value;
@@ -298,7 +334,7 @@ public class LinkedList<E> implements List<E> {
         if (this.first == null) {
             return -1;
         }
-        ListItem pointer = this.first;
+        ListItem<E> pointer = this.first;
         int index = 0;
         int lastIndex = -1;
         while(pointer.next != null) {
