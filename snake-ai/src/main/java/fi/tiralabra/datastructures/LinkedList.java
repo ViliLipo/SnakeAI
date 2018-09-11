@@ -48,24 +48,21 @@ public class LinkedList<E> implements List<E> {
 
         LinkedListIterator(LinkedList<E> list) {
             this.iterable = list;
-            this.pointer = null;
+            this.pointer = this.iterable.first;
         }
 
         @Override
         public E next() {
             if (this.pointer == null) {
-                this.pointer = this.iterable.first;
-                return this.pointer.value;
-            }
-            if (this.pointer.next == null) {
                 throw new NoSuchElementException();
             }
+            E value = this.pointer.value;
             this.pointer = this.pointer.next;
-            return this.pointer.value;
+            return value;
         }
 
         public boolean hasNext() {
-            return this.pointer.next == null;
+            return this.pointer != null;
         }
 
         public void forEachRemaining(Consumer<? super E> action) {
@@ -75,7 +72,9 @@ public class LinkedList<E> implements List<E> {
         }
 
         public void remove() {
-            throw new UnsupportedOperationException();
+            ListItem<E> p2 = this.pointer;
+            this.pointer = this.pointer.next;
+            this.iterable.remove(p2);
         }
 
     }
@@ -88,7 +87,7 @@ public class LinkedList<E> implements List<E> {
     public int size() {
         ListItem<E> index = this.first;
         int size = 0;
-        while (index.next != null) {
+        while (index != null) {
             size++;
             index = index.next;
         }
@@ -100,11 +99,8 @@ public class LinkedList<E> implements List<E> {
     }
 
     public boolean contains(Object o) {
-        if (this.first == null) {
-            return false;
-        }
         ListItem<E> index = this.first;
-        while (index.next != null) {
+        while (index != null) {
             Object value = (Object) index.value;
             if (value.equals(o)) {
                 return true;
@@ -114,15 +110,23 @@ public class LinkedList<E> implements List<E> {
         return false;
     }
 
+    public E getFirst() {
+        return this.first.value;
+    }
+
+    public E getLast() {
+        return this.last.value;
+    }
+
     public Iterator<E> iterator() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new LinkedListIterator(this);
     }
 
     public Object[] toArray() {
         Object[] array = new Object[this.size()];
         int i = 0;
         ListItem<E> index = this.first;
-        while (index.next != null) {
+        while (index != null) {
             array[i] = (Object) index.value;
             i++;
             index = index.next;
@@ -133,7 +137,7 @@ public class LinkedList<E> implements List<E> {
     public <T> T[] toArray(T[] a) {
         int i = 0;
         ListItem<E> index = this.first;
-        while (index.next != null) {
+        while (index != null) {
             a[i] = (T) index.value;
             i++;
             index = index.next;
@@ -142,15 +146,13 @@ public class LinkedList<E> implements List<E> {
     }
 
     public final boolean add(E e) {
+        ListItem<E> newElement = new ListItem<E>(e);
         if (this.first == null) {
-            this.first = new ListItem<E>(e);
+            this.first = newElement;
+            this.last = newElement;
             return true;
         }
-        ListItem<E> newElement = new ListItem<E>(e);
         ListItem<E> index = this.last;
-        while (index.next != null) {
-            index = index.next;
-        }
         index.next = newElement;
         newElement.prev = index;
         this.last = newElement;
@@ -159,7 +161,7 @@ public class LinkedList<E> implements List<E> {
 
     public boolean remove(Object o) {
         ListItem<E> index = this.first;
-        while (index.next != null) {
+        while (index != null) {
             Object value = (Object) index.value;
             if (value.equals(o)) {
                 if (index.prev != null && index.next != null) {
@@ -225,7 +227,7 @@ public class LinkedList<E> implements List<E> {
         }
         int count = 0;
         ListItem<E> pointer = this.first;
-        while (pointer.next != null) {
+        while (pointer != null) {
             if (count == index) {
                 return pointer.value;
             } else {
@@ -237,7 +239,7 @@ public class LinkedList<E> implements List<E> {
     }
 
     public E set(int index, E element) {
-        if (index <= this.size() || index > 0 || this.first == null) {
+        if (index >= this.size() || index < 0) {
             throw new IndexOutOfBoundsException();
         }
         int count = 0;
@@ -255,8 +257,12 @@ public class LinkedList<E> implements List<E> {
     }
 
     public void add(int index, E element) {
-        if (index <= this.size() || index > 0 || this.first == null) {
+        if (index > this.size() || index < 0) {
             throw new IndexOutOfBoundsException();
+        }
+        if (index == this.size()) {
+            this.add(element);
+            return;
         }
         int count = 0;
         ListItem<E> newItem = new ListItem<>(element);
@@ -269,7 +275,7 @@ public class LinkedList<E> implements List<E> {
                     newItem.next = pointer;
                     previous.next = newItem;
                     newItem.prev = previous;
-                } else if (pointer.prev == null) {
+                } else {
                     // case of adding on 0
                     newItem.prev = null;
                     pointer.prev = newItem;
@@ -280,15 +286,55 @@ public class LinkedList<E> implements List<E> {
             count++;
             pointer = pointer.next;
         }
+
+    }
+
+    public void addFirst(E element) {
+        this.add(0, element);
+    }
+
+    private E removeFirst() {
+        if (this.first == null) {
+            throw new NoSuchElementException();
+        }
+        E value = this.first.value;
+        this.first = this.first.next;
+        if (this.first != null) {
+            this.first.prev = null;
+        } else {
+            this.last = null;
+        }
+        return value;
+    }
+
+    private E removeLast() {
+        if (this.last == null) {
+            throw new NoSuchElementException();
+        }
+        E value = this.last.value;
+        this.last = this.last.prev;
+        if (this.last != null) {
+            this.last.next = null;
+        } else {
+            this.first = null;
+        }
+        return value;
+    }
+
+    private void removeFromMiddle(ListItem<E> element) {
+        ListItem<E> previous = element.prev;
+        ListItem<E> next = element.next;
+        next.prev = previous;
+        previous.next = next;
     }
 
     public E remove(int index) {
-        if (index <= this.size() || index > 0 || this.first == null) {
+        if (index >= this.size() || index < 0) {
             throw new IndexOutOfBoundsException();
         }
         int count = 0;
         ListItem<E> pointer = this.first;
-        while (pointer.next != null) {
+        while (pointer != null) {
             if (count == index) {
                 if (pointer.next == null && pointer.prev == null) {
                     // case removing only item
@@ -296,20 +342,13 @@ public class LinkedList<E> implements List<E> {
                     this.last = null;
                 } else if (pointer.next == null && pointer.prev != null) {
                     // case removing last item
-                    ListItem<E> previous = pointer.prev;
-                    this.last = previous;
-                    previous.next = null;
+                    this.removeLast();
                 } else if (pointer.next != null && pointer.prev == null) {
                     // case removing first item
-                    ListItem<E> nextI = pointer.next;
-                    nextI.prev = null;
-                    this.first = nextI;
+                    this.removeFirst();
                 } else if (pointer.next != null && pointer.prev != null) {
                     // case removing item in middle
-                    ListItem<E> previous = pointer.prev;
-                    ListItem<E> next = pointer.next;
-                    next.prev = previous;
-                    previous.next = next;
+                    this.removeFromMiddle(pointer);
                 }
                 return pointer.value;
             }
@@ -320,36 +359,40 @@ public class LinkedList<E> implements List<E> {
     }
 
     public int indexOf(Object o) {
-        if (this.first == null) {
-            return -1;
-        }
         ListItem<E> pointer = this.first;
         int index = 0;
-        while (pointer.next != null) {
+        while (pointer != null) {
             Object value = (Object) pointer.value;
             if (value.equals(o)) {
                 return index;
             }
             index++;
+            pointer = pointer.next;
         }
         return -1;
     }
 
     public int lastIndexOf(Object o) {
-        if (this.first == null) {
-            return -1;
-        }
         ListItem<E> pointer = this.first;
         int index = 0;
         int lastIndex = -1;
-        while (pointer.next != null) {
+        while (pointer != null) {
             Object value = (Object) pointer.value;
             if (value.equals(o)) {
                 lastIndex = index;
             }
             index++;
+            pointer = pointer.next;
         }
         return lastIndex;
+    }
+
+    public E poll() {
+        return this.removeFirst();
+    }
+
+    public E pop() {
+        return this.removeLast();
     }
 
     public ListIterator<E> listIterator() {
