@@ -32,23 +32,17 @@ public class LinkedList<E> implements List<E> {
             this.value = element;
         }
 
-        E getValue() {
-            return this.value;
-        }
-
-        void setValue(E value) {
-            this.value = value;
-        }
     }
 
-    private class LinkedListIterator implements Iterator<E> {
+    private class LinkedListIterator implements ListIterator<E> {
 
-        private LinkedList<E> iterable;
+        private final LinkedList<E> iterable;
         private ListItem<E> pointer;
-
+        private int index;
         LinkedListIterator(LinkedList<E> list) {
             this.iterable = list;
             this.pointer = this.iterable.first;
+            this.index = -1;
         }
 
         @Override
@@ -58,24 +52,66 @@ public class LinkedList<E> implements List<E> {
             }
             E value = this.pointer.value;
             this.pointer = this.pointer.next;
+            index++;
             return value;
         }
-
+        @Override
         public boolean hasNext() {
             return this.pointer != null;
         }
 
+        @Override
         public void forEachRemaining(Consumer<? super E> action) {
             while (this.hasNext()) {
                 action.accept(this.next());
             }
         }
-
+        
+        @Override
         public void remove() {
-            ListItem<E> p2 = this.pointer;
-            this.pointer = this.pointer.next;
-            this.iterable.remove(p2);
+            throw new UnsupportedOperationException("Not supported yet.");
         }
+
+        /**
+         * Adds element to the list
+         *
+         */
+
+        @Override
+        public void add(E e) {
+            this.iterable.add(e);
+        }
+        
+        @Override
+        public E previous() {
+            if (this.pointer.prev == null) {
+                throw new NoSuchElementException();
+            }
+            this.pointer = this.pointer.prev;
+            E value = this.pointer.value;
+            return value;
+        }
+
+        @Override
+        public boolean hasPrevious() {
+            return (this.pointer.prev != null);
+        }
+
+        @Override
+        public int nextIndex() {
+            return this.index +1;
+        }
+
+        @Override
+        public int previousIndex() {
+            return this.index -1;
+        }
+
+        @Override
+        public void set(E e) {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
+
 
     }
 
@@ -358,6 +394,7 @@ public class LinkedList<E> implements List<E> {
         return null;
     }
 
+    @Override
     public int indexOf(Object o) {
         ListItem<E> pointer = this.first;
         int index = 0;
@@ -372,6 +409,7 @@ public class LinkedList<E> implements List<E> {
         return -1;
     }
 
+    @Override
     public int lastIndexOf(Object o) {
         ListItem<E> pointer = this.first;
         int index = 0;
@@ -395,16 +433,30 @@ public class LinkedList<E> implements List<E> {
         return this.removeLast();
     }
 
+    @Override
     public ListIterator<E> listIterator() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new LinkedListIterator(this);
     }
 
+    @Override
     public ListIterator<E> listIterator(int index) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ListIterator<E> it = new LinkedListIterator(this);
+        int count =0;
+        while( count < index && it.hasNext()) {
+            it.next();
+            count++;
+        }
+        return it;
     }
-
+    
+    @Override
     public List<E> subList(int fromIndex, int toIndex) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ListIterator<E> it = this.listIterator(fromIndex);
+        LinkedList<E> sub = new LinkedList<>();
+        while(it.hasNext() && fromIndex < toIndex) {
+            sub.add(it.next());
+        }
+        return sub;
     }
 
 }
