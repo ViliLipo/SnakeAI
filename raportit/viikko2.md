@@ -4,7 +4,8 @@
 ## Työvaiheet
 Toisella viikolla ohjelma on edennyt seuraavasti. LinkedList luokalle
 luotiin kattavat yksikkötestit. Matopelin toiminta, sekä piirtäminen
-näytölle on myös nyt valmiita.
+näytölle on myös nyt valmiita. Madon liikkumiselle ohjeita
+antavaa osaa silmuloidaan nyt täysin satunnaiseti MOCK luokan avulla.
 
 ## Mitä opin ja mihin vaikeuksiin törmäsin ?
 Tällä viikolla oli vaikeaa päättää mihin työn osaan keskittyä sillä
