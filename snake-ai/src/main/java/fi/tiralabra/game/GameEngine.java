@@ -30,7 +30,10 @@ public class GameEngine {
         this.renderer = renderer;
         this.controller = controller;
     }
-
+    
+    /**
+     * Reset game to starting position
+     */
     public final void reset() {
         this.area = new GameArea();
         this.snake = new Snake(this.area, 5, 5);
@@ -40,7 +43,10 @@ public class GameEngine {
             Logger.getLogger(GameEngine.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
+    /**
+     * Advance one game tick
+     */
     public void cycle() {
         clock.startCycle();
         snake.turn(controller.getDirection());
