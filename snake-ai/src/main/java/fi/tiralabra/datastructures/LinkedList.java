@@ -120,6 +120,7 @@ public class LinkedList<E> implements List<E> {
         this.last = null;
     }
 
+    @Override
     public int size() {
         ListItem<E> index = this.first;
         int size = 0;
@@ -130,10 +131,12 @@ public class LinkedList<E> implements List<E> {
         return size;
     }
 
+    @Override
     public boolean isEmpty() {
         return this.first == null;
     }
 
+    @Override
     public boolean contains(Object o) {
         ListItem<E> index = this.first;
         while (index != null) {
@@ -154,10 +157,12 @@ public class LinkedList<E> implements List<E> {
         return this.last.value;
     }
 
+    @Override
     public Iterator<E> iterator() {
         return new LinkedListIterator(this);
     }
 
+    @Override
     public Object[] toArray() {
         Object[] array = new Object[this.size()];
         int i = 0;
@@ -170,6 +175,7 @@ public class LinkedList<E> implements List<E> {
         return array;
     }
 
+    @Override
     public <T> T[] toArray(T[] a) {
         int i = 0;
         ListItem<E> index = this.first;
@@ -181,6 +187,7 @@ public class LinkedList<E> implements List<E> {
         return a;
     }
 
+    @Override
     public final boolean add(E e) {
         ListItem<E> newElement = new ListItem<E>(e);
         if (this.first == null) {
@@ -195,6 +202,7 @@ public class LinkedList<E> implements List<E> {
         return true;
     }
 
+    @Override
     public boolean remove(Object o) {
         ListItem<E> index = this.first;
         while (index != null) {
@@ -224,6 +232,7 @@ public class LinkedList<E> implements List<E> {
         return false;
     }
 
+    @Override
     public boolean containsAll(Collection<?> c) {
         for (Object o : c) {
             if (!this.contains(o)) {
@@ -233,6 +242,7 @@ public class LinkedList<E> implements List<E> {
         return true;
     }
 
+    @Override
     public boolean addAll(Collection<? extends E> c) {
         for (E o : c) {
             this.add(o);
@@ -240,23 +250,28 @@ public class LinkedList<E> implements List<E> {
         return true;
     }
 
+    @Override
     public boolean addAll(int index, Collection<? extends E> c) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
     public boolean removeAll(Collection<?> c) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
     public boolean retainAll(Collection<?> c) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
     public void clear() {
         this.first = null;
         this.last = null;
     }
 
+    @Override
     public E get(int index) {
         if (index < 0) {
             throw new IndexOutOfBoundsException();
@@ -274,6 +289,7 @@ public class LinkedList<E> implements List<E> {
         throw new IndexOutOfBoundsException();
     }
 
+    @Override
     public E set(int index, E element) {
         if (index >= this.size() || index < 0) {
             throw new IndexOutOfBoundsException();
@@ -292,6 +308,7 @@ public class LinkedList<E> implements List<E> {
         return null;
     }
 
+    @Override
     public void add(int index, E element) {
         if (index > this.size() || index < 0) {
             throw new IndexOutOfBoundsException();
@@ -364,6 +381,7 @@ public class LinkedList<E> implements List<E> {
         previous.next = next;
     }
 
+    @Override
     public E remove(int index) {
         if (index >= this.size() || index < 0) {
             throw new IndexOutOfBoundsException();

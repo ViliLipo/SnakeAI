@@ -8,12 +8,20 @@ package fi.tiralabra.game;
 /**
  *
  * @author vili
+ * 
+ * 
+ * 
+ * 
  */
 public class GameArea implements Cloneable {
 
     int[] table;
-    private final int width = 25;
-    private final int height = 25;
+    private final int width = 26;
+    private final int height = 26;
+    private final static int FREE = 0;
+    private final static int SNAKE = 1;
+    private final static int APPLE = 2;
+    private final static int WALL = 3;
 
     public GameArea() {
         table = new int[(height) * (width)];
@@ -24,7 +32,7 @@ public class GameArea implements Cloneable {
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
                 if (i == 0 || i == height || j == 0 || j == width) {
-                    table[(i * width) + j] = 3;
+                    table[(i * width) + j] = WALL;
                 }
             }
         }
@@ -46,11 +54,39 @@ public class GameArea implements Cloneable {
      */
     public boolean checkCollision(int x, int y) {
         int location = (width * y) + x;
-        return (this.table[location] == 1 || this.table[location] == 3);
+        return (this.table[location] == SNAKE || this.table[location] == WALL);
+    }
+    /**
+     * 
+     * @param loc Location to which check on the map
+     * @return true if it is a wall or snake, else false
+     */
+    public boolean checkCollision(Location loc) {
+        return this.checkCollision(loc.getX(), loc.getY());
     }
 
+    /**
+     * 
+     * @param x X-coordinate of this location
+     * @param y Y-coordinate of this location
+     * @return the value integer value of that location
+     */
     public int getLocationValue(int x, int y) {
         return this.table[(width * y) + x];
+    }
+    
+    public boolean isCorner(int x, int y) {
+        if (x == 1 && y == 1) {
+            return true;
+        } else if ( x == this.width -2 && y == 1) {
+            return true;
+        } else if ( x == 1 && y == this.height -2) {
+            return true;
+        } else if (x == this.width-2 && y == this.getHeight() -2) {
+            return true;
+        }
+        
+        return false;
     }
 
     /**
@@ -61,7 +97,7 @@ public class GameArea implements Cloneable {
      */
     public boolean checkApple(int x, int y) {
         int location = (width * y) + x;
-        return (this.table[location] == 2);
+        return (this.table[location] == APPLE);
     }
 
     @Override
@@ -71,6 +107,18 @@ public class GameArea implements Cloneable {
             a.table[i] = this.table[i];
         }
         return a;
+    }
+    
+    public void placeApple(Location loc) {
+        this.table[loc.toInt()] = APPLE;
+    }
+    
+    public void placeSnakePiece(Location loc) {
+        this.table[loc.toInt()] = SNAKE;
+    }
+    
+    public void clearLocation(Location loc) {
+        this.table[loc.toInt()] = 0;
     }
 
 }
