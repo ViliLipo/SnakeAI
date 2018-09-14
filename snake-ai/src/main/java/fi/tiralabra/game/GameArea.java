@@ -8,16 +8,16 @@ package fi.tiralabra.game;
 /**
  *
  * @author vili
- * 
- * 
- * 
- * 
+ *
+ *
+ *
+ *
  */
 public class GameArea implements Cloneable {
 
     int[] table;
-    private final int width = 26;
-    private final int height = 26;
+    private final int width = 25;
+    private final int height = 25;
     private final static int FREE = 0;
     private final static int SNAKE = 1;
     private final static int APPLE = 2;
@@ -25,13 +25,14 @@ public class GameArea implements Cloneable {
 
     public GameArea() {
         table = new int[(height) * (width)];
+        System.out.println("TABLE LENGTH =" + table.length);
         this.makeBorders();
     }
 
     private void makeBorders() {
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
-                if (i == 0 || i == height || j == 0 || j == width) {
+                if (i == 0 || i == height - 1 || j == 0 || j == width - 1) {
                     table[(i * width) + j] = WALL;
                 }
             }
@@ -54,10 +55,12 @@ public class GameArea implements Cloneable {
      */
     public boolean checkCollision(int x, int y) {
         int location = (width * y) + x;
+        System.out.println("LOCATION value= " + this.table[location]);
         return (this.table[location] == SNAKE || this.table[location] == WALL);
     }
+
     /**
-     * 
+     *
      * @param loc Location to which check on the map
      * @return true if it is a wall or snake, else false
      */
@@ -66,7 +69,7 @@ public class GameArea implements Cloneable {
     }
 
     /**
-     * 
+     *
      * @param x X-coordinate of this location
      * @param y Y-coordinate of this location
      * @return the value integer value of that location
@@ -74,18 +77,26 @@ public class GameArea implements Cloneable {
     public int getLocationValue(int x, int y) {
         return this.table[(width * y) + x];
     }
-    
+
+    /**
+     * Checks if (x,y) is a corner. used to place apples so that those wont end
+     * up in a corner
+     *
+     * @param x
+     * @param y
+     * @return true if (x,y) is a corner else false
+     */
     public boolean isCorner(int x, int y) {
         if (x == 1 && y == 1) {
             return true;
-        } else if ( x == this.width -2 && y == 1) {
+        } else if (x == this.width - 2 && y == 1) {
             return true;
-        } else if ( x == 1 && y == this.height -2) {
+        } else if (x == 1 && y == this.height - 2) {
             return true;
-        } else if (x == this.width-2 && y == this.getHeight() -2) {
+        } else if (x == this.width - 2 && y == this.getHeight() - 2) {
             return true;
         }
-        
+
         return false;
     }
 
@@ -108,17 +119,29 @@ public class GameArea implements Cloneable {
         }
         return a;
     }
-    
+
     public void placeApple(Location loc) {
         this.table[loc.toInt()] = APPLE;
     }
-    
+
     public void placeSnakePiece(Location loc) {
         this.table[loc.toInt()] = SNAKE;
     }
-    
+
     public void clearLocation(Location loc) {
         this.table[loc.toInt()] = 0;
+    }
+
+    @Override
+    public String toString() {
+        String s = "";
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                s = s + String.valueOf(this.getLocationValue(j, i));
+            }
+            s = s + "\n";
+        }
+        return s;
     }
 
 }

@@ -22,6 +22,8 @@ Tavoitteena olisi jokaista omenaa kohden saavuttaa Djikstran-algoritmin
 ominainen tila ja aikavaativuus O((E + V )log(V)). Leveysuuntainen läpikäynti
 vie tietysti O(|V| + |E|).
 
+# Lisäominaisuudet (jos jää aikaa)
+- Sovelluksen käyttäjä saa päättää mihin seuraava omena putoaa
 ## Lähteet
 - [OTM kevät 2018 kurssimateriaali](https://github.com/mluukkai/otm-2018/blob/master/web/materiaali.md) M. Luukkainen 2018 Helsinki
 - [Tietorakenteet ja algoritmit kurssin kalvot](https://www.cs.helsinki.fi/u/saska/tira.pdf) J. Kivinen 2017

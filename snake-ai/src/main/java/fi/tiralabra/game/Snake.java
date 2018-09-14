@@ -19,6 +19,8 @@ public class Snake {
     private final static int LEFT = -2;
     private final static int DOWN = -1;
     private int direction;
+    private int score;
+    private boolean grow;
 
     private GameArea area;
 
@@ -33,15 +35,20 @@ public class Snake {
         this.locations = new LinkedList<>();
         this.locations.add(new Location(startx, starty, this.area));
         this.direction = RIGHT;
+        this.score = 0;
+        this.grow = false;
     }
+
     /**
-     * Turn the snake, cant turn 180 degrees. Fails silently and
-     * keeps old direction.
+     * Turn the snake, cant turn 180 degrees. Fails silently and keeps old
+     * direction.
+     *
      * @param dir int: 1 = UP, -1 = DOWN, 2 = RIGHT, -2= LEFT
      */
     public void turn(int dir) {
         if (-2 <= dir && dir <= 2 && dir != 0) {
-            if (0 != dir + this.direction) {
+            if (0 != (dir + this.direction)) {
+                System.out.println("Direction : " + this.direction + "dir : " + dir);
                 this.direction = dir;
             }
         }
@@ -61,7 +68,7 @@ public class Snake {
             case LEFT:
                 return this.moveLeft();
             case DOWN:
-                return this.moveRight();
+                return this.moveDown();
             default:
                 return this.moveUp();
         }
@@ -117,14 +124,24 @@ public class Snake {
 
     private boolean moveCore(Location nextHead) {
         boolean success = this.area.checkCollision(nextHead.getX(), nextHead.getY());
-        boolean grow = this.area.checkApple(nextHead.getX(), nextHead.getY());
+        grow = this.area.checkApple(nextHead.getX(), nextHead.getY());
         if (!grow) {
             Location tail = this.locations.poll();
             this.area.clearLocation(tail);
+        } else {
+            this.score += 10;
         }
         this.locations.add(nextHead);
         this.area.placeSnakePiece(nextHead);
         return success;
+    }
+
+    public boolean getGrow() {
+        return grow;
+    }
+
+    public int getScore() {
+        return this.score;
     }
 
 }

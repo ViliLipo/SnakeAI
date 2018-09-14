@@ -39,6 +39,7 @@ public class LinkedList<E> implements List<E> {
         private final LinkedList<E> iterable;
         private ListItem<E> pointer;
         private int index;
+
         LinkedListIterator(LinkedList<E> list) {
             this.iterable = list;
             this.pointer = this.iterable.first;
@@ -55,6 +56,7 @@ public class LinkedList<E> implements List<E> {
             index++;
             return value;
         }
+
         @Override
         public boolean hasNext() {
             return this.pointer != null;
@@ -66,7 +68,7 @@ public class LinkedList<E> implements List<E> {
                 action.accept(this.next());
             }
         }
-        
+
         @Override
         public void remove() {
             throw new UnsupportedOperationException("Not supported yet.");
@@ -76,12 +78,11 @@ public class LinkedList<E> implements List<E> {
          * Adds element to the list
          *
          */
-
         @Override
         public void add(E e) {
             this.iterable.add(e);
         }
-        
+
         @Override
         public E previous() {
             if (this.pointer.prev == null) {
@@ -99,19 +100,18 @@ public class LinkedList<E> implements List<E> {
 
         @Override
         public int nextIndex() {
-            return this.index +1;
+            return this.index + 1;
         }
 
         @Override
         public int previousIndex() {
-            return this.index -1;
+            return this.index - 1;
         }
 
         @Override
         public void set(E e) {
             throw new UnsupportedOperationException("Not supported yet.");
         }
-
 
     }
 
@@ -459,19 +459,19 @@ public class LinkedList<E> implements List<E> {
     @Override
     public ListIterator<E> listIterator(int index) {
         ListIterator<E> it = new LinkedListIterator(this);
-        int count =0;
-        while( count < index && it.hasNext()) {
+        int count = 0;
+        while (count < index && it.hasNext()) {
             it.next();
             count++;
         }
         return it;
     }
-    
+
     @Override
     public List<E> subList(int fromIndex, int toIndex) {
         ListIterator<E> it = this.listIterator(fromIndex);
         LinkedList<E> sub = new LinkedList<>();
-        while(it.hasNext() && fromIndex < toIndex) {
+        while (it.hasNext() && fromIndex < toIndex) {
             sub.add(it.next());
         }
         return sub;

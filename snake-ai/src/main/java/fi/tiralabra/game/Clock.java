@@ -16,17 +16,26 @@ public class Clock {
 
     public Clock(int rate) {
         this.time = System.currentTimeMillis();
-        this.delta = Math.floorDiv(1, rate);
+        this.delta = (long) Math.floor((1.d / rate) * 1000);
     }
 
+    /**
+     * Marks beginning of new cycle
+     */
     public void startCycle() {
         this.time = System.currentTimeMillis();
     }
 
+    /**
+     * Ends cycle. if cycle was ready early waits until cycle has lasted delta
+     * amount of time.
+     */
     public void endCycle() {
+        System.out.println("delta" + this.delta);
         long currentTime = System.currentTimeMillis();
         long timePassed = currentTime - this.time;
-        if (this.delta < timePassed) {
+        System.out.println("Time passed = " + timePassed);
+        if (this.delta > timePassed) {
             try {
                 Thread.sleep(this.delta - timePassed);
             } catch (InterruptedException ex) {
