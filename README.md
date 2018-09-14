@@ -10,3 +10,4 @@ Projekti jossa, testataan erilaisia reitinhakualgoritmeja matopelin pelaamiseen.
 
 ## Raportit
 - [1. viikko](https://github.com/ViliLipo/SnakeAI/blob/master/raportit/viikko1.md)
+- [2. viikko](https://github.com/ViliLipo/SnakeAI/blob/master/raportit/viikko2.md)
