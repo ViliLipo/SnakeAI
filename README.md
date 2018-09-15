@@ -2,7 +2,7 @@
 Project for testing different algorithms for snake bots
 
 Projekti jossa, testataan erilaisia reitinhakualgoritmeja matopelin pelaamiseen.
-
+Toteutetaan javalla.
 
 ## Dokumentaatio
 
