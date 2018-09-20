@@ -20,14 +20,19 @@ public class GameEngine {
     private Snake snake;
     private Apple apple;
     private Clock clock;
-    private int gamerate = 10;
+    private int gamerate = 60;
     private GameRenderer renderer;
     private Controller controller;
 
-    public GameEngine(GameRenderer renderer, Controller controller) {
+    public GameEngine(GameRenderer renderer) {
+        this.area = new GameArea();
         this.reset();
         this.clock = new Clock(gamerate);
         this.renderer = renderer;
+        this.controller = null;
+    }
+    
+    public void setController(Controller controller) {
         this.controller = controller;
     }
     
@@ -35,13 +40,17 @@ public class GameEngine {
      * Reset game to starting position
      */
     public final void reset() {
-        this.area = new GameArea();
+        this.area.reset();
         this.snake = new Snake(this.area, 5, 5);
         try {
             this.apple = new Apple(this.area);
         } catch (Exception ex) {
             Logger.getLogger(GameEngine.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public GameArea getArea() {
+        return this.area;
     }
     
     /**
@@ -64,6 +73,9 @@ public class GameEngine {
             this.reset();
         }
         clock.endCycle();
+    }
+    public Snake getSnake() {
+        return snake;
     }
 
 }

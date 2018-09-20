@@ -15,7 +15,7 @@ package fi.tiralabra.game;
  */
 public class GameArea implements Cloneable {
 
-    int[] table;
+    int[][] table;
     private final int width = 25;
     private final int height = 25;
     private final static int FREE = 0;
@@ -24,8 +24,13 @@ public class GameArea implements Cloneable {
     private final static int WALL = 3;
 
     public GameArea() {
-        table = new int[(height) * (width)];
+        table = new int[height][width];
         System.out.println("TABLE LENGTH =" + table.length);
+        this.makeBorders();
+    }
+    
+    public void reset() {
+        table = new int[height][width];
         this.makeBorders();
     }
 
@@ -33,7 +38,7 @@ public class GameArea implements Cloneable {
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
                 if (i == 0 || i == height - 1 || j == 0 || j == width - 1) {
-                    table[(i * width) + j] = WALL;
+                    table[i][j] = WALL;
                 }
             }
         }
@@ -54,9 +59,7 @@ public class GameArea implements Cloneable {
      * @return true if it is a wall or snake else false
      */
     public boolean checkCollision(int x, int y) {
-        int location = (width * y) + x;
-        System.out.println("LOCATION value= " + this.table[location]);
-        return (this.table[location] == SNAKE || this.table[location] == WALL);
+        return (this.table[y][x] == SNAKE || this.table[y][x] == WALL);
     }
 
     /**
@@ -75,7 +78,7 @@ public class GameArea implements Cloneable {
      * @return the value integer value of that location
      */
     public int getLocationValue(int x, int y) {
-        return this.table[(width * y) + x];
+        return this.table[y][x];
     }
 
     /**
@@ -107,8 +110,7 @@ public class GameArea implements Cloneable {
      * @return true if it is apple else false
      */
     public boolean checkApple(int x, int y) {
-        int location = (width * y) + x;
-        return (this.table[location] == APPLE);
+        return (this.table[y][x] == APPLE);
     }
 
     @Override
@@ -121,15 +123,15 @@ public class GameArea implements Cloneable {
     }
 
     public void placeApple(Location loc) {
-        this.table[loc.toInt()] = APPLE;
+        this.table[loc.getY()][loc.getX()] = APPLE;
     }
 
     public void placeSnakePiece(Location loc) {
-        this.table[loc.toInt()] = SNAKE;
+        this.table[loc.getY()][loc.getX()] = SNAKE;
     }
 
     public void clearLocation(Location loc) {
-        this.table[loc.toInt()] = 0;
+        this.table[loc.getY()][loc.getX()] = 0;
     }
 
     @Override
@@ -142,6 +144,10 @@ public class GameArea implements Cloneable {
             s = s + "\n";
         }
         return s;
+    }
+    
+    public int[][] getTable() {
+        return this.table;
     }
 
 }

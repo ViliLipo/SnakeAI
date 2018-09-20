@@ -5,6 +5,7 @@
  */
 package fi.tiralabra.app;
 
+import fi.tiralabra.game.BFSController;
 import fi.tiralabra.game.Controller;
 import fi.tiralabra.game.GameEngine;
 import fi.tiralabra.game.MockRNGController;
@@ -46,8 +47,9 @@ public class AppController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         GameRenderer gr = new CanvasGameRenderer(this.canvas);
-        Controller con = new MockRNGController();
-        ge = new GameEngine(gr, con);
+        ge = new GameEngine(gr);
+        Controller con = new BFSController(ge);
+        ge.setController(con);
         running = false;
     }
 

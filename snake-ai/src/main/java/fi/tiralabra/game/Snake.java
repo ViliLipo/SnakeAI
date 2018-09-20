@@ -143,5 +143,9 @@ public class Snake {
     public int getScore() {
         return this.score;
     }
+    
+    public Location getHead() {
+        return this.locations.getLast();
+    }
 
 }

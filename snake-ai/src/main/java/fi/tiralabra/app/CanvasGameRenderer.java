@@ -42,7 +42,11 @@ public class CanvasGameRenderer implements GameRenderer {
             xp = 0;
         }
     }
-
+    /**
+     * Determine color of current game block based on its value
+     * @param value value of current block
+     * @return color of the block
+     */
     private Color determineColor(int value) {
         switch (value) {
             case 0:
