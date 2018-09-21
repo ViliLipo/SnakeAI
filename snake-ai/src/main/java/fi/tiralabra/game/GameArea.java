@@ -25,7 +25,6 @@ public class GameArea implements Cloneable {
 
     public GameArea() {
         table = new int[height][width];
-        System.out.println("TABLE LENGTH =" + table.length);
         this.makeBorders();
     }
     
@@ -116,8 +115,11 @@ public class GameArea implements Cloneable {
     @Override
     public GameArea clone() throws CloneNotSupportedException {
         GameArea a = (GameArea) GameArea.super.clone();
+        a.table = new int[this.height][this.width];
         for (int i = 0; i < this.table.length; i++) {
-            a.table[i] = this.table[i];
+            for(int j = 0; j < this.table[i].length; j++){
+                a.table[i][j] = this.table[i][j];
+            }
         }
         return a;
     }

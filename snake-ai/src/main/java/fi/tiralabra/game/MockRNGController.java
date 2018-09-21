@@ -12,6 +12,7 @@ import java.util.concurrent.ThreadLocalRandom;
  * @author vili
  */
 public class MockRNGController implements Controller {
+    private final String method = "Random";
     
     public MockRNGController() {
         
@@ -29,6 +30,14 @@ public class MockRNGController implements Controller {
         } else {
             return 2;
         }
+    }
+    @Override
+    public String getMethod() {
+        return this.method;
+    }
+    @Override
+    public int getTimePassed() {
+        return 0;
     }
     
 }

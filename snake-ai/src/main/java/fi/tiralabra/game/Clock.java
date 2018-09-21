@@ -31,10 +31,8 @@ public class Clock {
      * amount of time.
      */
     public void endCycle() {
-        System.out.println("delta" + this.delta);
         long currentTime = System.currentTimeMillis();
         long timePassed = currentTime - this.time;
-        System.out.println("Time passed = " + timePassed);
         if (this.delta > timePassed) {
             try {
                 Thread.sleep(this.delta - timePassed);

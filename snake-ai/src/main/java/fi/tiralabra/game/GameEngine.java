@@ -5,8 +5,8 @@
  */
 package fi.tiralabra.game;
 
-import fi.tiralabra.app.CanvasGameRenderer;
 import fi.tiralabra.app.GameRenderer;
+import fi.tiralabra.datastructures.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,9 +20,10 @@ public class GameEngine {
     private Snake snake;
     private Apple apple;
     private Clock clock;
-    private int gamerate = 60;
+    private int gamerate = 30;
     private GameRenderer renderer;
     private Controller controller;
+    private LinkedList<Integer> scores;
 
     public GameEngine(GameRenderer renderer) {
         this.area = new GameArea();
@@ -30,12 +31,13 @@ public class GameEngine {
         this.clock = new Clock(gamerate);
         this.renderer = renderer;
         this.controller = null;
+        this.scores = new LinkedList<>();
     }
-    
+
     public void setController(Controller controller) {
         this.controller = controller;
     }
-    
+
     /**
      * Reset game to starting position
      */
@@ -48,34 +50,46 @@ public class GameEngine {
             Logger.getLogger(GameEngine.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public GameArea getArea() {
         return this.area;
     }
-    
+
     /**
      * Advance one game tick
      */
     public void cycle() {
         clock.startCycle();
         snake.turn(controller.getDirection());
-        boolean done = snake.move();
+        boolean done = !snake.move();
         if (snake.getGrow()) {
             try {
                 this.apple = new Apple(area);
+                System.out.println("Time passed: " + this.controller.getTimePassed() + "ms");
             } catch (Exception ex) {
                 Logger.getLogger(GameEngine.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         renderer.renderGame(area);
-        System.out.println(snake.getScore());
         if (done) {
+            System.out.println("SCORE:" + snake.getScore());
+            scores.add(snake.getScore());
+            System.out.println("AVG: " + this.avgScore());
             this.reset();
         }
         clock.endCycle();
     }
+
     public Snake getSnake() {
         return snake;
+    }
+
+    public double avgScore() {
+        long sum = 0;
+        for (int i : scores) {
+            sum += i;
+        }
+        return (double) sum / scores.size();
     }
 
 }

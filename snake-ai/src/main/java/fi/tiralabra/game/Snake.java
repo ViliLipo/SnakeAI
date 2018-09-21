@@ -6,12 +6,14 @@
 package fi.tiralabra.game;
 
 import fi.tiralabra.datastructures.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author vili
  */
-public class Snake {
+public class Snake implements Cloneable{
 
     private LinkedList<Location> locations;
     private final static int UP = 1;
@@ -48,7 +50,7 @@ public class Snake {
     public void turn(int dir) {
         if (-2 <= dir && dir <= 2 && dir != 0) {
             if (0 != (dir + this.direction)) {
-                System.out.println("Direction : " + this.direction + "dir : " + dir);
+                // System.out.println("Direction : " + this.direction + "dir : " + dir);
                 this.direction = dir;
             }
         }
@@ -123,7 +125,7 @@ public class Snake {
     }
 
     private boolean moveCore(Location nextHead) {
-        boolean success = this.area.checkCollision(nextHead.getX(), nextHead.getY());
+        boolean success = !this.area.checkCollision(nextHead.getX(), nextHead.getY());
         grow = this.area.checkApple(nextHead.getX(), nextHead.getY());
         if (!grow) {
             Location tail = this.locations.poll();
@@ -143,9 +145,27 @@ public class Snake {
     public int getScore() {
         return this.score;
     }
-    
+
     public Location getHead() {
         return this.locations.getLast();
+    }
+
+    @Override
+    public Snake clone() throws CloneNotSupportedException {
+        Snake snake = (Snake) super.clone();
+        snake.locations = new LinkedList<Location>();
+        snake.locations.addAll(this.locations);
+        snake.direction = this.direction;
+        snake.score = this.score;
+        snake.area = this.area.clone();
+        return snake;
+    }
+    
+    public void setArea(GameArea area) {
+        this.area = area;
+    }
+    public GameArea getArea() {
+        return this.area;
     }
 
 }

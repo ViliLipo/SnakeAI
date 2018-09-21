@@ -5,7 +5,7 @@
  */
 package fi.tiralabra.app;
 
-import fi.tiralabra.game.BFSController;
+import fi.tiralabra.ai.BFSController;
 import fi.tiralabra.game.Controller;
 import fi.tiralabra.game.GameEngine;
 import fi.tiralabra.game.MockRNGController;

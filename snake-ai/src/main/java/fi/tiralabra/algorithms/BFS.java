@@ -8,62 +8,73 @@ package fi.tiralabra.algorithms;
 import fi.tiralabra.datastructures.LinkedList;
 import fi.tiralabra.game.GameArea;
 import fi.tiralabra.game.Location;
+import fi.tiralabra.game.Snake;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author vili
  */
 public class BFS {
-
-    public static LinkedList<Location> path(GameArea area, Location loc) {
-        boolean[][] visited = new boolean[area.getHeight()][area.getWidth()];
-        LinkedList<LinkedList> queue = new LinkedList<>();
-        LinkedList<Location> path = new LinkedList<>();
-        path.add(loc);
-        queue.add(path);
-        visited[loc.getY()][loc.getX()] = true;
-        Location end = MapTools.findApple(area);
-        System.out.println("START x:" + loc.getX()+ " y :" + loc.getY());
-        System.out.println("END x:" + end.getX() + " y: " + end.getY());
-        while (!queue.isEmpty()) {
-            //System.out.println("BFS LOOP");
-            LinkedList<Location> p1 = queue.poll();
-            Location node = p1.getLast();
-            visited[node.getY()][node.getX()] = true;
-            //System.out.println("NOW AT x:" + node.getX() + " y:" + node.getY());
-            if (node.getX() == end.getX() && node.getY() == end.getY()) {
-                return p1;
+    
+    public static LinkedList<Location> path(Snake snake) {
+        boolean[][] visited = new boolean[snake.getArea().getHeight()][snake.getArea().getWidth()];
+        LinkedList<LinkedList> pathQueue = new LinkedList<>();
+        LinkedList<Snake> snakeQueue = new LinkedList<>();
+        LinkedList<Location> firstPath = new LinkedList<>();
+        firstPath.add(snake.getHead());
+        pathQueue.add(firstPath);
+        snakeQueue.add(snake);
+        visited[snake.getHead().getY()][snake.getHead().getX()] = true;
+        Location end = MapTools.findApple(snake.getArea());
+        while(!pathQueue.isEmpty()) {
+            LinkedList<Location> path = pathQueue.poll();
+            Location node = path.getLast();
+            Snake snek = snakeQueue.poll();
+            if(node.getX() == end.getX() && node.getY() == end.getY()) {
+                return path;
             }
-            for (Location adjacent : getAdjacent(area, node)) {
-                if (!visited[adjacent.getY()][adjacent.getX()]) {
+            for(Snake candidate: getCandidates(snek)) {
+                if(!visited[candidate.getHead().getY()][candidate.getHead().getX()]) {
+                    visited[candidate.getHead().getY()][candidate.getHead().getX()] = true;
                     LinkedList<Location> newPath = new LinkedList<>();
-                    newPath.addAll(p1);
-                    newPath.add(adjacent);
-                    queue.add(newPath);
-                    visited[adjacent.getY()][adjacent.getX()] = true;
-                    //System.out.println("ADDED x: " + adjacent.getX() + " y:" +adjacent.getY());
+                    newPath.addAll(path);
+                    newPath.add(candidate.getHead());
+                    snakeQueue.add(candidate);
+                    pathQueue.add(newPath);
                 }
             }
+            
         }
         return null;
     }
-
-    private static LinkedList<Location> getAdjacent(GameArea area, Location loc) {
-        LinkedList<Location> adjacent = new LinkedList<>();
-        LinkedList<Location> candidates = new LinkedList<>();
-        candidates.add(loc.getTop());
-        candidates.add(loc.getRight());
-        candidates.add(loc.getBottom());
-        candidates.add(loc.getLeft());
-        for (Location l : candidates) {
-            if (l.validate()) {
-                int value = area.getLocationValue(l.getX(), l.getY());
-                if (value != 3 && value != 1) {
-                    adjacent.add(l);
-                }
+    
+    private static LinkedList<Snake> getCandidates(Snake snake) {
+        LinkedList<Snake> candidates = new LinkedList<>();
+        try {
+            Snake up = snake.clone();
+            if(up.moveUp()) {
+                candidates.add(up);
             }
+            Snake down = snake.clone();
+            if(down.moveDown()) {
+                candidates.add(down);
+            }
+            Snake right = snake.clone();
+            if(right.moveRight()) {
+                candidates.add(right);
+            }
+            Snake left = snake.clone();
+            if(left.moveLeft()) {
+                candidates.add(left);
+            }
+        } catch (CloneNotSupportedException ex) {
+            Logger.getLogger(BFS.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return adjacent;
+
+        return candidates;
     }
+
 
 }
