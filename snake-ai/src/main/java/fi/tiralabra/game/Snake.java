@@ -13,13 +13,13 @@ import java.util.logging.Logger;
  *
  * @author vili
  */
-public class Snake implements Cloneable{
+public class Snake implements Cloneable {
 
     private LinkedList<Location> locations;
-    private final static int UP = 1;
-    private final static int RIGHT = 2;
-    private final static int LEFT = -2;
-    private final static int DOWN = -1;
+    public final static int UP = 1;
+    public final static int RIGHT = 2;
+    public final static int LEFT = -2;
+    public final static int DOWN = -1;
     private int direction;
     private int score;
     private boolean grow;
@@ -27,7 +27,7 @@ public class Snake implements Cloneable{
     private GameArea area;
 
     /**
-     *
+     * Create snake. Start direction is right.
      * @param area GameArea of the game
      * @param startx x location on which the snake spawns on
      * @param starty y location on which the snake spawns on
@@ -145,7 +145,10 @@ public class Snake implements Cloneable{
     public int getScore() {
         return this.score;
     }
-
+    /**
+     * Get the location of the snakes head
+     * @return Location of the snakes head
+     */
     public Location getHead() {
         return this.locations.getLast();
     }
@@ -160,12 +163,17 @@ public class Snake implements Cloneable{
         snake.area = this.area.clone();
         return snake;
     }
-    
+
     public void setArea(GameArea area) {
         this.area = area;
     }
+
     public GameArea getArea() {
         return this.area;
+    }
+
+    public int getDirection() {
+        return this.direction;
     }
 
 }
