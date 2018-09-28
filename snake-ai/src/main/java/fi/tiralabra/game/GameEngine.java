@@ -70,7 +70,7 @@ public class GameEngine {
             try {
                 this.apple = new Apple(area);
                 this.timepassed += this.controller.getTimePassed();
-                this.tickcount ++;
+                this.tickcount++;
             } catch (Exception ex) {
                 Logger.getLogger(GameEngine.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -93,7 +93,7 @@ public class GameEngine {
 
     public double avgScore() {
         long sum = 0;
-        if(scores.isEmpty()) {
+        if (scores.isEmpty()) {
             return 0;
         }
         for (int i : scores) {
@@ -101,12 +101,12 @@ public class GameEngine {
         }
         return (double) sum / scores.size();
     }
-    
+
     public double avgTime() {
-        if(this.tickcount == 0) {
+        if (this.tickcount == 0) {
             return 0;
         }
-        return this.timepassed /this.tickcount;
+        return this.timepassed / this.tickcount;
     }
 
 }

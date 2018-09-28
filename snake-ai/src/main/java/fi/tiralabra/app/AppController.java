@@ -8,7 +8,6 @@ package fi.tiralabra.app;
 import fi.tiralabra.ai.BFSController;
 import fi.tiralabra.game.Controller;
 import fi.tiralabra.game.GameEngine;
-import fi.tiralabra.game.MockRNGController;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -29,17 +28,17 @@ public class AppController implements Initializable {
 
     @FXML
     private Canvas canvas;
-    
+
     @FXML
     private TextField algoText;
-    
+
     @FXML
     private TextField avgTime;
     @FXML
     private TextField avgScore;
     @FXML
     private TextField newScoreValue;
-    
+
     @FXML
     private Button runButton;
     private boolean running;
@@ -52,10 +51,10 @@ public class AppController implements Initializable {
             public void handle(long now) {
                 ge.cycle();
                 algoText.setText("ALGORITHM:" + "BFS");
-                avgScore.setText("Average score: " +
-                        String.valueOf(ge.avgScore()));
+                avgScore.setText("Average score: "
+                        + String.valueOf(ge.avgScore()));
                 avgTime.setText("Average time per apple: " + String.valueOf(ge.avgTime())
-                + "ms");
+                        + "ms");
                 newScoreValue.setText("Current score: " + ge.getSnake().getScore());
             }
         }.start();

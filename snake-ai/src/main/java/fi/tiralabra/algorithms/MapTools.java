@@ -27,7 +27,11 @@ public final class MapTools {
         }
         return null;
     }
-
+    /**
+     * Convert path of locations to path of directions;
+     * @param path List of locations
+     * @return List of integers representing directions
+     */
     public static LinkedList<Integer> locationPathToDirectionPath(LinkedList<Location> path) {
         LinkedList<Integer> newPath = new LinkedList<Integer>();
         Iterator<Location> it = path.iterator();

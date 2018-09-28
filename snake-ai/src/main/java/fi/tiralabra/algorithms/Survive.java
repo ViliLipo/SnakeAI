@@ -12,30 +12,30 @@ import fi.tiralabra.game.Snake;
  * @author vili
  */
 public final class Survive {
-    
+
     public static int getSafeDirection(Snake snake) {
         try {
             Snake test = snake.clone();
-            if(test.moveLeft()) {
+            if (test.moveLeft()) {
                 return Snake.LEFT;
             }
             test = snake.clone();
-            if(test.moveRight()) {
+            if (test.moveRight()) {
                 return Snake.RIGHT;
             }
             test = snake.clone();
-            if(test.moveDown()) {
+            if (test.moveDown()) {
                 return Snake.DOWN;
             }
             test = snake.clone();
-            if(test.moveUp()) {
+            if (test.moveUp()) {
                 return Snake.UP;
             }
-            
+
         } catch (CloneNotSupportedException ex) {
             ex.printStackTrace();
         }
         return Snake.DOWN;
     }
-    
+
 }

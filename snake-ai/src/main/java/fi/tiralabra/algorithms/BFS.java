@@ -21,7 +21,12 @@ public final class BFS {
     private BFS() {
 
     }
-
+    /**
+     * Get a path of locations for snake using Breath first search
+     * @param snake
+     * @return List of locations starting for given snakes head ending to apple
+     * If no such path exist this method will return null.
+     */
     public static LinkedList<Location> path(Snake snake) {
         boolean[][] visited = new boolean[snake.getArea().getHeight()][snake.getArea().getWidth()];
         LinkedList<LinkedList> pathQueue = new LinkedList<>();
@@ -53,7 +58,11 @@ public final class BFS {
         }
         return null;
     }
-
+    /**
+     * Do not use, work in progress
+     * @param snake
+     * @return 
+     */
     public static LinkedList<Location> exhaustiveSafePath(Snake snake) {
         boolean[][] visited = new boolean[snake.getArea().getHeight()][snake.getArea().getWidth()];
         LinkedList<LinkedList> pathQueue = new LinkedList<>();
@@ -69,9 +78,9 @@ public final class BFS {
             Location node = path.getLast();
             Snake snek = snakeQueue.poll();
             if (node.getX() == end.getX() && node.getY() == end.getY()) {
-                if(validate(snek, 50 )) {
+                if (validate(snek, 50)) {
                     return path;
-                }else {
+                } else {
                     visited[node.getY()][node.getX()] = false;
                     System.out.println("REJECTED PATH");
                 }
@@ -89,7 +98,7 @@ public final class BFS {
         }
         return null;
     }
-    
+
     private static boolean validate(Snake snake, int limit) {
         return (surviveCount(snake, 0, limit) >= limit);
     }

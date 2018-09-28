@@ -42,12 +42,12 @@ public class LocationHeap {
         int l = left(i);
         int r = right(i);
         int closest;
-        if (l <= this.heapSize-1 && goal.distance(this.table[l]) < goal.distance(this.table[i])) {
+        if (l <= this.heapSize - 1 && goal.distance(this.table[l]) < goal.distance(this.table[i])) {
             closest = l;
         } else {
             closest = i;
         }
-        if (r <= this.heapSize-1 && goal.distance(this.table[r]) < goal.distance(this.table[closest])) {
+        if (r <= this.heapSize - 1 && goal.distance(this.table[r]) < goal.distance(this.table[closest])) {
             closest = r;
         }
         if (closest != i) {
@@ -62,11 +62,14 @@ public class LocationHeap {
         this.table[i] = jL;
         this.table[j] = iL;
     }
-
-    public void buildHeap(Location[] A) {
-        this.table = A;
-        this.heapSize = A.length;
-        for (int i = A.length / 2; i >= 0; i--) {
+    /**
+     * Build a heap from array of locations
+     * @param array 
+     */
+    public void buildHeap(Location[] array) {
+        this.table = array;
+        this.heapSize = array.length;
+        for (int i = array.length / 2; i >= 0; i--) {
             minHeapify(i);
         }
     }
@@ -84,16 +87,22 @@ public class LocationHeap {
             i = parent(i);
         }
     }
-
+    /**
+     * Add a Location to this heap
+     * @param loc 
+     */
     public void insert(Location loc) {
         this.heapSize++;
         if (this.heapSize > this.table.length) {
             allocateMoreTable();
         }
-        this.table[this.heapSize -1] = null;
-        increaseKey(this.heapSize-1, loc);
+        this.table[this.heapSize - 1] = null;
+        increaseKey(this.heapSize - 1, loc);
     }
-
+    /**
+     * Get the Location in heap closest to the goal
+     * @return the Closest Location, if heap is empty then null 
+     */
     public Location extractClosest() {
         if (this.heapSize < 0) {
             return null;

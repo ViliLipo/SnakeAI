@@ -53,7 +53,11 @@ public class Location {
     public String toString() {
         return ("X:" + String.valueOf(this.x) + "Y:" + String.valueOf(this.y));
     }
-    
+    /**
+     * Get distance between this location and other location
+     * @param loc the other location
+     * @return integer value of the distance
+     */
     public int distance(Location loc) {
         return (Math.abs(this.x - loc.x) + Math.abs(this.y - loc.y));
     }

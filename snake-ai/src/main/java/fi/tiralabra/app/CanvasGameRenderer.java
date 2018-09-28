@@ -21,7 +21,10 @@ public class CanvasGameRenderer implements GameRenderer {
     public CanvasGameRenderer(Canvas canvas) {
         this.canvas = canvas;
     }
-
+    /**
+     * Renders game to canvas
+     * @param area GameArea to be rendered
+     */
     @Override
     public void renderGame(GameArea area) {
         int blockx = (int) Math.floor(canvas.getWidth() / (double) area.getWidth());
