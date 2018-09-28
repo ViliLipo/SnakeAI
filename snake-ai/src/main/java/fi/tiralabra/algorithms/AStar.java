@@ -5,16 +5,10 @@
  */
 package fi.tiralabra.algorithms;
 
-import fi.tiralabra.datastructures.LinkedList;
-
 /**
  *
  * @author vili
  */
-public class BellmanFord {
-    
-    public static LinkedList<Integer> path(int[] map, int x, int y) {
-        return new LinkedList<Integer>();
-    }
+public class AStar {
     
 }

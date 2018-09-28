@@ -14,14 +14,14 @@ import java.util.Iterator;
  *
  * @author vili
  */
-public class MapTools {
+public final class MapTools {
 
     public static Location findApple(GameArea area) {
         int[][] map = area.getTable();
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[i].length; j++) {
                 if (map[i][j] == 2) {
-                    return new Location(j, i, area);
+                    return new Location(j, i);
                 }
             }
         }

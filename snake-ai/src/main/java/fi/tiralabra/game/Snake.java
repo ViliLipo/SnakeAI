@@ -35,7 +35,7 @@ public class Snake implements Cloneable {
     public Snake(GameArea area, int startx, int starty) {
         this.area = area;
         this.locations = new LinkedList<>();
-        this.locations.add(new Location(startx, starty, this.area));
+        this.locations.add(new Location(startx, starty));
         this.direction = RIGHT;
         this.score = 0;
         this.grow = false;
@@ -84,7 +84,7 @@ public class Snake implements Cloneable {
     public boolean moveUp() {
         Location currentHead = this.locations.getLast();
         Location nextHead = new Location(currentHead.getX(),
-                currentHead.getY() - 1, this.area);
+                currentHead.getY() - 1);
         return this.moveCore(nextHead);
     }
 
@@ -96,7 +96,7 @@ public class Snake implements Cloneable {
     public boolean moveDown() {
         Location currentHead = this.locations.getLast();
         Location nextHead = new Location(currentHead.getX(),
-                currentHead.getY() + 1, this.area);
+                currentHead.getY() + 1);
         return this.moveCore(nextHead);
     }
 
@@ -108,7 +108,7 @@ public class Snake implements Cloneable {
     public boolean moveRight() {
         Location currentHead = this.locations.getLast();
         Location nextHead = new Location(currentHead.getX() + 1,
-                currentHead.getY(), this.area);
+                currentHead.getY());
         return this.moveCore(nextHead);
     }
 
@@ -120,12 +120,15 @@ public class Snake implements Cloneable {
     public boolean moveLeft() {
         Location currentHead = this.locations.getLast();
         Location nextHead = new Location(currentHead.getX() - 1,
-                currentHead.getY(), this.area);
+                currentHead.getY());
         return this.moveCore(nextHead);
     }
 
     private boolean moveCore(Location nextHead) {
         boolean success = !this.area.checkCollision(nextHead.getX(), nextHead.getY());
+        if(!success) {
+            return success;
+        }
         grow = this.area.checkApple(nextHead.getX(), nextHead.getY());
         if (!grow) {
             Location tail = this.locations.poll();
@@ -174,6 +177,10 @@ public class Snake implements Cloneable {
 
     public int getDirection() {
         return this.direction;
+    }
+    
+    public int size() {
+        return this.locations.size();
     }
 
 }

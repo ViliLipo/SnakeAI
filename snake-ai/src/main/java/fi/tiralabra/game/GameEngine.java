@@ -20,10 +20,12 @@ public class GameEngine {
     private Snake snake;
     private Apple apple;
     private Clock clock;
-    private int gamerate = 30;
+    private int gamerate = 60;
     private GameRenderer renderer;
     private Controller controller;
     private LinkedList<Integer> scores;
+    private long timepassed;
+    private long tickcount;
 
     public GameEngine(GameRenderer renderer) {
         this.area = new GameArea();
@@ -32,6 +34,8 @@ public class GameEngine {
         this.renderer = renderer;
         this.controller = null;
         this.scores = new LinkedList<>();
+        timepassed = 0;
+        tickcount = 0;
     }
 
     public void setController(Controller controller) {
@@ -65,7 +69,8 @@ public class GameEngine {
         if (snake.getGrow()) {
             try {
                 this.apple = new Apple(area);
-                System.out.println("Time passed: " + this.controller.getTimePassed() + "ms");
+                this.timepassed += this.controller.getTimePassed();
+                this.tickcount ++;
             } catch (Exception ex) {
                 Logger.getLogger(GameEngine.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -75,6 +80,8 @@ public class GameEngine {
             System.out.println("SCORE:" + snake.getScore());
             scores.add(snake.getScore());
             System.out.println("AVG: " + this.avgScore());
+            //double avgtime = this.timepassed/this.tickcount;
+            //System.out.println("AVG TIME PASSED: " + avgtime);
             this.reset();
         }
         clock.endCycle();
@@ -86,10 +93,20 @@ public class GameEngine {
 
     public double avgScore() {
         long sum = 0;
+        if(scores.isEmpty()) {
+            return 0;
+        }
         for (int i : scores) {
             sum += i;
         }
         return (double) sum / scores.size();
+    }
+    
+    public double avgTime() {
+        if(this.tickcount == 0) {
+            return 0;
+        }
+        return this.timepassed /this.tickcount;
     }
 
 }

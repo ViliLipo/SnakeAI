@@ -16,8 +16,8 @@ package fi.tiralabra.game;
 public class GameArea implements Cloneable {
 
     int[][] table;
-    private final int width = 25;
-    private final int height = 25;
+    private final int width = 100;
+    private final int height = 100;
     private final static int FREE = 0;
     private final static int SNAKE = 1;
     private final static int APPLE = 2;
@@ -58,6 +58,9 @@ public class GameArea implements Cloneable {
      * @return true if it is a wall or snake else false
      */
     public boolean checkCollision(int x, int y) {
+        if (x >= this.width || y >= this.height) {
+            return true;
+        }
         return (this.table[y][x] == SNAKE || this.table[y][x] == WALL);
     }
 
@@ -109,6 +112,9 @@ public class GameArea implements Cloneable {
      * @return true if it is apple else false
      */
     public boolean checkApple(int x, int y) {
+        if (x >= this.width || y >= this.height) {
+            return true;
+        }
         return (this.table[y][x] == APPLE);
     }
 

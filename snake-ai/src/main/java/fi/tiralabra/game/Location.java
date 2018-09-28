@@ -13,18 +13,12 @@ public class Location {
 
     private int x;
     private int y;
-    private GameArea area;
 
-    public Location(int x, int y, GameArea area) {
+    public Location(int x, int y) {
         this.x = x;
         this.y = y;
-        this.area = area;
     }
 
-    public Location(int loc) {
-        this.y = loc / area.getWidth();
-        this.x = loc - this.y;
-    }
 
     public int getX() {
         return this.x;
@@ -34,28 +28,34 @@ public class Location {
         return this.y;
     }
 
-    public int toInt() {
-        return (this.y * this.area.getWidth() + this.x);
-    }
 
     public Location getTop() {
-        return new Location(this.x, this.y - 1, this.area);
+        return new Location(this.x, this.y - 1);
     }
 
     public Location getRight() {
-        return new Location(this.x + 1, this.y, this.area);
+        return new Location(this.x + 1, this.y);
     }
 
     public Location getBottom() {
-        return new Location(this.x, this.y + 1, this.area);
+        return new Location(this.x, this.y + 1);
     }
 
     public Location getLeft() {
-        return new Location(this.x - 1, this.y, this.area);
+        return new Location(this.x - 1, this.y);
     }
 
-    public boolean validate() {
-        return (this.x > 0 && this.x < this.area.getWidth() && this.y > 0 && this.y < this.area.getWidth());
+    public boolean validate(GameArea area) {
+        return (this.x > 0 && this.x < area.getWidth() && this.y > 0 && this.y < area.getWidth());
+    }
+    
+    @Override
+    public String toString() {
+        return ("X:" + String.valueOf(this.x) + "Y:" + String.valueOf(this.y));
+    }
+    
+    public int distance(Location loc) {
+        return (Math.abs(this.x - loc.x) + Math.abs(this.y - loc.y));
     }
 
 }

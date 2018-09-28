@@ -66,9 +66,9 @@ public class GameAreaTest {
      */
     @Test
     public void testCheckCollision_Location() {
-        Location loc = new Location(0, 0, area);
+        Location loc = new Location(0, 0);
         assertTrue(area.checkCollision(loc));
-        loc = new Location(1, 1, area);
+        loc = new Location(1, 1);
         assertFalse(area.checkCollision(loc));
         int[][] table = area.getTable();
         table[1][1] = 1;
@@ -112,7 +112,7 @@ public class GameAreaTest {
      */
     @Test
     public void testPlaceApple() {
-        Location loc = new Location(5, 5, area);
+        Location loc = new Location(5, 5);
         assertFalse(area.checkApple(5, 5));
         area.placeApple(loc);
         assertTrue(area.checkApple(5, 5));

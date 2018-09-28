@@ -12,6 +12,7 @@ import fi.tiralabra.game.Controller;
 import fi.tiralabra.game.GameArea;
 import fi.tiralabra.game.GameEngine;
 import fi.tiralabra.game.Location;
+import fi.tiralabra.algorithms.Survive;
 
 /**
  *
@@ -46,7 +47,7 @@ public class BFSController implements Controller {
             LinkedList<Location> locPath = BFS.path(engine.getSnake());
             // System.out.println("GOT BFS PATH");
             if (locPath == null || locPath.isEmpty()) {
-                return -1;
+                return Survive.getSafeDirection(engine.getSnake());
             }
             this.directions = MapTools.locationPathToDirectionPath(locPath);
             this.timePassed = (int) (System.currentTimeMillis() - start);

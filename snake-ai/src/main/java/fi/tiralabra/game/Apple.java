@@ -36,7 +36,7 @@ public class Apple {
             int y = ThreadLocalRandom.current().nextInt(1, this.area.getHeight() - 2);
             // System.out.println("x = " + x + " y = " + y);
             if (!this.area.isCorner(x, y) && !(this.area.checkCollision(x, y))) {
-                this.location = new Location(x, y, this.area);
+                this.location = new Location(x, y);
                 this.area.placeApple(this.location);
                 return;
             }

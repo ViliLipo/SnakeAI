@@ -19,6 +19,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
 public class AppController implements Initializable {
@@ -28,7 +29,17 @@ public class AppController implements Initializable {
 
     @FXML
     private Canvas canvas;
-
+    
+    @FXML
+    private TextField algoText;
+    
+    @FXML
+    private TextField avgTime;
+    @FXML
+    private TextField avgScore;
+    @FXML
+    private TextField newScoreValue;
+    
     @FXML
     private Button runButton;
     private boolean running;
@@ -40,6 +51,12 @@ public class AppController implements Initializable {
             @Override
             public void handle(long now) {
                 ge.cycle();
+                algoText.setText("ALGORITHM:" + "BFS");
+                avgScore.setText("Average score: " +
+                        String.valueOf(ge.avgScore()));
+                avgTime.setText("Average time per apple: " + String.valueOf(ge.avgTime())
+                + "ms");
+                newScoreValue.setText("Current score: " + ge.getSnake().getScore());
             }
         }.start();
     }
