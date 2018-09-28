@@ -3,6 +3,7 @@ Project for testing different algorithms for snake bots
 
 Projekti jossa, testataan erilaisia reitinhakualgoritmeja matopelin pelaamiseen.
 Toteutetaan javalla.
+Projektin hallinnassa käytetään Maven2 työkalua.
 
 ## Dokumentaatio
 
