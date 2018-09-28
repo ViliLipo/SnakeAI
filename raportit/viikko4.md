@@ -22,5 +22,5 @@ Seuraavaksi jatkan A*-tyylisen algoritin implementoimista, jonka
 tulisi löytää reitit nopeammin kuin BFS-pohjaisen algoritmin.
 
 ### Käytin tällä viikolla harjoitustyöhön aikaa 6 tuntia.
-Ensi viikolla, siirrän työskentelyn painopistettä muilta kursseista tähän
+Ensi viikolla siirrän työskentelyn painopistettä muilta kursseista tähän
 työhön ja toivottavasti etenen nopeammin.

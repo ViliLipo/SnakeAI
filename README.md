@@ -7,7 +7,7 @@ Toteutetaan javalla.
 ## Dokumentaatio
 
 - [Määrittelydokumentti](https://github.com/ViliLipo/SnakeAI/blob/master/dokumentaatio/maarittely.md)
-- [Toteutusdokumentti](https://gihub.com/ViliLipo/SnakeAI/blob/master/dokumentaatio/toteutus.md)
+- [Toteutusdokumentti](https://github.com/ViliLipo/SnakeAI/blob/master/dokumentaatio/toteutus.md)
 
 ## Raportit
 - [1. viikko](https://github.com/ViliLipo/SnakeAI/blob/master/raportit/viikko1.md)
