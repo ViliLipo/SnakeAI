@@ -21,8 +21,10 @@ public final class BFS {
     private BFS() {
 
     }
+
     /**
      * Get a path of locations for snake using Breath first search
+     *
      * @param snake
      * @return List of locations starting for given snakes head ending to apple
      * If no such path exist this method will return null.
@@ -44,7 +46,7 @@ public final class BFS {
             if (node.getX() == end.getX() && node.getY() == end.getY()) {
                 return path;
             }
-            for (Snake candidate : getCandidates(snek)) {
+            for (Snake candidate : MapTools.getCandidates(snek)) {
                 if (!visited[candidate.getHead().getY()][candidate.getHead().getX()]) {
                     visited[candidate.getHead().getY()][candidate.getHead().getX()] = true;
                     LinkedList<Location> newPath = new LinkedList<>();
@@ -58,10 +60,12 @@ public final class BFS {
         }
         return null;
     }
+
     /**
      * Do not use, work in progress
+     *
      * @param snake
-     * @return 
+     * @return
      */
     public static LinkedList<Location> exhaustiveSafePath(Snake snake) {
         boolean[][] visited = new boolean[snake.getArea().getHeight()][snake.getArea().getWidth()];
@@ -85,7 +89,7 @@ public final class BFS {
                     System.out.println("REJECTED PATH");
                 }
             }
-            for (Snake candidate : getCandidates(snek)) {
+            for (Snake candidate : MapTools.getCandidates(snek)) {
                 if (!visited[candidate.getHead().getY()][candidate.getHead().getX()]) {
                     visited[candidate.getHead().getY()][candidate.getHead().getX()] = true;
                     LinkedList<Location> newPath = new LinkedList<>();
@@ -103,37 +107,12 @@ public final class BFS {
         return (surviveCount(snake, 0, limit) >= limit);
     }
 
-    private static LinkedList<Snake> getCandidates(Snake snake) {
-        LinkedList<Snake> candidates = new LinkedList<>();
-        try {
-            Snake up = snake.clone();
-            if (up.moveUp()) {
-                candidates.add(up);
-            }
-            Snake down = snake.clone();
-            if (down.moveDown()) {
-                candidates.add(down);
-            }
-            Snake right = snake.clone();
-            if (right.moveRight()) {
-                candidates.add(right);
-            }
-            Snake left = snake.clone();
-            if (left.moveLeft()) {
-                candidates.add(left);
-            }
-        } catch (CloneNotSupportedException ex) {
-            Logger.getLogger(BFS.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return candidates;
-    }
-
     private static int surviveCount(Snake snake, int count, int limit) {
         count++;
         if (count >= limit) {
             return count;
         }
-        LinkedList<Snake> cands = getCandidates(snake);
+        LinkedList<Snake> cands = MapTools.getCandidates(snake);
         int newCount = count;
         for (Snake snek : cands) {
             newCount = Integer.max(newCount, surviveCount(snek, count, limit));

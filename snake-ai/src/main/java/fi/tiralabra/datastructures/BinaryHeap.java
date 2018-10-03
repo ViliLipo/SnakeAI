@@ -5,25 +5,22 @@
  */
 package fi.tiralabra.datastructures;
 
-import fi.tiralabra.game.Location;
+import java.util.Comparator;
 
 /**
- * Special heap that sorts locations based on distance to goal
  *
  * @author vili
  */
-public class LocationHeap {
+public class BinaryHeap<E> {
 
-    private Location goal;
-
-    private Location[] table;
-
+    private E[] table;
     private int heapSize;
+    private Comparator comp;
 
-    public LocationHeap(Location goal) {
-        this.goal = goal;
-        this.table = new Location[100];
-        heapSize = 0;
+    public BinaryHeap(int s, Comparator comp) {
+        this.table = (E[]) new Object[s];
+        this.heapSize = 0;
+        this.comp = comp;
     }
 
     private int parent(int i) {
@@ -42,12 +39,12 @@ public class LocationHeap {
         int l = left(i);
         int r = right(i);
         int closest;
-        if (l <= this.heapSize && goal.distance(this.table[l]) < goal.distance(this.table[i])) {
+        if (l <= this.heapSize && (comp.compare(this.table[l], this.table[i]) < 0)) {
             closest = l;
         } else {
             closest = i;
         }
-        if (r <= this.heapSize && goal.distance(this.table[r]) < goal.distance(this.table[closest])) {
+        if (r <= this.heapSize && (comp.compare(this.table[r], this.table[closest]) < 0)) {
             closest = r;
         }
         if (closest != i) {
@@ -57,10 +54,10 @@ public class LocationHeap {
     }
 
     private void exhange(int i, int j) {
-        Location iL = this.table[i];
-        Location jL = this.table[j];
-        this.table[i] = jL;
-        this.table[j] = iL;
+        E eli = table[i];
+        E elj = table[j];
+        table[j] = eli;
+        table[i] = elj;
     }
 
     /**
@@ -68,7 +65,7 @@ public class LocationHeap {
      *
      * @param array
      */
-    public void buildHeap(Location[] array) {
+    public void buildHeap(E[] array) {
         this.table = array;
         this.heapSize = array.length;
         for (int i = (array.length - 2) / 2; i >= 0; i--) {
@@ -76,15 +73,13 @@ public class LocationHeap {
         }
     }
 
-    private void increaseKey(int i, Location key) {
+    private void increaseKey(int i, E key) {
         if (this.table[i] != null) {
             System.out.println("BIGGER DISTANCE");
             return;
         }
         this.table[i] = key;
-        int dist1 = goal.distance(table[parent(i)]);
-        int dist2 = goal.distance(this.table[i]);
-        while (i > 0 && dist1 > dist2) {
+        while (i > 0 && comp.compare(table[parent(i)], table[i]) == 1) {
             exhange(i, parent(i));
             i = parent(i);
         }
@@ -93,15 +88,15 @@ public class LocationHeap {
     /**
      * Add a Location to this heap
      *
-     * @param loc
+     * @param e
      */
-    public void insert(Location loc) {
+    public void insert(E e) {
         this.heapSize++;
         if (this.heapSize > this.table.length) {
             allocateMoreTable();
         }
         this.table[this.heapSize - 1] = null;
-        increaseKey(this.heapSize - 1, loc);
+        increaseKey(this.heapSize - 1, e);
     }
 
     /**
@@ -109,11 +104,11 @@ public class LocationHeap {
      *
      * @return the Closest Location, if heap is empty then null
      */
-    public Location extractClosest() {
-        if (this.heapSize < 0) {
+    public E extract() {
+        if (this.heapSize <= 0) {
             return null;
         }
-        Location closest = this.table[0];
+        E closest = this.table[0];
         this.table[0] = this.table[this.heapSize - 1];
         this.heapSize--;
         minHeapify(0);
@@ -121,9 +116,13 @@ public class LocationHeap {
     }
 
     private void allocateMoreTable() {
-        Location[] newTable = new Location[this.table.length * 2];
+        E[] newTable = (E[]) new Object[this.heapSize * 2];
         System.arraycopy(this.table, 0, newTable, 0, this.table.length);
         this.table = newTable;
+    }
+
+    public boolean isEmpty() {
+        return this.heapSize == 0;
     }
 
 }

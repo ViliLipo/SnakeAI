@@ -40,6 +40,8 @@ public class GameEngine {
 
     public void setController(Controller controller) {
         this.controller = controller;
+        this.tickcount = 0;
+        this.timepassed = 0;
     }
 
     /**

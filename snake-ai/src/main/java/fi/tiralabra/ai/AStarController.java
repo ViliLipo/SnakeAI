@@ -5,30 +5,29 @@
  */
 package fi.tiralabra.ai;
 
-import fi.tiralabra.algorithms.BFS;
+import fi.tiralabra.algorithms.AStar;
 import fi.tiralabra.algorithms.MapTools;
+import fi.tiralabra.algorithms.Survive;
 import fi.tiralabra.datastructures.LinkedList;
 import fi.tiralabra.game.Controller;
-import fi.tiralabra.game.GameArea;
 import fi.tiralabra.game.GameEngine;
 import fi.tiralabra.game.Location;
-import fi.tiralabra.algorithms.Survive;
 
 /**
  *
  * @author vili
  */
-public class BFSController implements Controller {
+public class AStarController implements Controller {
+
+    private String method = "A*";
+    private int timePassed = 0;
+    private GameEngine engine;
 
     private LinkedList<Integer> directions;
-    private GameEngine engine;
-    private final String method = "Breadth first search";
-    private int timePassed;
 
-    public BFSController(GameEngine engine) {
-        this.engine = engine;
-        this.directions = new LinkedList<Integer>();
-        this.timePassed = 0;
+    public AStarController(GameEngine ge) {
+        this.engine = ge;
+        this.directions = new LinkedList<>();
     }
 
     @Override
@@ -44,13 +43,16 @@ public class BFSController implements Controller {
             return value;
         } else {
             long start = System.currentTimeMillis();
-            LinkedList<Location> locPath = BFS.path(engine.getSnake());
+            LinkedList<Location> locPath = AStar.path(engine.getSnake());
             // System.out.println("GOT BFS PATH");
             if (locPath == null || locPath.isEmpty()) {
                 return Survive.getSafeDirection(engine.getSnake());
             }
             this.directions = MapTools.locationPathToDirectionPath(locPath);
             this.timePassed = (int) (System.currentTimeMillis() - start);
+            if (this.directions.isEmpty()) {
+                return Survive.getSafeDirection(engine.getSnake());
+            }
             return this.directions.poll();
         }
 

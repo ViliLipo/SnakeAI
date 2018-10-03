@@ -8,6 +8,7 @@ package fi.tiralabra.algorithms;
 import fi.tiralabra.datastructures.LinkedList;
 import fi.tiralabra.game.GameArea;
 import fi.tiralabra.game.Location;
+import fi.tiralabra.game.Snake;
 import java.util.Iterator;
 
 /**
@@ -27,8 +28,10 @@ public final class MapTools {
         }
         return null;
     }
+
     /**
      * Convert path of locations to path of directions;
+     *
      * @param path List of locations
      * @return List of integers representing directions
      */
@@ -50,6 +53,31 @@ public final class MapTools {
             startPoint = loc;
         }
         return newPath;
+    }
+
+    public static LinkedList<Snake> getCandidates(Snake snake) {
+        LinkedList<Snake> candidates = new LinkedList<>();
+        try {
+            Snake up = snake.clone();
+            if (up.moveUp()) {
+                candidates.add(up);
+            }
+            Snake down = snake.clone();
+            if (down.moveDown()) {
+                candidates.add(down);
+            }
+            Snake right = snake.clone();
+            if (right.moveRight()) {
+                candidates.add(right);
+            }
+            Snake left = snake.clone();
+            if (left.moveLeft()) {
+                candidates.add(left);
+            }
+        } catch (CloneNotSupportedException ex) {
+            System.out.println("NO CLONE");
+        }
+        return candidates;
     }
 
 }

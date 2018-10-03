@@ -21,8 +21,10 @@ public class CanvasGameRenderer implements GameRenderer {
     public CanvasGameRenderer(Canvas canvas) {
         this.canvas = canvas;
     }
+
     /**
      * Renders game to canvas
+     *
      * @param area GameArea to be rendered
      */
     @Override
@@ -45,8 +47,10 @@ public class CanvasGameRenderer implements GameRenderer {
             xp = 0;
         }
     }
+
     /**
      * Determine color of current game block based on its value
+     *
      * @param value value of current block
      * @return color of the block
      */

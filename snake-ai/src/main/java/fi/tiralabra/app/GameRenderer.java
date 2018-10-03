@@ -12,15 +12,17 @@ import fi.tiralabra.game.GameArea;
  * @author vili
  */
 public interface GameRenderer {
+
     /**
      * Render the game area to output the view
-     * @param area 
+     *
+     * @param area
      */
     public void renderGame(GameArea area);
-    
+
     /**
      * Reset view
      */
     public void reset();
-    
+
 }

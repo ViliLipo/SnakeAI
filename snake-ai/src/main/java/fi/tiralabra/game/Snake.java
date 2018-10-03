@@ -28,6 +28,7 @@ public class Snake implements Cloneable {
 
     /**
      * Create snake. Start direction is right.
+     *
      * @param area GameArea of the game
      * @param startx x location on which the snake spawns on
      * @param starty y location on which the snake spawns on
@@ -126,7 +127,7 @@ public class Snake implements Cloneable {
 
     private boolean moveCore(Location nextHead) {
         boolean success = !this.area.checkCollision(nextHead.getX(), nextHead.getY());
-        if(!success) {
+        if (!success) {
             return success;
         }
         grow = this.area.checkApple(nextHead.getX(), nextHead.getY());
@@ -148,8 +149,10 @@ public class Snake implements Cloneable {
     public int getScore() {
         return this.score;
     }
+
     /**
      * Get the location of the snakes head
+     *
      * @return Location of the snakes head
      */
     public Location getHead() {
@@ -178,7 +181,7 @@ public class Snake implements Cloneable {
     public int getDirection() {
         return this.direction;
     }
-    
+
     public int size() {
         return this.locations.size();
     }

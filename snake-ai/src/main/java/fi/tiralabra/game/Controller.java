@@ -27,4 +27,10 @@ public interface Controller {
      * @return Integer time passed in milliseconds
      */
     public int getTimePassed();
+    
+    /**
+     * reset this controller to begin state
+     */
+    public void reset();
+    
 }

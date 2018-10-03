@@ -15,36 +15,24 @@ import static org.junit.Assert.*;
  *
  * @author vili
  */
-public class LocationHeapTest {
+public class BinaryHeapTest {
     
-    private LocationHeap heap;
+    private BinaryHeap<Location> heap;
     
-    public LocationHeapTest() {
+    public BinaryHeapTest() {
     }
     
     @Before
     public void setUp() {
-        heap = new LocationHeap(new Location(5,5));
-        heap.insert(new Location(8,8));
+        this.heap = new BinaryHeap(5, new LocationComparator(new Location(5,5)));
+        this.heap.insert(new Location(8,8));
     }
     
-    @After
-    public void tearDown() {
-    }
 
-    /**
-     * Test of buildHeap method, of class LocationHeap.
-     */
     @Test
     public void testBuildHeap() {
-        Location[] arr = new Location[3];
-        arr[0] = new Location(6,6);
-        arr[1] = new Location(10,10);
-        arr[2] = new Location(15,15);
-        heap.buildHeap(arr);
-        assertEquals(6, heap.extractClosest().getX());
-        assertEquals(10, heap.extractClosest().getX());
-        assertEquals(15, heap.extractClosest().getX());
+
+        
     }
 
     @Test
@@ -52,16 +40,17 @@ public class LocationHeapTest {
         heap.insert(new Location(6,6));
     }
 
-    /**
-     * Test of extractClosest method, of class LocationHeap.
-     */
+
     @Test
     public void testExtractClosest() {
+        heap.insert(new Location(5,5));
         heap.insert(new Location(4,5));
-        Location loc = heap.extractClosest();
+        Location loc = heap.extract();
+        assertEquals(5, loc.getX());
+        loc = heap.extract();
         assertEquals(4, loc.getX());
         assertEquals(5, loc.getY());
-        loc = heap.extractClosest();
+        loc = heap.extract();
         assertEquals(8, loc.getX());
         assertEquals(8, loc.getY());
     }
