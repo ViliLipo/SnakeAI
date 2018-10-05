@@ -29,22 +29,6 @@ public class Location {
     }
 
 
-    public Location getTop() {
-        return new Location(this.x, this.y - 1);
-    }
-
-    public Location getRight() {
-        return new Location(this.x + 1, this.y);
-    }
-
-    public Location getBottom() {
-        return new Location(this.x, this.y + 1);
-    }
-
-    public Location getLeft() {
-        return new Location(this.x - 1, this.y);
-    }
-
     public boolean validate(GameArea area) {
         return (this.x > 0 && this.x < area.getWidth() && this.y > 0 && this.y < area.getWidth());
     }

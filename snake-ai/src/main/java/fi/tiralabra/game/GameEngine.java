@@ -20,7 +20,7 @@ public class GameEngine {
     private Snake snake;
     private Apple apple;
     private Clock clock;
-    private int gamerate = 60;
+    private int gamerate = 12;
     private GameRenderer renderer;
     private Controller controller;
     private LinkedList<Integer> scores;
@@ -109,6 +109,11 @@ public class GameEngine {
             return 0;
         }
         return this.timepassed / this.tickcount;
+    }
+    
+    public void setGameRate(int rate) {
+        this.gamerate = rate;
+        this.clock = new Clock(this.gamerate);
     }
 
 }

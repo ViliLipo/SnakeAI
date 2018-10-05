@@ -6,8 +6,6 @@
 package fi.tiralabra.game;
 
 import fi.tiralabra.datastructures.LinkedList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *

@@ -61,15 +61,17 @@ public class BinaryHeap<E> {
     }
 
     /**
-     * Build a heap from array of locations
+     * Build a heap from array of elements
      *
      * @param array
      */
     public void buildHeap(E[] array) {
-        this.table = array;
-        this.heapSize = array.length;
-        for (int i = (array.length - 2) / 2; i >= 0; i--) {
-            minHeapify(i);
+        this.heapSize = 0;
+        this.table = (E[]) new Object[100];
+        for (E element : array) {
+            if (element != null) {
+                this.insert(element);
+            }
         }
     }
 
@@ -123,6 +125,10 @@ public class BinaryHeap<E> {
 
     public boolean isEmpty() {
         return this.heapSize == 0;
+    }
+
+    public int getSize() {
+        return this.heapSize;
     }
 
 }

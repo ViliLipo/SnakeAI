@@ -51,6 +51,7 @@ public class AStarController implements Controller {
             this.directions = MapTools.locationPathToDirectionPath(locPath);
             this.timePassed = (int) (System.currentTimeMillis() - start);
             if (this.directions.isEmpty()) {
+                System.out.println("SURVIVING");
                 return Survive.getSafeDirection(engine.getSnake());
             }
             return this.directions.poll();

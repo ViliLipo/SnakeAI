@@ -17,8 +17,8 @@ public class SnakeComparator implements Comparator {
 
     private LocationComparator loccomp;
 
-    public SnakeComparator(Location goal) {
-        loccomp = new LocationComparator(goal);
+    public SnakeComparator(Location start, Location goal) {
+        loccomp = new LocationComparator(start, goal);
     }
 
     @Override

@@ -16,12 +16,17 @@ import java.util.Iterator;
  * @author vili
  */
 public final class MapTools {
-
+    
+    /**
+     * Returns the location of the apple
+     * @param area
+     * @return 
+     */
     public static Location findApple(GameArea area) {
         int[][] map = area.getTable();
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[i].length; j++) {
-                if (map[i][j] == 2) {
+                if (map[i][j] == GameArea.APPLE) {
                     return new Location(j, i);
                 }
             }
@@ -42,19 +47,23 @@ public final class MapTools {
         while (it.hasNext()) {
             Location loc = it.next();
             if (startPoint.getX() < loc.getX()) {
-                newPath.add(2);
+                newPath.add(Snake.RIGHT);
             } else if (startPoint.getX() > loc.getX()) {
-                newPath.add(-2);
+                newPath.add(Snake.LEFT);
             } else if (startPoint.getY() < loc.getY()) {
-                newPath.add(-1);
+                newPath.add(Snake.DOWN);
             } else if (startPoint.getY() > loc.getY()) {
-                newPath.add(1);
+                newPath.add(Snake.UP);
             }
             startPoint = loc;
         }
         return newPath;
     }
-
+    /**
+     * Get snakes that are viable next steps
+     * @param snake
+     * @return List of snakes
+     */
     public static LinkedList<Snake> getCandidates(Snake snake) {
         LinkedList<Snake> candidates = new LinkedList<>();
         try {

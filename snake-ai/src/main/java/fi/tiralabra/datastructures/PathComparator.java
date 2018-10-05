@@ -17,8 +17,8 @@ public class PathComparator implements Comparator {
 
     private LocationComparator loccomp;
 
-    public PathComparator(Location goal) {
-        this.loccomp = new LocationComparator(goal);
+    public PathComparator(Location start, Location goal) {
+        this.loccomp = new LocationComparator(start, goal);
     }
 
     @Override

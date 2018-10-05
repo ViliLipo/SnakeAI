@@ -19,9 +19,9 @@ public class GameArea implements Cloneable {
     private final int width = 50;
     private final int height = 50;
     private final static int FREE = 0;
-    private final static int SNAKE = 1;
-    private final static int APPLE = 2;
-    private final static int WALL = 3;
+    public final static int SNAKE = 1;
+    public final static int APPLE = 2;
+    public final static int WALL = 3;
 
     public GameArea() {
         table = new int[height][width];

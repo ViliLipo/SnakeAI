@@ -15,18 +15,22 @@ import java.util.Comparator;
 public class LocationComparator implements Comparator {
 
     private Location goal;
+    private Location start;
     private int heapsize;
 
-    public LocationComparator(Location goal) {
+    public LocationComparator(Location start, Location goal) {
         this.goal = goal;
         this.heapsize = 0;
+        this.start = start;
     }
 
     @Override
     public int compare(Object t, Object t1) {
         Location l = (Location) t;
         Location l1 = (Location) t1;
-        return Integer.compare(this.goal.distance(l), this.goal.distance(l1));
+        int value1 = this.start.distance(l) + this.goal.distance(l);
+        int value2 = this.start.distance(l1) + this.goal.distance(l1);
+        return Integer.compare(value1, value2);
     }
 
 }
