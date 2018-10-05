@@ -21,7 +21,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
 public class AppController implements Initializable {
@@ -48,6 +50,8 @@ public class AppController implements Initializable {
     private Button runButton;
     @FXML
     private Button pauseButton;
+    @FXML
+    private Slider speedSlider;
     private boolean paused;
     private GameEngine ge;
     private Controller con;
@@ -63,13 +67,25 @@ public class AppController implements Initializable {
     }
 
     @FXML
-    void changeController(ActionEvent even) {
+    void changeController(ActionEvent event) {
         Controller controller = this.controllerCombo.getValue();
         if (controller != null) {
             con = controller;
             con.reset();
             ge.setController(con);
         }
+    }
+
+    @FXML
+    void setSpeed(ActionEvent event) {
+        this.ge.setGameRate((int) this.speedSlider.getValue());
+        System.out.println(this.speedSlider.getValue());
+    }
+
+    @FXML
+    void setSpeedClick(MouseEvent event) {
+        this.ge.setGameRate((int) this.speedSlider.getValue());
+        System.out.println(this.speedSlider.getValue());
     }
 
     @FXML

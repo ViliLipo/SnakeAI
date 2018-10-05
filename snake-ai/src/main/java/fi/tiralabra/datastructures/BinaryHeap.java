@@ -8,7 +8,7 @@ package fi.tiralabra.datastructures;
 import java.util.Comparator;
 
 /**
- *
+ * Binary heap that functions as a minHeap
  * @author vili
  */
 public class BinaryHeap<E> {
@@ -16,7 +16,12 @@ public class BinaryHeap<E> {
     private E[] table;
     private int heapSize;
     private Comparator comp;
-
+    
+    /**
+     * 
+     * @param s size
+     * @param comp comparator that is used in ordering
+     */
     public BinaryHeap(int s, Comparator comp) {
         this.table = (E[]) new Object[s];
         this.heapSize = 0;
