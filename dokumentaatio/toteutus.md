@@ -16,5 +16,7 @@ ei myöskään voi varmistaa sitä, ettei mato jossain kohtaa kuole, sillä se
 ei arvio pelitilannetta omenan syömisen jälkeen
 
 ### A*
-Toinen reitinhakumenetelmä noudattelee A* algoritmia. Algoritmin avointa
-joukkoa on mallinnettu taulukoilla sekä binäärikeolla.
+Toinen reitinhakumenetelmä noudattelee A\* algoritmia. Algoritmin avointa
+joukkoa on mallinnettu taulukoilla sekä binäärikeolla. A\* valittiin Djikstran
+sijasta sillä, kartan eli verkon jokainen ruutujen välinen kaari on yhden
+painoinen jos siitä voi kulkea ja äärettömän painoinen jos siitä ei voi kulkea.
