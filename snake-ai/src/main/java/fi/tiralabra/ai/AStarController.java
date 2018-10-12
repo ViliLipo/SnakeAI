@@ -46,6 +46,7 @@ public class AStarController implements Controller {
             LinkedList<Location> locPath = AStar.path(engine.getSnake());
             // System.out.println("GOT BFS PATH");
             if (locPath == null || locPath.isEmpty()) {
+                System.out.println("SURVIVING");
                 return Survive.getSafeDirection(engine.getSnake());
             }
             this.directions = MapTools.locationPathToDirectionPath(locPath);

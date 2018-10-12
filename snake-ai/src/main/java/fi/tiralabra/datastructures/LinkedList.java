@@ -320,7 +320,7 @@ public class LinkedList<E> implements List<E> {
         int count = 0;
         ListItem<E> newItem = new ListItem<>(element);
         ListItem<E> pointer = this.first;
-        while (pointer.next != null) {
+        while (pointer != null) {
             if (count == index) {
                 if (pointer.prev != null) {
                     ListItem<E> previous = pointer.prev;

@@ -24,48 +24,38 @@ public final class AStar {
     public static LinkedList<Location> path(Snake snake) {
         boolean[][] black = new boolean[snake.getArea().getHeight()][snake.getArea().getHeight()];
         boolean[][] gray = new boolean[snake.getArea().getHeight()][snake.getArea().getHeight()];
-        int [][] gScores = new int[snake.getArea().getHeight()][snake.getArea().getHeight()];
-        int [][] fScores = new int[snake.getArea().getHeight()][snake.getArea().getHeight()];
+        int[][] gScores = new int[snake.getArea().getHeight()][snake.getArea().getWidth()];
+        int[][] fScores = new int[snake.getArea().getHeight()][snake.getArea().getWidth()];
+        Location[][] cameFrom = new Location[snake.getArea().getHeight()][snake.getArea().getWidth()];
+        initSingleSource(gScores, fScores, snake);
         LinkedList<Location>[][] paths = new LinkedList[snake.getArea().getHeight()][snake.getArea().getHeight()];
-        for(int i = 0; i < snake.getArea().getHeight(); i++) {
-            for(int j =0 ; j < snake.getArea().getHeight(); j++) {
-                gScores[i][j] = Integer.MAX_VALUE;
-                fScores[i][j] = Integer.MAX_VALUE;
-            }
-        }
         Location goal = MapTools.findApple(snake.getArea());
         BinaryHeap<AStarElement> primaryHeap = new BinaryHeap<>(100, new AStarComparator());
-        LinkedList<Location> p1 = new LinkedList<>();
-        p1.add(snake.getHead());
         int startX = snake.getHead().getX();
         int startY = snake.getHead().getY();
         AStarElement start = new AStarElement(snake, goal.distance(snake.getHead()), 0);
         gScores[startY][startX] = 0;
         fScores[startY][startX] = goal.distance(snake.getHead());
-        paths[startY][startX] = p1;
+        cameFrom[startY][startX] = null;
         primaryHeap.insert(start);
         while (!primaryHeap.isEmpty()) {
             AStarElement current = primaryHeap.extract();
             Snake snek = current.getSnake();
-            LinkedList<Location> path = paths[snek.getHead().getY()][snek.getHead().getX()];
             black[snek.getHead().getY()][snek.getHead().getX()] = true;
             if (snek.getHead().getX() == goal.getX() && snek.getHead().getY() == goal.getY()) {
-                return path;
+                return buildPath(snek.getHead(), cameFrom);
             }
             for (Snake cand : MapTools.getCandidates(snek)) {
                 int candX = cand.getHead().getX();
                 int candY = cand.getHead().getY();
                 if (!black[candY][candX]) {
-                    LinkedList<Location> candPath = new LinkedList<>();
-                    candPath.addAll(path);
-                    candPath.add(cand.getHead());
                     int gScore = current.getGscore() + 1;
                     if (gScore <= gScores[candY][candX]) {
-                        paths[candY][candX] = candPath;
                         gScores[candY][candX] = gScore;
                         fScores[candY][candX] = gScore + goal.distance(cand.getHead());
+                        cameFrom[candY][candX] = snek.getHead();
                     }
-                    if(!gray[candY][candX]) {
+                    if (!gray[candY][candX]) {
                         gray[candY][candX] = true;
                         AStarElement e = new AStarElement(cand, fScores[candY][candX], gScores[candY][candX]);
                         primaryHeap.insert(e);
@@ -74,6 +64,26 @@ public final class AStar {
             }
         }
         return null;
+    }
+
+    private static void initSingleSource(int[][] fScores, int[][] gScores, Snake snake) {
+
+        for (int i = 0; i < snake.getArea().getHeight(); i++) {
+            for (int j = 0; j < snake.getArea().getWidth(); j++) {
+                gScores[i][j] = Integer.MAX_VALUE;
+                fScores[i][j] = Integer.MAX_VALUE;
+            }
+        }
+    }
+    
+    private static LinkedList<Location> buildPath(Location goal, Location[][] cameFrom) {
+        LinkedList<Location> path = new LinkedList<>();
+        Location index = goal;
+        while(index != null) {
+            path.addFirst(index);
+            index = cameFrom[index.getY()][index.getX()];
+        }
+        return path;
     }
 
 }

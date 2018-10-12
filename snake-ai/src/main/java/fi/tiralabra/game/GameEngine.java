@@ -50,6 +50,9 @@ public class GameEngine {
     public final void reset() {
         this.area.reset();
         this.snake = new Snake(this.area, 5, 5);
+        if(this.controller != null) {
+            this.controller.reset();
+        }
         try {
             this.apple = new Apple(this.area);
         } catch (Exception ex) {
