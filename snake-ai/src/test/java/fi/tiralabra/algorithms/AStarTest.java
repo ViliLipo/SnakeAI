@@ -20,14 +20,14 @@ import static org.junit.Assert.*;
  * @author vili
  */
 public class AStarTest {
-    
+
     public AStarTest() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -37,17 +37,17 @@ public class AStarTest {
      */
     @Test
     public void testPath() {
-                GameArea ga = new GameArea();
+        GameArea ga = new GameArea();
         Snake snake = new Snake(ga, 5, 5);
         ga.getTable()[8][8] = 2;
         snake.setArea(ga);
         LinkedList<Location> path = AStar.path(snake);
         LinkedList<Location> expectedPath = new LinkedList<>();
         for (int i = 5; i <= 8; i++) {
-            path.add(new Location(5, i));
+            expectedPath.add(new Location(5, i));
         }
         for (int i = 5; i <= 8; i++) {
-            path.add(new Location(i, 8));
+            expectedPath.add(new Location(i, 8));
         }
         Iterator<Location> it1 = path.iterator();
         Iterator<Location> it2 = expectedPath.iterator();
@@ -58,5 +58,5 @@ public class AStarTest {
             assertEquals(loc2.getY(), loc1.getY());
         }
     }
-    
+
 }

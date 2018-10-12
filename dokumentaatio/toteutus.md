@@ -43,7 +43,8 @@ painoinen jos siitä voi kulkea ja äärettömän painoinen jos siitä ei voi ku
 A* algritmin avoin joukko on toteutettu yhdistelmänä taulukoita ja kekoa.
 Keossa madot arvioidaan siis A* algoritmin F-scoren mukaan, joka on yhdistelmä
 madon pään etäisyyttä alkuun, sekä arvioitua etäisyyttä maaliin.
-Algoritmin aikavaativuus on O(|E| + |V|).
+Algoritmin aikavaativuus on O(|E| + |V|). Kuitenkin se saavuttaa parempia
+tapauksia huomattavasti useammin kuin BFS.
 toiminta
 ```
   aStar(start, goal):
@@ -91,4 +92,9 @@ jos peli ei ole pysäytettynä.
 
 ## Luokkakaavio
 
-![kaavio](https://github.com/ViliLipo/SnakeAI/blob/master/images/classdiagram.png)
+![kaavio](https://raw.githubusercontent.com/ViliLipo/SnakeAI/master/images/classdiagram.png)
+
+
+## Puutteet
+AStar törmää välillä turhaan. Työ on kovin triviaali. Algoritmi-luokissa
+metodit ovat pitkiä ja epäsiistejä, mutta meinaan vielä korjata niitä.

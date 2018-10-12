@@ -11,3 +11,10 @@ Ohjelman suorituskykyä voi valvoa sen graafisesta käyttöliittymästä.
 25x25 alueella reitin löytämiseen menee keskimäärin 5ms.
 Nykyisellään mato saa samamaisella alueella keskimäärin 95 omenaa ennen
 kuolemista.
+
+
+Testitulosten visualisointi on saatavilla komenolla
+```
+  mvn test jacoco:report
+```
+Tällä myös selviää mitä on testattu.

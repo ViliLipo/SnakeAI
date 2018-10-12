@@ -12,14 +12,12 @@ Ongelmaa ratkaistaan alustavasti leveysuuntainen
  läpikäynti-,ja A*-
 algoritmeilla. Jokainen uusi omena asetetaan kartalle satunnaisesti.
 Mato toteutetaan jono-tietorakenteella, joka pohjautuu linkitettylista
-implementaatioon. Ja Djikstraa varten toteutetaan keko-
-tietorakenne. Pelitila tallennetaan taulukkoon, josta johdetaan painotettu verkko.
+implementaatioon.
 ## Syötteet
 Syötteenä ohjelmalle annetaan algoritmin valinta ja simuloinnin nopeus.
 ## Aika- ja tilavaativuudet
-Tavoitteena olisi jokaista omenaa kohden saavuttaa Djikstran-algoritmin
-ominainen tila ja aikavaativuus O((E + V )log(V)). Leveysuuntainen läpikäynti
-vie tietysti O(|V| + |E|).
+Tavoitteena olisi jokaista omenaa saavuttaa O(|V| + |E|) molemmilla algoritmeilla.
+AStar tulee saavuttamaan keskimäärin kuitenkin paljon tätä parempia aikoja.
 
 # Lisäominaisuudet (jos jää aikaa)
 - Sovelluksen käyttäjä saa päättää mihin seuraava omena putoaa
