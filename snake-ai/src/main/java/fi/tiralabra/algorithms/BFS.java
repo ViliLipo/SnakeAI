@@ -28,33 +28,36 @@ public final class BFS {
      */
     public static LinkedList<Location> path(Snake snake) {
         boolean[][] visited = new boolean[snake.getArea().getHeight()][snake.getArea().getWidth()];
-        LinkedList<LinkedList> pathQueue = new LinkedList<>();
+        Location[][] cameFrom = new Location[snake.getArea().getHeight()][snake.getArea().getWidth()];
         LinkedList<Snake> snakeQueue = new LinkedList<>();
-        LinkedList<Location> firstPath = new LinkedList<>();
-        firstPath.add(snake.getHead());
-        pathQueue.add(firstPath);
         snakeQueue.add(snake);
         visited[snake.getHead().getY()][snake.getHead().getX()] = true;
         Location end = MapTools.findApple(snake.getArea());
-        while (!pathQueue.isEmpty()) {
-            LinkedList<Location> path = pathQueue.poll();
-            Location node = path.getLast();
+        while (!snakeQueue.isEmpty()) {
             Snake snek = snakeQueue.poll();
+            Location node = snek.getHead();
             if (node.getX() == end.getX() && node.getY() == end.getY()) {
-                return path;
+                return buildPath(end, cameFrom);
             }
             for (Snake candidate : MapTools.getCandidates(snek)) {
                 if (!visited[candidate.getHead().getY()][candidate.getHead().getX()]) {
                     visited[candidate.getHead().getY()][candidate.getHead().getX()] = true;
-                    LinkedList<Location> newPath = new LinkedList<>();
-                    newPath.addAll(path);
-                    newPath.add(candidate.getHead());
+                    cameFrom[candidate.getHead().getY()][candidate.getHead().getX()] = snek.getHead();
                     snakeQueue.add(candidate);
-                    pathQueue.add(newPath);
                 }
             }
 
         }
         return null;
+    }
+    
+    private static LinkedList<Location> buildPath(Location end, Location[][] cameFrom) {
+        Location index = end;
+        LinkedList<Location> path = new LinkedList<>();
+        while(index != null) {
+            path.addFirst(index);
+            index = cameFrom[index.getY()][index.getX()];
+        }
+        return path;
     }
 }
