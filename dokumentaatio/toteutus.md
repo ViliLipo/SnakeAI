@@ -88,3 +88,7 @@ liittyviä asetuksia ja statistiikkaa. Pelialueen piirtäminen on toteutettu
 luokassa CanvasGameRenderer. Sovelluksen kellona käytetään JavaFX animation
 timeriä, joka kutsuu Luokan GameEngine metodia cycle() jokaisella tikillä,
 jos peli ei ole pysäytettynä.
+
+## Luokkakaavio
+
+![kaavio](https://github.com/ViliLipo/SnakeAI/blob/master/images/class_diagram.svg)
