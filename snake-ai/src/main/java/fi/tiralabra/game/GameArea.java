@@ -18,7 +18,7 @@ public class GameArea implements Cloneable {
     int[][] table;
     private final int width = 25;
     private final int height = 25;
-    private final static int FREE = 0;
+    public final static int FREE = 0;
     public final static int SNAKE = 1;
     public final static int APPLE = 2;
     public final static int WALL = 3;
@@ -27,7 +27,10 @@ public class GameArea implements Cloneable {
         table = new int[height][width];
         this.makeBorders();
     }
-
+    
+    /**
+     * reset this area
+     */
     public void reset() {
         table = new int[height][width];
         this.makeBorders();
@@ -129,17 +132,26 @@ public class GameArea implements Cloneable {
         }
         return a;
     }
-
+    /**
+     * Place apple to area
+     * @param loc Location on which the apple will be placed
+     */
     public void placeApple(Location loc) {
         this.table[loc.getY()][loc.getX()] = APPLE;
     }
-
+    /**
+     * Place a piece of snake
+     * @param loc Location on which the snake block will be placed
+     */
     public void placeSnakePiece(Location loc) {
         this.table[loc.getY()][loc.getX()] = SNAKE;
     }
-
+    /**
+     * Set the specified location to be free.
+     * @param loc 
+     */
     public void clearLocation(Location loc) {
-        this.table[loc.getY()][loc.getX()] = 0;
+        this.table[loc.getY()][loc.getX()] = FREE;
     }
 
     @Override

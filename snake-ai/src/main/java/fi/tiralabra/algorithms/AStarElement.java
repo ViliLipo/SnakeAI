@@ -10,7 +10,7 @@ import fi.tiralabra.game.Location;
 import fi.tiralabra.game.Snake;
 
 /**
- *
+ * Class that is used to simulate AStar with heap
  * @author vili
  */
 public class AStarElement {

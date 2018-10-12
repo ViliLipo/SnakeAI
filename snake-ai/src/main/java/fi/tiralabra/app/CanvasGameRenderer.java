@@ -56,13 +56,13 @@ public class CanvasGameRenderer implements GameRenderer {
      */
     private Color determineColor(int value) {
         switch (value) {
-            case 0:
+            case GameArea.FREE:
                 return Color.BLACK;
-            case 1:
+            case GameArea.SNAKE:
                 return Color.GREEN;
-            case 2:
+            case GameArea.APPLE:
                 return Color.RED;
-            case 3:
+            case GameArea.WALL:
                 return Color.GRAY;
             default:
                 return Color.BLACK;

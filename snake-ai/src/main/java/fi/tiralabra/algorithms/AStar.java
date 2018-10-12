@@ -7,8 +7,6 @@ package fi.tiralabra.algorithms;
 
 import fi.tiralabra.datastructures.BinaryHeap;
 import fi.tiralabra.datastructures.LinkedList;
-import fi.tiralabra.datastructures.PathComparator;
-import fi.tiralabra.datastructures.SnakeComparator;
 import fi.tiralabra.game.Location;
 import fi.tiralabra.game.Snake;
 
@@ -21,6 +19,13 @@ public final class AStar {
     private AStar() {
     }
 
+    /**
+     * Get a path from snakes head to apple. The path is generated using AStar
+     *
+     * @param snake, snake to guide
+     * @return LinkedList of locations on the path, empty list if no path is
+     * found
+     */
     public static LinkedList<Location> path(Snake snake) {
         boolean[][] black = new boolean[snake.getArea().getHeight()][snake.getArea().getHeight()];
         boolean[][] gray = new boolean[snake.getArea().getHeight()][snake.getArea().getHeight()];
@@ -28,7 +33,6 @@ public final class AStar {
         int[][] fScores = new int[snake.getArea().getHeight()][snake.getArea().getWidth()];
         Location[][] cameFrom = new Location[snake.getArea().getHeight()][snake.getArea().getWidth()];
         initSingleSource(gScores, fScores, snake);
-        LinkedList<Location>[][] paths = new LinkedList[snake.getArea().getHeight()][snake.getArea().getHeight()];
         Location goal = MapTools.findApple(snake.getArea());
         BinaryHeap<AStarElement> primaryHeap = new BinaryHeap<>(100, new AStarComparator());
         int startX = snake.getHead().getX();
@@ -36,6 +40,7 @@ public final class AStar {
         AStarElement start = new AStarElement(snake, goal.distance(snake.getHead()), 0);
         gScores[startY][startX] = 0;
         fScores[startY][startX] = goal.distance(snake.getHead());
+        gray[startY][startX] = true;
         cameFrom[startY][startX] = null;
         primaryHeap.insert(start);
         while (!primaryHeap.isEmpty()) {
@@ -50,20 +55,20 @@ public final class AStar {
                 int candY = cand.getHead().getY();
                 if (!black[candY][candX]) {
                     int gScore = current.getGscore() + 1;
-                    if (gScore <= gScores[candY][candX]) {
+                    if (gScore < gScores[candY][candX] | !gray[candY][candX]) {
                         gScores[candY][candX] = gScore;
                         fScores[candY][candX] = gScore + goal.distance(cand.getHead());
                         cameFrom[candY][candX] = snek.getHead();
-                    }
-                    if (!gray[candY][candX]) {
-                        gray[candY][candX] = true;
-                        AStarElement e = new AStarElement(cand, fScores[candY][candX], gScores[candY][candX]);
-                        primaryHeap.insert(e);
+                        if (!gray[candY][candX]) {
+                            gray[candY][candX] = true;
+                            AStarElement e = new AStarElement(cand, fScores[candY][candX], gScores[candY][candX]);
+                            primaryHeap.insert(e);
+                        }
                     }
                 }
             }
         }
-        return null;
+        return new LinkedList<>();
     }
 
     private static void initSingleSource(int[][] fScores, int[][] gScores, Snake snake) {
@@ -75,11 +80,11 @@ public final class AStar {
             }
         }
     }
-    
+
     private static LinkedList<Location> buildPath(Location goal, Location[][] cameFrom) {
         LinkedList<Location> path = new LinkedList<>();
         Location index = goal;
-        while(index != null) {
+        while (index != null) {
             path.addFirst(index);
             index = cameFrom[index.getY()][index.getX()];
         }

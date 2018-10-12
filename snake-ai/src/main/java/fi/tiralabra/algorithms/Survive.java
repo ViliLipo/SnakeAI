@@ -8,11 +8,15 @@ package fi.tiralabra.algorithms;
 import fi.tiralabra.game.Snake;
 
 /**
- *
+ * 
  * @author vili
  */
 public final class Survive {
-
+    /**
+     * Get one safe move for snake
+     * @param snake
+     * @return integer representing snakes directions.
+     */
     public static int getSafeDirection(Snake snake) {
         try {
             Snake test = snake.clone();

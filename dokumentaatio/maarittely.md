@@ -9,14 +9,13 @@ Normaali pelinäkymä ja algoritmin etenemisen visualisointi.
 Matopelin pelaaminen on ongelma, jossa madon tulee päästä omenan luokse
 osumatta itseensä tai pelialueen seiniin.
 Ongelmaa ratkaistaan alustavasti leveysuuntainen
- läpikäynti-, Djikstran-, ja A*-
+ läpikäynti-,ja A*-
 algoritmeilla. Jokainen uusi omena asetetaan kartalle satunnaisesti.
 Mato toteutetaan jono-tietorakenteella, joka pohjautuu linkitettylista
 implementaatioon. Ja Djikstraa varten toteutetaan keko-
 tietorakenne. Pelitila tallennetaan taulukkoon, josta johdetaan painotettu verkko.
 ## Syötteet
-Syötteenä ohjelmalle annetaan haluttu algoritmi, sekä pelivuorojen määrä,
-jota algoritmi käyttää pelin tilan arviointiin omenan syömisen jälkeen.
+Syötteenä ohjelmalle annetaan algoritmin valinta ja simuloinnin nopeus.
 ## Aika- ja tilavaativuudet
 Tavoitteena olisi jokaista omenaa kohden saavuttaa Djikstran-algoritmin
 ominainen tila ja aikavaativuus O((E + V )log(V)). Leveysuuntainen läpikäynti
