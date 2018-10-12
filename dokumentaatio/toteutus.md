@@ -91,4 +91,4 @@ jos peli ei ole pysäytettynä.
 
 ## Luokkakaavio
 
-![kaavio](https://github.com/ViliLipo/SnakeAI/blob/master/images/class_diagram.svg)
+![kaavio](https://github.com/ViliLipo/SnakeAI/blob/master/images/classdiagram.png)
