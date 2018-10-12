@@ -8,13 +8,16 @@ mvn test
 ```
 Myös integraatiotason testejä suoritetaan JUnitilla.
 Ohjelman suorituskykyä voi valvoa sen graafisesta käyttöliittymästä.
-25x25 alueella reitin löytämiseen menee keskimäärin 5ms.
-Nykyisellään mato saa samamaisella alueella keskimäärin 95 omenaa ennen
-kuolemista.
-
 
 Testitulosten visualisointi on saatavilla komenolla
 ```
   mvn test jacoco:report
 ```
 Tällä myös selviää mitä on testattu.
+
+## Suorituskykytestaus
+Suorituskykyä voi seurata ohjelmaa ajamalla. Ohjelma ilmoittaa kuinka kauan
+algoritmilla menee palauttaa polku omenalle. Keskimäärin AStar vie aikaa noin
+8ms ja BFS vie aikaa noin 30ms. Tarkastelujakso molemmille oli noin 10min.
+Tänä aikana peli ehti mennä loppuun useita kertoja. Molemmat algoritmit saa
+noin 90 omenaa ennen kuolemistas.

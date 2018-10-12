@@ -16,8 +16,8 @@ package fi.tiralabra.game;
 public class GameArea implements Cloneable {
 
     int[][] table;
-    private final int width = 25;
-    private final int height = 25;
+    private final int width = 50;
+    private final int height = 50;
     public final static int FREE = 0;
     public final static int SNAKE = 1;
     public final static int APPLE = 2;
