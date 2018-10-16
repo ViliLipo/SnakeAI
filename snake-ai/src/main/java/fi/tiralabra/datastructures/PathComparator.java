@@ -7,8 +7,6 @@ package fi.tiralabra.datastructures;
 
 import fi.tiralabra.game.Location;
 import java.util.Comparator;
-import java.util.List;
-
 /**
  *
  * @author vili

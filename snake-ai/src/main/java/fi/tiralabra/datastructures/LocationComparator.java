@@ -16,11 +16,9 @@ public class LocationComparator implements Comparator {
 
     private Location goal;
     private Location start;
-    private int heapsize;
 
     public LocationComparator(Location start, Location goal) {
         this.goal = goal;
-        this.heapsize = 0;
         this.start = start;
     }
 

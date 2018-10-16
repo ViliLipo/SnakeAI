@@ -27,7 +27,7 @@ public class BFSController implements Controller {
 
     public BFSController(GameEngine engine) {
         this.engine = engine;
-        this.directions = new LinkedList<Integer>();
+        this.directions = new LinkedList<>();
         this.timePassed = 0;
     }
 
@@ -40,12 +40,10 @@ public class BFSController implements Controller {
     public int getDirection() {
         if (!this.directions.isEmpty()) {
             int value = this.directions.poll();
-            // System.out.println("value = " + value);
             return value;
         } else {
             long start = System.currentTimeMillis();
             LinkedList<Location> locPath = BFS.path(engine.getSnake());
-            // System.out.println("GOT BFS PATH");
             if (locPath == null || locPath.isEmpty()) {
                 return Survive.getSafeDirection(engine.getSnake());
             }
