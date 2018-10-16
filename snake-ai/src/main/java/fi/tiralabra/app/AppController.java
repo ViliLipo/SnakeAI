@@ -96,8 +96,8 @@ public class AppController implements Initializable {
                 if (!paused) {
                     ge.cycle();
                     avgScore.setText("Average score: "
-                            + String.valueOf(ge.avgScore()));
-                    avgTime.setText("Average time per apple: " + String.valueOf(ge.avgTime())
+                            + String.format("%.2f", ge.avgScore()));
+                    avgTime.setText("Average time per apple: " + String.format("%.2f" ,ge.avgTime())
                             + "ms");
                     newScoreValue.setText("Current score: " + ge.getSnake().getScore());
                 }

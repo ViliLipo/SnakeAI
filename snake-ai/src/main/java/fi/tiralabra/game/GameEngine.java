@@ -111,7 +111,7 @@ public class GameEngine {
         if (this.tickcount == 0) {
             return 0;
         }
-        return this.timepassed / this.tickcount;
+        return this.timepassed / (double)this.tickcount;
     }
     
     public void setGameRate(int rate) {
