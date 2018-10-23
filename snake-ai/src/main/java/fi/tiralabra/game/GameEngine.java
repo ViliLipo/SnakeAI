@@ -19,8 +19,6 @@ public class GameEngine {
     private GameArea area;
     private Snake snake;
     private Apple apple;
-    private Clock clock;
-    private int gamerate = 12;
     private GameRenderer renderer;
     private Controller controller;
     private LinkedList<Integer> scores;
@@ -30,7 +28,6 @@ public class GameEngine {
     public GameEngine(GameRenderer renderer) {
         this.area = new GameArea();
         this.reset();
-        this.clock = new Clock(gamerate);
         this.renderer = renderer;
         this.controller = null;
         this.scores = new LinkedList<>();
@@ -68,7 +65,6 @@ public class GameEngine {
      * Advance one game tick
      */
     public void cycle() {
-        clock.startCycle();
         snake.turn(controller.getDirection());
         boolean done = !snake.move();
         if (snake.getGrow()) {
@@ -89,7 +85,7 @@ public class GameEngine {
             //System.out.println("AVG TIME PASSED: " + avgtime);
             this.reset();
         }
-        clock.endCycle();
+        // clock.endCycle();
     }
 
     public Snake getSnake() {
@@ -113,10 +109,4 @@ public class GameEngine {
         }
         return this.timepassed / (double)this.tickcount;
     }
-    
-    public void setGameRate(int rate) {
-        this.gamerate = rate;
-        this.clock = new Clock(this.gamerate);
-    }
-
 }

@@ -82,7 +82,6 @@ public class BinaryHeap<E> {
 
     private void increaseKey(int i, E key) {
         if (this.table[i] != null) {
-            System.out.println("BIGGER DISTANCE");
             return;
         }
         this.table[i] = key;

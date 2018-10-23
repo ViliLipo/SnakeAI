@@ -27,17 +27,20 @@ public final class AStar {
      * found
      */
     public static LinkedList<Location> path(Snake snake) {
-        boolean[][] black = new boolean[snake.getArea().getHeight()][snake.getArea().getHeight()];
-        boolean[][] gray = new boolean[snake.getArea().getHeight()][snake.getArea().getHeight()];
-        int[][] gScores = new int[snake.getArea().getHeight()][snake.getArea().getWidth()];
-        int[][] fScores = new int[snake.getArea().getHeight()][snake.getArea().getWidth()];
-        Location[][] cameFrom = new Location[snake.getArea().getHeight()][snake.getArea().getWidth()];
+        int height = snake.getArea().getHeight();
+        int width = snake.getArea().getWidth();
+        boolean[][] black = new boolean[height][width];
+        boolean[][] gray = new boolean[height][width];
+        int[][] gScores = new int[height][width];
+        int[][] fScores = new int[height][width];
+        AStarElement[][] elementMap = new AStarElement[height][width];
+        Location[][] cameFrom = new Location[height][width];
         initSingleSource(gScores, fScores, snake);
         Location goal = MapTools.findApple(snake.getArea());
         BinaryHeap<AStarElement> primaryHeap = new BinaryHeap<>(100, new AStarComparator());
         int startX = snake.getHead().getX();
         int startY = snake.getHead().getY();
-        AStarElement start = new AStarElement(snake, goal.distance(snake.getHead()), 0);
+        AStarElement start = new AStarElement(snake, goal.distance(snake.getHead()));
         gScores[startY][startX] = 0;
         fScores[startY][startX] = goal.distance(snake.getHead());
         gray[startY][startX] = true;
@@ -45,6 +48,9 @@ public final class AStar {
         primaryHeap.insert(start);
         while (!primaryHeap.isEmpty()) {
             AStarElement current = primaryHeap.extract();
+            if(!current.isValid()) {
+                continue;
+            }
             Snake snek = current.getSnake();
             black[snek.getHead().getY()][snek.getHead().getX()] = true;
             if (snek.getHead().getX() == goal.getX() && snek.getHead().getY() == goal.getY()) {
@@ -54,15 +60,23 @@ public final class AStar {
                 int candX = cand.getHead().getX();
                 int candY = cand.getHead().getY();
                 if (!black[candY][candX]) {
-                    int gScore = current.getGscore() + 1;
+                    int gScore = gScores[snek.getHead().getY()][snek.getHead().getX()] + 1;
                     if (gScore < gScores[candY][candX] | !gray[candY][candX]) {
                         gScores[candY][candX] = gScore;
                         fScores[candY][candX] = gScore + goal.distance(cand.getHead());
                         cameFrom[candY][candX] = snek.getHead();
                         if (!gray[candY][candX]) {
                             gray[candY][candX] = true;
-                            AStarElement e = new AStarElement(cand, fScores[candY][candX], gScores[candY][candX]);
+                            AStarElement e = new AStarElement(cand, fScores[candY][candX]);
                             primaryHeap.insert(e);
+                            elementMap[candY][candX] = e;
+                        }else {
+                            AStarElement e = elementMap[candY][candX];
+                            e.setFscore(fScores[candY][candX]);
+                            e.setValid(false);
+                            e = new AStarElement(cand, fScores[candY][candX]);
+                            primaryHeap.insert(e);
+                            elementMap[candY][candX] = e;
                         }
                     }
                 }
