@@ -5,6 +5,7 @@
  */
 package fi.tiralabra.game;
 
+import fi.tiralabra.datastructures.LinkedList;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -17,32 +18,25 @@ public class Apple {
     private GameArea area;
 
     /**
-     * Create Apple and randomly place it in the GameArea
+     * Create Apple
      *
      * @param area GameArea
-     * @throws Exception if placing fails too many times, loop is broken and
-     * exception is thrown.
      */
-    public Apple(GameArea area) throws Exception {
+    public Apple(GameArea area){
         this.area = area;
-        this.placeApple();
     }
-
-    private void placeApple() throws Exception {
-        int failurecount = 0;
-        int failureMAX = 200;
-        while (failurecount < failureMAX) {
-            int x = ThreadLocalRandom.current().nextInt(1, this.area.getWidth() - 2);
-            int y = ThreadLocalRandom.current().nextInt(1, this.area.getHeight() - 2);
-            // System.out.println("x = " + x + " y = " + y);
-            if (!this.area.isCorner(x, y) && !(this.area.checkCollision(x, y))) {
-                this.location = new Location(x, y);
-                this.area.placeApple(this.location);
-                return;
-            }
-            failurecount++;
+    /**
+     * Place apple in to the gamearea
+     * @throws Exception if there is no space for apple in the gamearea.
+     */
+    public void placeApple() throws Exception {
+        LinkedList<Location> locations = this.area.freeLocations();
+        if(locations.isEmpty()) {
+            throw new Exception("No free space for apple");
         }
-        throw new Exception("Cannot place apple");
+        int index = ThreadLocalRandom.current().nextInt(1, locations.size());
+        this.area.placeApple(locations.get(index));
+        this.location = locations.get(index);
     }
 
     public Location getLocation() {

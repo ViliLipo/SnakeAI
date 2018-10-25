@@ -72,7 +72,6 @@ public final class AStar {
                             elementMap[candY][candX] = e;
                         }else {
                             AStarElement e = elementMap[candY][candX];
-                            e.setFscore(fScores[candY][candX]);
                             e.setValid(false);
                             e = new AStarElement(cand, fScores[candY][candX]);
                             primaryHeap.insert(e);

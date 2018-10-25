@@ -6,7 +6,8 @@
 package fi.tiralabra.game;
 
 /**
- *
+ * This class is sort of a relic from the pre refractor GameArea.
+ * Provides way to keep (x,y) together and calculate distances.
  * @author vili
  */
 public class Location {
@@ -19,23 +20,12 @@ public class Location {
         this.y = y;
     }
 
-
     public int getX() {
         return this.x;
     }
 
     public int getY() {
         return this.y;
-    }
-
-
-    public boolean validate(GameArea area) {
-        return (this.x > 0 && this.x < area.getWidth() && this.y > 0 && this.y < area.getWidth());
-    }
-    
-    @Override
-    public String toString() {
-        return ("X:" + String.valueOf(this.x) + "Y:" + String.valueOf(this.y));
     }
     /**
      * Get distance between this location and other location

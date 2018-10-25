@@ -5,6 +5,8 @@
  */
 package fi.tiralabra.game;
 
+import fi.tiralabra.datastructures.LinkedList;
+
 /**
  *
  * @author vili
@@ -116,7 +118,7 @@ public class GameArea implements Cloneable {
      */
     public boolean checkApple(int x, int y) {
         if (x >= this.width || y >= this.height) {
-            return true;
+            return false;
         }
         return (this.table[y][x] == APPLE);
     }
@@ -154,20 +156,21 @@ public class GameArea implements Cloneable {
         this.table[loc.getY()][loc.getX()] = FREE;
     }
 
-    @Override
-    public String toString() {
-        String s = "";
-        for (int i = 0; i < height; i++) {
-            for (int j = 0; j < width; j++) {
-                s = s + String.valueOf(this.getLocationValue(j, i));
-            }
-            s = s + "\n";
-        }
-        return s;
-    }
-
     public int[][] getTable() {
         return this.table;
+    }
+    
+    public LinkedList<Location> freeLocations() {
+        LinkedList<Location> locations = new LinkedList<>();
+        for(int j=0; j < this.table.length; j++) {
+            for(int i =0; i < this.table[j].length; i++) {
+                Location loc = new Location(i,j);
+                if(!this.checkCollision(loc)) {
+                    locations.add(loc);
+                }
+            }
+        }
+        return locations;
     }
 
 }

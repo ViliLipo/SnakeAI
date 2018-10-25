@@ -55,19 +55,23 @@ public class GameEngineTest {
         for (int i = 0; i < 1_00_000; i++) {
             this.engine.cycle();
         }
-        assertTrue(this.engine.avgTime() <= 17);
-        assertTrue(this.engine.avgScore() >= 1200);
+        assertTrue("Average time should be less than 17ms", this.engine.avgTime() <= 17);
+        assertTrue("Average score should be more than 1200", this.engine.avgScore() >= 1200);
+        System.out.println("avgtime = " + this.engine.avgTime());
+        System.out.println("avgScore = " + this.engine.avgScore());
     }
 
     @Test
     public void testCycleWithBfs() {
         this.engine.setController(new BFSController(this.engine));
         System.out.println("cycle with bfs");
-        while(this.engine.getDeathCount() < 100) {
+        for (int i = 0; i < 1_00_000; i++) {
             this.engine.cycle();
         }
-        assertTrue(this.engine.avgTime() <= 30);
-        assertTrue(this.engine.avgScore() >= 1400);
+        assertTrue("Average time should be less than 30ms", this.engine.avgTime() <= 30);
+        assertTrue("Average score should be more than 1200", this.engine.avgScore() >= 1400);
+        System.out.println("avgtime = " + this.engine.avgTime());
+        System.out.println("avgScore = " + this.engine.avgScore());
     }
 
     /**

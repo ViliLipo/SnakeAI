@@ -6,6 +6,8 @@
 package fi.tiralabra.algorithms;
 
 import fi.tiralabra.datastructures.LinkedList;
+import fi.tiralabra.game.Apple;
+import fi.tiralabra.game.DetermisticApple;
 import fi.tiralabra.game.GameArea;
 import fi.tiralabra.game.Location;
 import fi.tiralabra.game.Snake;
@@ -56,6 +58,32 @@ public class BFSTest {
             Location loc2 = it2.next();
             assertEquals(loc2.getX(), loc1.getX());
             assertEquals(loc2.getY(), loc1.getY());
+        }
+    }
+    
+      /**
+     * Test path method with more complex set of apples, that ensure
+     * that the snake wont hit itself.
+     */
+    @Test
+    public void testComplexPath() {
+        GameArea ga = new GameArea();
+        Snake snake = new Snake(ga, 5, 5);
+        Apple apple = new DetermisticApple(ga);
+        for (int i = 0; i < 25; i++) {
+            try {
+                apple.placeApple();
+                LinkedList<Location> path = BFS.path(snake);
+                LinkedList<Integer> inst = MapTools.locationPathToDirectionPath(path);
+                for(int direction : inst) {
+                    snake.turn(direction);
+                    assertTrue(snake.move());
+                }
+                assertTrue(snake.getGrow());
+            } catch (Exception ex){
+                assertTrue(false);
+            }
+
         }
     }
 

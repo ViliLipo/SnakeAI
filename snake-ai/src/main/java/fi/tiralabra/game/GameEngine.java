@@ -28,6 +28,7 @@ public class GameEngine {
 
     public GameEngine(GameRenderer renderer) {
         this.area = new GameArea();
+        this.apple = new Apple(this.area);
         this.reset();
         this.renderer = renderer;
         this.controller = null;
@@ -36,7 +37,10 @@ public class GameEngine {
         tickcount = 0;
         deathCount = 0;
     }
-
+    /**
+     * Set the controller for snake. Use this before calling cycle.
+     * @param controller, Object that implements controller interface
+     */
     public void setController(Controller controller) {
         this.controller = controller;
         this.tickcount = 0;
@@ -49,28 +53,29 @@ public class GameEngine {
     public final void reset() {
         this.area.reset();
         this.snake = new Snake(this.area, 5, 5);
-        if(this.controller != null) {
+        if (this.controller != null) {
             this.controller.reset();
         }
         try {
-            this.apple = new Apple(this.area);
+            this.apple.placeApple();
         } catch (Exception ex) {
             Logger.getLogger(GameEngine.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
     /**
-     * Advance one game tick
+     * Advance one game tick, set controller before calling this.
      */
     public void cycle() {
         snake.turn(controller.getDirection());
         boolean done = !snake.move();
         if (snake.getGrow()) {
             try {
-                this.apple = new Apple(area);
+                this.apple.placeApple();
                 this.timepassed += this.controller.getTimePassed();
                 this.tickcount++;
-            } catch (Exception ex) {
-                Logger.getLogger(GameEngine.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception cantplaceapple) {
+                done = true;
             }
         }
         renderer.renderGame(area);
@@ -79,7 +84,6 @@ public class GameEngine {
             this.deathCount++;
             this.reset();
         }
-        // clock.endCycle();
     }
 
     public Snake getSnake() {
@@ -101,8 +105,9 @@ public class GameEngine {
         if (this.tickcount == 0) {
             return 0;
         }
-        return this.timepassed / (double)this.tickcount;
+        return this.timepassed / (double) this.tickcount;
     }
+
     public long getDeathCount() {
         return this.deathCount;
     }
