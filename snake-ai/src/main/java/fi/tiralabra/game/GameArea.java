@@ -160,6 +160,10 @@ public class GameArea implements Cloneable {
         return this.table;
     }
     
+    /**
+     * Get all free locations in a list
+     * @return List of locations
+     */
     public LinkedList<Location> freeLocations() {
         LinkedList<Location> locations = new LinkedList<>();
         for(int j=0; j < this.table.length; j++) {

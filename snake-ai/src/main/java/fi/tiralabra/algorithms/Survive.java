@@ -13,7 +13,7 @@ import fi.tiralabra.game.Snake;
  */
 public final class Survive {
     /**
-     * Get one safe move for snake
+     * Get one safe move for snake. Is used to make dying seem more sensible
      * @param snake
      * @return integer representing snakes directions.
      */

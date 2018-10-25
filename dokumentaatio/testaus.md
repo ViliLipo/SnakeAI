@@ -22,6 +22,7 @@ Luokasta GameArea testataan keskeiset metodet kuten törmäystarkistus, omenan
 asettaminen sekä kulmatarkistus. Madon toiminnasta testataan liikkuminen ja
 kasvaminen.
 
+
 ### Tietorakenteet
 #### Linkitetty lista
 Linkitetystä listasta testataan rajapinnasta ne osat jotka on toteutettu mm. iteraattorin perustoiminta,
@@ -41,9 +42,12 @@ Nämä testit ovat luokassa BinaryHeapTest.
 #### A* ja BFS
 Molempia algoritmeja testataan pintapuolisesti, että ne löytävät jonkin lyhimmän
 polun, kun madon pää on kohdassa (5,5) ja omena kohdassa (8,8).
+Näitä algoritmeja testataan vielä monimutkaisemmalla syötteellä, jolla varmistetaan
+ettei algoritmit törmää matoon ilman syytä. Tähän käytetään apuna
+DeterministicApple-luokkaa, jolla voidaan asettaa aina samat omenat.
 Integraatiotason testit suorituskykytestauksessa kuitenkin osoittavat
-algoritmin toimivuuden yleisissä tapauksissa. Spesifien testisyötteiden
-tekeminen algoritmille olisi erittäin työlästä.
+algoritmin toimivuuden yleisissä tapauksissa.
+
 
 
 ## Suorituskykytestaus
@@ -61,6 +65,24 @@ BFS-algoritmin
 tulee myös keskimäärin saavuttaa 1200 pisteen tulos. Huomio nämä testit
 eivät välttämättä mene läpi hitailla kohdelaitteilla.
 
+|Testitapaus| Tulos| Huomioita|
+|:---------| :-: | :---------:|
+|A* aika alle 17ms| 1 | Suorittimella i7-6700 menee 2.5ms, syöte satunnainen|
+|BFS aika alle 34ms| 1 | Suorittimella i7-6700 menee 13.5ms, syöte satunnainen|
+| A*-tulos yli 1200| 1| Syöte satunnainen, 100 000 pelisykliä, tulos:1958|
+|BFS-tulos yli 1200| 1 | Syöte satunnainen, 100 000 pelisykliä, tulos:2179|
+
 
 ## Graafinen käyttöliittymä
-Graafinen käyttöliittymä sekä rendreröinti on jätetty testauksen ulkopuolelle.
+Graafinen käyttöliittymä sekä rendreröinti on jätetty yksikkötestauksen ulkopuolelle.
+Järjestelmätestaus suoritettiin käsin seuraavalla testipatteristolla. 1 onnistui
+0 epäonnistui.
+## Järjestelmätestaus
+|Testitapaus| Tulos| Huomioita|
+|:---------| :-:| :--------:|
+|Suoritus käynnistyy run-painikkeella|1||
+|Algoritmin vaihtaminen toimii| 1 ||
+|Ajotiedot näkyvät ja päivittyvät|1 | |
+| Pause toimii| 1 | |
+| Nopeus-slider toimii| 1 | Toimii vain klikkauksella eikä raahamalla|
+Ohjelmassa on vähän toimintoja ja niiden testaamiseen ei tarvita monia testejä.

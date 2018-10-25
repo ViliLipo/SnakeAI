@@ -1,15 +1,15 @@
 # Toteutus
 Snake-ai on toteutetty käyttäen JavaFX-canvasta ja itse kirjoitettuja
-reitinhaku algoritmeja.
+reitinhakualgoritmeja.
 Ohjelma ei tällä hetkellä käytä ulkopuolisia tietorakenteita.
 Ohjelman käyttöliittymästä voi seurata algoritmin suorituskykytietoja.
 
 ## Algoritmit
 ### BFS
-Ohjelmassa on toteutettu kaksi reitinhaku algoritmiä. Ensimmäinen on
+Ohjelmassa on toteutettu kaksi reitinhakualgoritmiä. Ensimmäinen on
 leveysuuntaiseen läpikäyntiin perustuva menetelmä. Se eroaa kuitenkin normaalista
 leveyssuuntaisesta läpikäynnistä siten, että kaikki epäkelvot
-polut hylätään heti ja niiden tutkimista ei jatketa.Tämä algoritmi löytää
+polut hylätään heti ja niiden tutkimista ei jatketa. Tämä algoritmi löytää
 aina varmasti lyhimmän reitin, mutta on aikavaativuudeltaan raskas. Algoritmi
 ei myöskään voi varmistaa sitä, ettei mato jossain kohtaa kuole, sillä se
 ei arvio pelitilannetta omenan syömisen jälkeen
@@ -40,12 +40,12 @@ Toinen reitinhakumenetelmä noudattelee A\* algoritmia. Algoritmin avointa
 joukkoa on mallinnettu taulukoilla sekä binäärikeolla. A\* valittiin Djikstran
 sijasta sillä, kartan eli verkon jokainen ruutujen välinen kaari on yhden
 painoinen jos siitä voi kulkea ja äärettömän painoinen jos siitä ei voi kulkea.
-A* algritmin avoin joukko on toteutettu yhdistelmänä taulukoita ja kekoa.
+A\* algoritmin avoin joukko on toteutettu yhdistelmänä taulukoita ja kekoa.
 Keossa madot arvioidaan siis A* algoritmin F-scoren mukaan, joka on yhdistelmä
 madon pään etäisyyttä alkuun, sekä arvioitua etäisyyttä maaliin.
 Algoritmin aikavaativuus on O(|E| + |V|). Kuitenkin se saavuttaa parempia
 tapauksia huomattavasti useammin kuin BFS.
-toiminta
+#### Pseudokoodiesitys
 ```
   aStar(start, goal):
               closedSet = {}
@@ -72,8 +72,7 @@ toiminta
                        gScores[neighbour] = gScore
                        fScores[neighbour] = gScore + distance_estimate(neighbour, goal)
 ```
-Testauksessa on huomattu tämän algoritmin aiheuttavan, joskus väistettäviä
-törmäyksiä. Tilanteet näyttävät liittyvän relaksointiin.
+
 
 ## Tietorakenteet
 Ohjelman toteuttamiseksi on toteutettu seuraavat tietorakenteet
@@ -83,6 +82,45 @@ suurimman osan Javan list-rajapinnasta.
 Sen loppuun ja alkuun lisäys operaatiot ovat vakioaikaisia, sekä alusta ja
 lopusta poisto. Nämä ovat kriittisimmät operatiot mitä muissa algoritmeissa
 käytetään.
+
+## Binäärikeko BinaryHeap-luokka
+Ohjelmaan on toteutetty tyypitetty binäärikeko, jolle voi asettaa haluamansa
+java.util.comparator-rajapinnan toteuttavat vertailijan. Keko toimii normaalisti
+minimikekona, mutta vertailijaa muuttamalla sen saa toimimaan haluamalla tavalla.
+Binääri keko on rakennettu Introduction to Algorithms (Cormen et al) mukaan,
+kuitenkin indeksointi on muutettu nolla-alkuiseksi.
+
+## Pelilogiikka
+
+### Luokka-GameArea
+Tämä luokka vastaa pelialueeseen kohdistuvista operaatiosta. Luokan
+metodeilla voi tarkistaa vakio-ajassa onko ruudussa omena, tai mato.
+Pelialue on toteuettu kaksisuuntainsena taulukkona. Pelialueessa arvo 1 vastaa
+matoa, 2 omenaa ja 0 tyhjää. Näiden arvojen perusteella pelialue myös
+piirretään renderer-luokissa.
+
+### Luokka-Snake eli mato
+Mato on toteutettu käyttäen linkiettyälistaa sen osien sijaitien tallentamiseen.
+Listaa käyetään jonona, josta ensimmäinen pala poistetaan, kun mato liikkuu,
+jos mato ei ole syönyt omenaa. Jos mato on syönyt omenan viimeistä palaa
+ei poisteta ja näin mato kasvaa. Madolla on tieto sen suunnasta jota
+voidaan manipuloida turn-metodilla.
+
+### Luokka-Apple
+Apple-luokka mahdollistaa satunnaisen omenan asettamisen kartalle.
+Omena asetetaan selvittämällä vapaat ruudut kartasta ja sen jälkeen listan sisällöstä
+arvotaan sijainti johon omena asetetaan.
+
+### Luokka-GameEngine
+Tämä luokka tarjoaa metodin cycle(), jolla peliä edistetään yksi tikki.
+Tämä on toteutettu näin, että ohjelmassa voidaan käyttää JavaFX AnimationTimer
+objektia koko sovelluksen kellona. GameEngine-Objektille pitää antaa rakentajaan
+GameRenderer-rajapinnan toteuttava olio, jonka tarkoitus on piirtää pelitilanne
+joka tikillä. Myös ennen cycle-metodin kutsumista pitää oliolle asetta
+Controller-rajapinnan toteuttava ohjain, joka antaa madolle suunnan
+joka vuorolle. Tämä rajapinta mahdollistaa helposti muiden algoritmien tai
+vaikka ihmisohjaamisen lisäämisen ohjelmaan.
+
 ## Sovellus
 SnakeAI on JavaFX-app, jossa on ruutu johon peliä piirretään ja siihen
 liittyviä asetuksia ja statistiikkaa. Pelialueen piirtäminen on toteutettu
@@ -96,5 +134,10 @@ jos peli ei ole pysäytettynä.
 
 
 ## Puutteet
-AStar törmää välillä turhaan. Työ on kovin triviaali. Algoritmi-luokissa
-metodit ovat pitkiä ja epäsiistejä, mutta meinaan vielä korjata niitä.
+Algoritmit eivät takaa madon selviämistä omenan syömisen jälkeen. En löytänyt
+laskennallisesti tehokasta tapaa varmistaa, että polku päätyy omenan syömisen
+jälkeen sellaiseen tilaan josta mato voi selvitä. Ainoat ratkaisut
+joita keksin olivat aikavaativuudeltaan selvittävien vuorojen määrä potenssiin
+neljä. Matopeliä voisi helposti pelata algoritmilla, joka vain menee
+järjestyksessä koko pelikentän läpi kuolematta ja näin täyttää koko
+pelikentän madolla, mutta tämä tapa on epäinhimmillen ja tylsä.
