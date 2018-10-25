@@ -68,6 +68,8 @@ public class LinkedListTest {
     @Test
     public void testSize() {
         assertEquals(3, list.size());
+        list.remove(2);
+        assertEquals(2, list.size());
     }
 
     @Test

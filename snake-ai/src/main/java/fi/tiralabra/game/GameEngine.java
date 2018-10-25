@@ -19,23 +19,22 @@ public class GameEngine {
     private GameArea area;
     private Snake snake;
     private Apple apple;
-    private Clock clock;
-    private int gamerate = 12;
     private GameRenderer renderer;
     private Controller controller;
     private LinkedList<Integer> scores;
     private long timepassed;
     private long tickcount;
+    private long deathCount;
 
     public GameEngine(GameRenderer renderer) {
         this.area = new GameArea();
         this.reset();
-        this.clock = new Clock(gamerate);
         this.renderer = renderer;
         this.controller = null;
         this.scores = new LinkedList<>();
         timepassed = 0;
         tickcount = 0;
+        deathCount = 0;
     }
 
     public void setController(Controller controller) {
@@ -59,16 +58,10 @@ public class GameEngine {
             Logger.getLogger(GameEngine.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-    public GameArea getArea() {
-        return this.area;
-    }
-
     /**
      * Advance one game tick
      */
     public void cycle() {
-        clock.startCycle();
         snake.turn(controller.getDirection());
         boolean done = !snake.move();
         if (snake.getGrow()) {
@@ -82,14 +75,11 @@ public class GameEngine {
         }
         renderer.renderGame(area);
         if (done) {
-            System.out.println("SCORE:" + snake.getScore());
             scores.add(snake.getScore());
-            System.out.println("AVG: " + this.avgScore());
-            //double avgtime = this.timepassed/this.tickcount;
-            //System.out.println("AVG TIME PASSED: " + avgtime);
+            this.deathCount++;
             this.reset();
         }
-        clock.endCycle();
+        // clock.endCycle();
     }
 
     public Snake getSnake() {
@@ -113,10 +103,7 @@ public class GameEngine {
         }
         return this.timepassed / (double)this.tickcount;
     }
-    
-    public void setGameRate(int rate) {
-        this.gamerate = rate;
-        this.clock = new Clock(this.gamerate);
+    public long getDeathCount() {
+        return this.deathCount;
     }
-
 }

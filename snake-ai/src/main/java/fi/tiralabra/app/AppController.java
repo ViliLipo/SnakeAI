@@ -55,10 +55,14 @@ public class AppController implements Initializable {
     private boolean paused;
     private GameEngine ge;
     private Controller con;
+    private int speed = 10;
+    
+    private AppTimer at;
 
     @FXML
     void pause(ActionEvent event) {
-        this.paused = !this.paused;
+        this.at.togglePause();
+        this.paused = this.at.getPaused();
         if (this.paused) {
             pauseButton.setText("Continue");
         } else {
@@ -78,31 +82,19 @@ public class AppController implements Initializable {
 
     @FXML
     void setSpeed(ActionEvent event) {
-        this.ge.setGameRate((int) this.speedSlider.getValue());
-        System.out.println(this.speedSlider.getValue());
+        this.speed = (int)Math.floor(this.speedSlider.getValue());
+        this.at.setSpeed(this.speed);
     }
 
     @FXML
     void setSpeedClick(MouseEvent event) {
-        this.ge.setGameRate((int) this.speedSlider.getValue());
-        System.out.println(this.speedSlider.getValue());
+         this.speed = (int)Math.floor(this.speedSlider.getValue());
+         this.at.setSpeed(this.speed);
     }
 
     @FXML
     void runPressed(ActionEvent event) {
-        new AnimationTimer() {
-            @Override
-            public void handle(long now) {
-                if (!paused) {
-                    ge.cycle();
-                    avgScore.setText("Average score: "
-                            + String.format("%.2f", ge.avgScore()));
-                    avgTime.setText("Average time per apple: " + String.format("%.2f" ,ge.avgTime())
-                            + "ms");
-                    newScoreValue.setText("Current score: " + ge.getSnake().getScore());
-                }
-            }
-        }.start();
+        this.at.start();
     }
 
     @Override
@@ -115,6 +107,7 @@ public class AppController implements Initializable {
         this.controllerCombo.getItems().add(new BFSController(ge));
         this.controllerCombo.setValue(this.controllerCombo.getItems().get(0));
         paused = false;
+        this.at = new AppTimer(10, ge, avgScore, avgTime, newScoreValue);
     }
 
 }

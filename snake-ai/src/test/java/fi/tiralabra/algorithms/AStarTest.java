@@ -43,21 +43,7 @@ public class AStarTest {
         ga.getTable()[8][8] = 2;
         snake.setArea(ga);
         LinkedList<Location> path = AStar.path(snake);
-        LinkedList<Location> expectedPath = new LinkedList<>();
-        for (int i = 5; i <= 8; i++) {
-            expectedPath.add(new Location(5, i));
-        }
-        for (int i = 5; i <= 8; i++) {
-            expectedPath.add(new Location(i, 8));
-        }
-        Iterator<Location> it1 = path.iterator();
-        Iterator<Location> it2 = expectedPath.iterator();
-        while (it1.hasNext() && it2.hasNext()) {
-            Location loc1 = it1.next();
-            Location loc2 = it2.next();
-            assertEquals(loc2.getX(), loc1.getX());
-            assertEquals(loc2.getY(), loc1.getY());
-        }
+        assertEquals(7, path.size());
     }
 
 }

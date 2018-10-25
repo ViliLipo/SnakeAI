@@ -49,15 +49,23 @@ public class BinaryHeapTest {
 
     @Test
     public void testExtract() {
+        heap.insert(Integer.MIN_VALUE);
+        heap.insert(Integer.MAX_VALUE);
         heap.insert(3);
         heap.insert(0);
         heap.insert(1);
+        assertEquals(5, heap.getSize());
         int value = heap.extract();
+        assertEquals(Integer.MIN_VALUE, value);
+        value = heap.extract();
         assertEquals(0, value);
         value = heap.extract();
         assertEquals(1, value);
         value = heap.extract();
         assertEquals(3, value);
+        value = heap.extract();
+        assertEquals(Integer.MAX_VALUE, value);
+        assertEquals(0, heap.getSize());
     }
     @Test
     public void testAllocateMore() {
