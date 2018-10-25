@@ -49,7 +49,6 @@ public class Snake implements Cloneable {
     public void turn(int dir) {
         if (-2 <= dir && dir <= 2 && dir != 0) {
             if (0 != (dir + this.direction)) {
-                // System.out.println("Direction : " + this.direction + "dir : " + dir);
                 this.direction = dir;
             }
         }

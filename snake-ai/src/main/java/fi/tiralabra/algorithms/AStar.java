@@ -48,7 +48,7 @@ public final class AStar {
         primaryHeap.insert(start);
         while (!primaryHeap.isEmpty()) {
             AStarElement current = primaryHeap.extract();
-            if(!current.isValid()) {
+            if(!current.isValid()) { // this element in heap has been relaxed
                 continue;
             }
             Snake snek = current.getSnake();

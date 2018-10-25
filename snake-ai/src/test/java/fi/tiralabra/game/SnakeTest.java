@@ -80,6 +80,11 @@ public class SnakeTest {
      */
     @Test
     public void testGetGrow() {
+        assertFalse(this.snake.getGrow());
+        this.area.getTable()[5][6] = GameArea.APPLE;
+        snake.move();
+        assertTrue(this.snake.getGrow());
+
     }
 
     /**
@@ -87,6 +92,10 @@ public class SnakeTest {
      */
     @Test
     public void testGetScore() {
+        assertEquals(0, snake.getScore());
+        this.area.getTable()[5][6] = GameArea.APPLE;
+        snake.move();
+        assertEquals(10, snake.getScore());
     }
 
     /**
@@ -94,6 +103,9 @@ public class SnakeTest {
      */
     @Test
     public void testGetHead() {
+        Location head = snake.getHead();
+        assertEquals(5, head.getX());
+        assertEquals(5, head.getY());
     }
 
     /**
@@ -108,6 +120,8 @@ public class SnakeTest {
      */
     @Test
     public void testSetArea() {
+        snake.setArea(this.area);
+        assertEquals(this.area, snake.getArea());
     }
 
     /**
@@ -115,6 +129,7 @@ public class SnakeTest {
      */
     @Test
     public void testGetArea() {
+        assertEquals(this.area, snake.getArea());
     }
 
 }

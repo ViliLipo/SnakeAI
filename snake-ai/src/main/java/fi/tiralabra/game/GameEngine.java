@@ -24,6 +24,7 @@ public class GameEngine {
     private LinkedList<Integer> scores;
     private long timepassed;
     private long tickcount;
+    private long deathCount;
 
     public GameEngine(GameRenderer renderer) {
         this.area = new GameArea();
@@ -33,6 +34,7 @@ public class GameEngine {
         this.scores = new LinkedList<>();
         timepassed = 0;
         tickcount = 0;
+        deathCount = 0;
     }
 
     public void setController(Controller controller) {
@@ -56,11 +58,6 @@ public class GameEngine {
             Logger.getLogger(GameEngine.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-    public GameArea getArea() {
-        return this.area;
-    }
-
     /**
      * Advance one game tick
      */
@@ -78,11 +75,8 @@ public class GameEngine {
         }
         renderer.renderGame(area);
         if (done) {
-            System.out.println("SCORE:" + snake.getScore());
             scores.add(snake.getScore());
-            System.out.println("AVG: " + this.avgScore());
-            //double avgtime = this.timepassed/this.tickcount;
-            //System.out.println("AVG TIME PASSED: " + avgtime);
+            this.deathCount++;
             this.reset();
         }
         // clock.endCycle();
@@ -108,5 +102,8 @@ public class GameEngine {
             return 0;
         }
         return this.timepassed / (double)this.tickcount;
+    }
+    public long getDeathCount() {
+        return this.deathCount;
     }
 }
