@@ -47,7 +47,10 @@ public class BFSController implements Controller {
             if (locPath == null || locPath.isEmpty()) {
                 return Survive.getSafeDirection(engine.getSnake());
             }
-            this.directions = MapTools.locationPathToDirectionPath(locPath);
+            this.directions = MapTools.locationPathToDirectionPath(locPath, this.engine.getSnake().getArea());
+            if (this.directions.isEmpty()) {
+                return Survive.getSafeDirection(engine.getSnake());
+            }
             this.timePassed = (int) (System.currentTimeMillis() - start);
             return this.directions.poll();
         }

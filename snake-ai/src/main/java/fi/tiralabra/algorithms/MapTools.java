@@ -16,18 +16,19 @@ import java.util.Iterator;
  * @author vili
  */
 public final class MapTools {
-    
+
     /**
      * Returns the location of the apple
+     *
      * @param area
-     * @return 
+     * @return
      */
     public static Location findApple(GameArea area) {
         int[][] map = area.getTable();
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[i].length; j++) {
                 if (map[i][j] == GameArea.APPLE) {
-                    return new Location(j, i);
+                    return new Location(j, i, area);
                 }
             }
         }
@@ -40,13 +41,21 @@ public final class MapTools {
      * @param path List of locations
      * @return List of integers representing directions
      */
-    public static LinkedList<Integer> locationPathToDirectionPath(LinkedList<Location> path) {
+    public static LinkedList<Integer> locationPathToDirectionPath(LinkedList<Location> path, GameArea area) {
         LinkedList<Integer> newPath = new LinkedList<Integer>();
         Iterator<Location> it = path.iterator();
         Location startPoint = path.getFirst();
         while (it.hasNext()) {
             Location loc = it.next();
-            if (startPoint.getX() < loc.getX()) {
+            if (startPoint.getX() == area.getWidth() - 2 && loc.getX() == 1) {
+                newPath.add(Snake.RIGHT);
+            } else if (startPoint.getX() == 1 && loc.getX() == area.getWidth() - 2) {
+                newPath.add(Snake.LEFT);
+            } else if (startPoint.getY() == 1 && loc.getY() == area.getHeight() - 2) {
+                newPath.add(Snake.UP);
+            } else if (startPoint.getY() == area.getHeight()-2 && loc.getY() == 1) {
+                newPath.add(Snake.DOWN);
+            }else if (startPoint.getX() < loc.getX()) {
                 newPath.add(Snake.RIGHT);
             } else if (startPoint.getX() > loc.getX()) {
                 newPath.add(Snake.LEFT);
@@ -59,8 +68,10 @@ public final class MapTools {
         }
         return newPath;
     }
+
     /**
      * Get snakes that are viable next steps
+     *
      * @param snake
      * @return List of snakes
      */

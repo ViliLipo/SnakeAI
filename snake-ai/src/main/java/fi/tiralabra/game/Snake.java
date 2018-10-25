@@ -34,7 +34,7 @@ public class Snake implements Cloneable {
     public Snake(GameArea area, int startx, int starty) {
         this.area = area;
         this.locations = new LinkedList<>();
-        this.locations.add(new Location(startx, starty));
+        this.locations.add(new Location(startx, starty, area));
         this.direction = RIGHT;
         this.score = 0;
         this.grow = false;
@@ -81,8 +81,11 @@ public class Snake implements Cloneable {
      */
     public boolean moveUp() {
         Location currentHead = this.locations.getLast();
-        Location nextHead = new Location(currentHead.getX(),
-                currentHead.getY() - 1);
+        int y = currentHead.getY() -1;
+        if (y == 0) {
+            y = this.area.getHeight()-2;
+        }
+        Location nextHead = new Location(currentHead.getX(), y, this.area);
         return this.moveCore(nextHead);
     }
 
@@ -93,8 +96,12 @@ public class Snake implements Cloneable {
      */
     public boolean moveDown() {
         Location currentHead = this.locations.getLast();
+        int y = currentHead.getY() +1;
+        if(y == this.area.getHeight() -1) {
+            y = 1;
+        }
         Location nextHead = new Location(currentHead.getX(),
-                currentHead.getY() + 1);
+                y, this.area);
         return this.moveCore(nextHead);
     }
 
@@ -105,8 +112,12 @@ public class Snake implements Cloneable {
      */
     public boolean moveRight() {
         Location currentHead = this.locations.getLast();
-        Location nextHead = new Location(currentHead.getX() + 1,
-                currentHead.getY());
+        int x = currentHead.getX() +1;
+        if(x == this.area.getWidth() -1) {
+            x = 1;
+        }
+        Location nextHead = new Location( x,
+                currentHead.getY(), this.area);
         return this.moveCore(nextHead);
     }
 
@@ -117,8 +128,12 @@ public class Snake implements Cloneable {
      */
     public boolean moveLeft() {
         Location currentHead = this.locations.getLast();
-        Location nextHead = new Location(currentHead.getX() - 1,
-                currentHead.getY());
+        int x = currentHead.getX() -1;
+        if(x == 0) {
+            x = this.area.getWidth()-2;
+        }
+        Location nextHead = new Location(x,
+                currentHead.getY(), this.area);
         return this.moveCore(nextHead);
     }
 

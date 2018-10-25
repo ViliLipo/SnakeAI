@@ -35,7 +35,6 @@ public class GameEngine {
         this.scores = new LinkedList<>();
         timepassed = 0;
         tickcount = 0;
-        deathCount = 0;
     }
     /**
      * Set the controller for snake. Use this before calling cycle.
@@ -76,12 +75,12 @@ public class GameEngine {
                 this.tickcount++;
             } catch (Exception cantplaceapple) {
                 done = true;
+                System.out.println("cant place apple");
             }
         }
         renderer.renderGame(area);
         if (done) {
             scores.add(snake.getScore());
-            this.deathCount++;
             this.reset();
         }
     }
@@ -106,9 +105,5 @@ public class GameEngine {
             return 0;
         }
         return this.timepassed / (double) this.tickcount;
-    }
-
-    public long getDeathCount() {
-        return this.deathCount;
     }
 }

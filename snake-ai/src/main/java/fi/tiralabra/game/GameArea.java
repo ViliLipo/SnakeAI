@@ -164,7 +164,7 @@ public class GameArea implements Cloneable {
         LinkedList<Location> locations = new LinkedList<>();
         for(int j=0; j < this.table.length; j++) {
             for(int i =0; i < this.table[j].length; i++) {
-                Location loc = new Location(i,j);
+                Location loc = new Location(i,j, this);
                 if(!this.checkCollision(loc)) {
                     locations.add(loc);
                 }
