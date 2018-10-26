@@ -99,6 +99,9 @@ Testauksen tavoitteena oli osoittaa, että A\* on keskimääräisessä tapaukses
 huomattavasti BFS-algoritmia nopeampi. Testaus osoittaa tämän, sillä
 A\*:n viemä aika on vain 20% BFS:n keskimäärin viemästä ajasta.
 
+Onnistumisen visualisointi
+
+
 ## Graafinen käyttöliittymä
 Graafinen käyttöliittymä sekä rendreröinti on jätetty yksikkötestauksen ulkopuolelle.
 Järjestelmätestaus suoritettiin käsin seuraavalla testipatteristolla. 1 onnistui
