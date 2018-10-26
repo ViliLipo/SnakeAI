@@ -83,7 +83,8 @@ eivät välttämättä mene läpi hitailla kohdelaitteilla.
 Seuraavissa testeissä suoritusta ei rajoita mikään pelikello vaan
 pelin toimintaa ajetaan laitteiston maksiminopeudella. Reitin löytämiseen
 käytettävä aika mitataan Controller-luokissa. Siihen sisältyy algoritmin
-suorittaminen. Testaukseen kuluu aikaa laitteesta riippuen 1-5min.
+suorittaminen sekä polun käsittely
+käännösmuotoon. Testaukseen kuluu aikaa laitteesta riippuen 1-5min.
 
 |Testitapaus| Tulos| Huomioita|
 |:---------| :-: | :---------:|

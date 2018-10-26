@@ -10,7 +10,7 @@ import fi.tiralabra.game.Location;
 import fi.tiralabra.game.Snake;
 
 /**
- *
+ * This Class provides static path-method. Uses BFS
  * @author vili
  */
 public final class BFS {
@@ -22,7 +22,7 @@ public final class BFS {
     /**
      * Get a path of locations for snake using Breath first search
      *
-     * @param snake
+     * @param snake Snake at the starting point.
      * @return List of locations starting for given snakes head ending to apple
      * If no such path exist this method will return null.
      */
@@ -50,11 +50,11 @@ public final class BFS {
         }
         return null;
     }
-    
+
     private static LinkedList<Location> buildPath(Location end, Location[][] cameFrom) {
         Location index = end;
         LinkedList<Location> path = new LinkedList<>();
-        while(index != null) {
+        while (index != null) {
             path.addFirst(index);
             index = cameFrom[index.getY()][index.getX()];
         }

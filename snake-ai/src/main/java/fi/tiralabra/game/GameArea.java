@@ -8,11 +8,8 @@ package fi.tiralabra.game;
 import fi.tiralabra.datastructures.LinkedList;
 
 /**
- *
+ * Class contains functionality of the game area.
  * @author vili
- *
- *
- *
  *
  */
 public class GameArea implements Cloneable {
@@ -29,7 +26,7 @@ public class GameArea implements Cloneable {
         table = new int[height][width];
         this.makeBorders();
     }
-    
+
     /**
      * reset this area
      */
@@ -92,8 +89,8 @@ public class GameArea implements Cloneable {
      * Checks if (x,y) is a corner. used to place apples so that those wont end
      * up in a corner
      *
-     * @param x
-     * @param y
+     * @param x X-coordinate.
+     * @param y Y-coordinate.
      * @return true if (x,y) is a corner else false
      */
     public boolean isCorner(int x, int y) {
@@ -134,23 +131,29 @@ public class GameArea implements Cloneable {
         }
         return a;
     }
+
     /**
      * Place apple to area
+     *
      * @param loc Location on which the apple will be placed
      */
     public void placeApple(Location loc) {
         this.table[loc.getY()][loc.getX()] = APPLE;
     }
+
     /**
      * Place a piece of snake
+     *
      * @param loc Location on which the snake block will be placed
      */
     public void placeSnakePiece(Location loc) {
         this.table[loc.getY()][loc.getX()] = SNAKE;
     }
+
     /**
      * Set the specified location to be free.
-     * @param loc 
+     *
+     * @param loc clear this location
      */
     public void clearLocation(Location loc) {
         this.table[loc.getY()][loc.getX()] = FREE;
@@ -159,17 +162,18 @@ public class GameArea implements Cloneable {
     public int[][] getTable() {
         return this.table;
     }
-    
+
     /**
      * Get all free locations in a list
+     *
      * @return List of locations
      */
     public LinkedList<Location> freeLocations() {
         LinkedList<Location> locations = new LinkedList<>();
-        for(int j=0; j < this.table.length; j++) {
-            for(int i =0; i < this.table[j].length; i++) {
-                Location loc = new Location(i,j, this);
-                if(!this.checkCollision(loc)) {
+        for (int j = 0; j < this.table.length; j++) {
+            for (int i = 0; i < this.table[j].length; i++) {
+                Location loc = new Location(i, j, this);
+                if (!this.checkCollision(loc)) {
                     locations.add(loc);
                 }
             }

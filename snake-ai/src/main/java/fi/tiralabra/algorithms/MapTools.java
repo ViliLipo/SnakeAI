@@ -12,7 +12,7 @@ import fi.tiralabra.game.Snake;
 import java.util.Iterator;
 
 /**
- *
+ * Collection of static methods used by algorithms.
  * @author vili
  */
 public final class MapTools {
@@ -20,8 +20,8 @@ public final class MapTools {
     /**
      * Returns the location of the apple
      *
-     * @param area
-     * @return
+     * @param area the GameArea to be searched.
+     * @return the location of the apple, null if the apple is not in area.
      */
     public static Location findApple(GameArea area) {
         int[][] map = area.getTable();
@@ -38,8 +38,9 @@ public final class MapTools {
     /**
      * Convert path of locations to path of directions;
      *
-     * @param path List of locations
-     * @return List of integers representing directions
+     * @param path List of locations.
+     * @param area area in which the locations lay.
+     * @return List of integers representing directions.
      */
     public static LinkedList<Integer> locationPathToDirectionPath(LinkedList<Location> path, GameArea area) {
         LinkedList<Integer> newPath = new LinkedList<Integer>();
@@ -54,9 +55,9 @@ public final class MapTools {
                 newPath.add(Snake.LEFT);
             } else if (startPoint.getY() == 1 && loc.getY() == area.getHeight() - 2) {
                 newPath.add(Snake.UP);
-            } else if (startPoint.getY() == area.getHeight()-2 && loc.getY() == 1) {
+            } else if (startPoint.getY() == area.getHeight() - 2 && loc.getY() == 1) {
                 newPath.add(Snake.DOWN);
-            }else if (startPoint.getX() < loc.getX()) {
+            } else if (startPoint.getX() < loc.getX()) {
                 newPath.add(Snake.RIGHT);
             } else if (startPoint.getX() > loc.getX()) {
                 newPath.add(Snake.LEFT);
@@ -71,9 +72,9 @@ public final class MapTools {
     }
 
     /**
-     * Get snakes that are viable next steps aka neighbors.
+     * Get snakes that are viable next steps aka neighbours.
      *
-     * @param snake
+     * @param snake Get this snakes neighbours
      * @return List of snakes
      */
     public static LinkedList<Snake> getCandidates(Snake snake) {

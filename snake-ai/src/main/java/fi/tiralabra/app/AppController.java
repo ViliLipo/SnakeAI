@@ -25,7 +25,11 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-
+/**
+ * This class Implements UI.
+ * 
+ * @author vililipo
+ */
 public class AppController implements Initializable {
 
     @FXML
@@ -56,7 +60,7 @@ public class AppController implements Initializable {
     private GameEngine ge;
     private Controller con;
     private int speed = 10;
-    
+
     private AppTimer at;
 
     @FXML
@@ -82,14 +86,14 @@ public class AppController implements Initializable {
 
     @FXML
     void setSpeed(ActionEvent event) {
-        this.speed = (int)Math.floor(this.speedSlider.getValue());
+        this.speed = (int) Math.floor(this.speedSlider.getValue());
         this.at.setSpeed(this.speed);
     }
 
     @FXML
     void setSpeedClick(MouseEvent event) {
-         this.speed = (int)Math.floor(this.speedSlider.getValue());
-         this.at.setSpeed(this.speed);
+        this.speed = (int) Math.floor(this.speedSlider.getValue());
+        this.at.setSpeed(this.speed);
     }
 
     @FXML

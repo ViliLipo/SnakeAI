@@ -11,33 +11,50 @@ import fi.tiralabra.game.Location;
 import fi.tiralabra.game.Snake;
 
 /**
- *
+ * This object is used to create paths using AStar algorithm.
+ * 
  * @author vili
  */
-public final class AStar {
+public class AStar {
 
-    private AStar() {
+    private final Snake snake;
+    private final boolean[][] black;
+    private final boolean[][] gray;
+    private final int[][] gScores;
+    private final int[][] fScores;
+    private final AStarElement[][] elementMap;
+    private final Location[][] cameFrom;
+    private final Location goal;
+    private final BinaryHeap<AStarElement> primaryHeap;
+    
+/**
+ * This constructor sets up AStar for one path.
+ * Make new AStar for each path
+ * @param snake Snake at the starting point
+ */
+    public AStar(Snake snake) {
+        this.snake = snake;
+        int height = snake.getArea().getHeight();
+        int width = snake.getArea().getWidth();
+        black = new boolean[height][width];
+        gray = new boolean[height][width];
+        gScores = new int[height][width];
+        fScores = new int[height][width];
+        elementMap = new AStarElement[height][width];
+        cameFrom = new Location[height][width];
+        initSingleSource(gScores, fScores, snake);
+        this.goal = MapTools.findApple(snake.getArea());
+        primaryHeap = new BinaryHeap<>(100, new AStarComparator());
     }
 
     /**
      * Get a path from snakes head to apple. The path is generated using AStar
      *
-     * @param snake, snake to guide
+     * 
      * @return LinkedList of locations on the path, empty list if no path is
      * found
      */
-    public static LinkedList<Location> path(Snake snake) {
-        int height = snake.getArea().getHeight();
-        int width = snake.getArea().getWidth();
-        boolean[][] black = new boolean[height][width];
-        boolean[][] gray = new boolean[height][width];
-        int[][] gScores = new int[height][width];
-        int[][] fScores = new int[height][width];
-        AStarElement[][] elementMap = new AStarElement[height][width];
-        Location[][] cameFrom = new Location[height][width];
-        initSingleSource(gScores, fScores, snake);
-        Location goal = MapTools.findApple(snake.getArea());
-        BinaryHeap<AStarElement> primaryHeap = new BinaryHeap<>(100, new AStarComparator());
+    public LinkedList<Location> path() {
         int startX = snake.getHead().getX();
         int startY = snake.getHead().getY();
         AStarElement start = new AStarElement(snake, goal.distance(snake.getHead()));
@@ -48,7 +65,7 @@ public final class AStar {
         primaryHeap.insert(start);
         while (!primaryHeap.isEmpty()) {
             AStarElement current = primaryHeap.extract();
-            if(!current.isValid()) { // this element in heap has been relaxed
+            if (!current.isValid()) { // this element in heap has been relaxed
                 continue;
             }
             Snake snek = current.getSnake();
@@ -57,31 +74,41 @@ public final class AStar {
                 return buildPath(snek.getHead(), cameFrom);
             }
             for (Snake cand : MapTools.getCandidates(snek)) {
-                int candX = cand.getHead().getX();
-                int candY = cand.getHead().getY();
-                if (!black[candY][candX]) {
-                    int gScore = gScores[snek.getHead().getY()][snek.getHead().getX()] + 1;
-                    if (gScore < gScores[candY][candX] | !gray[candY][candX]) {
-                        gScores[candY][candX] = gScore;
-                        fScores[candY][candX] = gScore + goal.distance(cand.getHead());
-                        cameFrom[candY][candX] = snek.getHead();
-                        if (!gray[candY][candX]) {
-                            gray[candY][candX] = true;
-                            AStarElement e = new AStarElement(cand, fScores[candY][candX]);
-                            primaryHeap.insert(e);
-                            elementMap[candY][candX] = e;
-                        }else {
-                            AStarElement e = elementMap[candY][candX];
-                            e.setValid(false);
-                            e = new AStarElement(cand, fScores[candY][candX]);
-                            primaryHeap.insert(e);
-                            elementMap[candY][candX] = e;
-                        }
-                    }
-                }
+                // do not change to stream because of the overhead
+                this.handleNeighbor(cand, snek);
             }
         }
         return new LinkedList<>();
+    }
+    /**
+     * Handle one neighbor for current snake
+     * @param neighbor the neighbor
+     * @param current current snake
+     */
+    private void handleNeighbor(Snake neighbor, Snake current) {
+        int candX = neighbor.getHead().getX();
+        int candY = neighbor.getHead().getY();
+        if (!black[candY][candX]) {
+            int gScore = gScores[current.getHead().getY()][current.getHead().getX()] + 1;
+            if (gScore < gScores[candY][candX] | !gray[candY][candX]) {
+                gScores[candY][candX] = gScore;
+                fScores[candY][candX] = gScore + goal.distance(neighbor.getHead());
+                cameFrom[candY][candX] = current.getHead();
+                if (!gray[candY][candX]) {
+                    gray[candY][candX] = true;
+                    AStarElement e = new AStarElement(neighbor, fScores[candY][candX]);
+                    primaryHeap.insert(e);
+                    elementMap[candY][candX] = e;
+                } else {
+                    AStarElement e = elementMap[candY][candX];
+                    e.setValid(false);
+                    e = new AStarElement(neighbor, fScores[candY][candX]);
+                    primaryHeap.insert(e);
+                    elementMap[candY][candX] = e;
+                }
+            }
+        }
+
     }
 
     private static void initSingleSource(int[][] fScores, int[][] gScores, Snake snake) {

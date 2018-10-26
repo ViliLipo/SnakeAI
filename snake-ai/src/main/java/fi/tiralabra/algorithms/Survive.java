@@ -8,13 +8,15 @@ package fi.tiralabra.algorithms;
 import fi.tiralabra.game.Snake;
 
 /**
- * 
+ *
  * @author vili
  */
 public final class Survive {
+
     /**
      * Get one safe move for snake. Is used to make dying seem more sensible
-     * @param snake
+     *
+     * @param snake the snake that needs to survive.
      * @return integer representing snakes directions.
      */
     public static int getSafeDirection(Snake snake) {

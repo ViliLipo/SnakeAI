@@ -11,7 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * This class provides the game functionality.
  * @author vili
  */
 public class GameEngine {
@@ -36,8 +36,10 @@ public class GameEngine {
         timepassed = 0;
         tickcount = 0;
     }
+
     /**
      * Set the controller for snake. Use this before calling cycle.
+     *
      * @param controller, Object that implements controller interface
      */
     public void setController(Controller controller) {

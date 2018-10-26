@@ -9,7 +9,7 @@ import fi.tiralabra.datastructures.LinkedList;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- *
+ * Class defining apple functionality
  * @author vili
  */
 public class Apple {
@@ -22,16 +22,18 @@ public class Apple {
      *
      * @param area GameArea
      */
-    public Apple(GameArea area){
+    public Apple(GameArea area) {
         this.area = area;
     }
+
     /**
      * Place apple in to the gamearea
+     *
      * @throws Exception if there is no space for apple in the gamearea.
      */
     public void placeApple() throws Exception {
         LinkedList<Location> locations = this.area.freeLocations();
-        if(locations.isEmpty()) {
+        if (locations.isEmpty()) {
             throw new Exception("No free space for apple");
         }
         int index = ThreadLocalRandom.current().nextInt(1, locations.size());

@@ -16,7 +16,7 @@ public interface GameRenderer {
     /**
      * Render the game area to output the view
      *
-     * @param area
+     * @param area the GameArea to be rendered
      */
     public void renderGame(GameArea area);
 

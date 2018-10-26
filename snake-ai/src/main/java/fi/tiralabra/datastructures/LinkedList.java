@@ -13,7 +13,7 @@ import java.util.NoSuchElementException;
 import java.util.function.Consumer;
 
 /**
- *
+ * Typed LinkedList implementation
  * @author vili
  * @param <E> the type for the value in the list
  */

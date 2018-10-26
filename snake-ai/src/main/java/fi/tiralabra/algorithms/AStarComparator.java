@@ -11,12 +11,11 @@ import java.util.Comparator;
  *
  * @author vili
  */
-public class AStarComparator implements Comparator{
-    
+public class AStarComparator implements Comparator {
+
     public AStarComparator() {
-        
+
     }
-    
 
     @Override
     public int compare(Object t, Object t1) {

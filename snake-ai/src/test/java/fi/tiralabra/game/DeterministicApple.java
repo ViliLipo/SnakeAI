@@ -5,7 +5,6 @@
  */
 package fi.tiralabra.game;
 
-
 /**
  *
  * @author vili

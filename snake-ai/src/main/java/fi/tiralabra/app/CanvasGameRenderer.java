@@ -23,8 +23,8 @@ public class CanvasGameRenderer implements GameRenderer {
     }
 
     /**
-     * Renders game to canvas
-     *
+     * Render game to a canvas.
+     * Should scale neatly.
      * @param area GameArea to be rendered
      */
     @Override

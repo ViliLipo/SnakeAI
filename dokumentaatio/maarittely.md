@@ -9,7 +9,7 @@ Matopelin pelaaminen on ongelma, jossa madon tulee päästä omenan luokse
 osumatta itseensä. Mato voi mennä seinien läpi perinteiseen
 matopeli tyyliin.
 Ongelmaa ratkaistaan alustavasti leveysuuntainen
- läpikäynti-,ja A*-
+ läpikäynti-ja A*-
 algoritmeilla. Jokainen uusi omena asetetaan kartalle satunnaisesti.
 Mato toteutetaan jono-tietorakenteella, joka pohjautuu linkitettylista
 implementaatioon.
@@ -18,7 +18,8 @@ implementaatioon.
 Sovellukseen toteutetaan tyypitetty linkitettylista joka toteuttaa oleelliset osat
 java.util.list rajapintaa. Listaa käytetään yleisesti ohjelmassa kun listoja
 tarvitaan. Se toimii myös madon-logiikan kannalta keskeisessä jonossa ja
-BFS-algoritmissa, koska se toteuttetaan iteratiivisella mallilla.
+BFS-algoritmissa, koska se toteuttetaan iteratiivisella mallilla. Listan tulee olla kahteen suuntaan linkitetty,
+jotta alkuun sekä loppuun lisääminen on nopeaa.
 ## Binäärikeko
 Sovellukseen toteutetetaan A\*-algoritmin järjestämiseen keko. Keko on
 tyypitetty ja voi vertailla olioita eri parametrein, Comparator-rajapinnan

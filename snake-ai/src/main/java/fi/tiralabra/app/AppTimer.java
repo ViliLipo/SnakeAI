@@ -10,7 +10,7 @@ import fi.tiralabra.game.GameEngine;
 import javafx.scene.control.TextField;
 
 /**
- *
+ * This class is used as game clock
  * @author vili
  */
 public class AppTimer extends AnimationTimer {
@@ -22,16 +22,16 @@ public class AppTimer extends AnimationTimer {
     private TextField avgTime;
     private TextField newScoreValue;
     private long lastUpdate;
-    
+
     public AppTimer(int speed, GameEngine ge, TextField avgScore, TextField avgTime,
-    TextField newScoreValue) {
+            TextField newScoreValue) {
         this.speed = speed;
         this.paused = false;
         this.ge = ge;
         this.avgScore = avgScore;
         this.avgTime = avgTime;
         this.newScoreValue = newScoreValue;
-        
+
     }
 
     @Override
@@ -46,14 +46,23 @@ public class AppTimer extends AnimationTimer {
             lastUpdate = now;
         }
     }
-
+    /**
+     * Set the game tickrate
+     * @param i int the tickrate
+     */
     public void setSpeed(int i) {
         this.speed = i;
     }
-    
+    /**
+     * Pause the game if not paused and vice versa.
+     */
     public void togglePause() {
         this.paused = !this.paused;
     }
+    /**
+     * 
+     * @return boolean is the game paused
+     */
     public boolean getPaused() {
         return this.paused;
     }

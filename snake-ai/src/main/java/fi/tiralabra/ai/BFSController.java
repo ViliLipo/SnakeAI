@@ -9,13 +9,12 @@ import fi.tiralabra.algorithms.BFS;
 import fi.tiralabra.algorithms.MapTools;
 import fi.tiralabra.datastructures.LinkedList;
 import fi.tiralabra.game.Controller;
-import fi.tiralabra.game.GameArea;
 import fi.tiralabra.game.GameEngine;
 import fi.tiralabra.game.Location;
 import fi.tiralabra.algorithms.Survive;
 
 /**
- *
+ * Control snake using BFS.
  * @author vili
  */
 public class BFSController implements Controller {

@@ -8,7 +8,7 @@ package fi.tiralabra.game;
 import fi.tiralabra.datastructures.LinkedList;
 
 /**
- *
+ * Snake functionality
  * @author vili
  */
 public class Snake implements Cloneable {
@@ -81,9 +81,9 @@ public class Snake implements Cloneable {
      */
     public boolean moveUp() {
         Location currentHead = this.locations.getLast();
-        int y = currentHead.getY() -1;
+        int y = currentHead.getY() - 1;
         if (y == 0) {
-            y = this.area.getHeight()-2;
+            y = this.area.getHeight() - 2;
         }
         Location nextHead = new Location(currentHead.getX(), y, this.area);
         return this.moveCore(nextHead);
@@ -96,8 +96,8 @@ public class Snake implements Cloneable {
      */
     public boolean moveDown() {
         Location currentHead = this.locations.getLast();
-        int y = currentHead.getY() +1;
-        if(y == this.area.getHeight() -1) {
+        int y = currentHead.getY() + 1;
+        if (y == this.area.getHeight() - 1) {
             y = 1;
         }
         Location nextHead = new Location(currentHead.getX(),
@@ -112,11 +112,11 @@ public class Snake implements Cloneable {
      */
     public boolean moveRight() {
         Location currentHead = this.locations.getLast();
-        int x = currentHead.getX() +1;
-        if(x == this.area.getWidth() -1) {
+        int x = currentHead.getX() + 1;
+        if (x == this.area.getWidth() - 1) {
             x = 1;
         }
-        Location nextHead = new Location( x,
+        Location nextHead = new Location(x,
                 currentHead.getY(), this.area);
         return this.moveCore(nextHead);
     }
@@ -128,9 +128,9 @@ public class Snake implements Cloneable {
      */
     public boolean moveLeft() {
         Location currentHead = this.locations.getLast();
-        int x = currentHead.getX() -1;
-        if(x == 0) {
-            x = this.area.getWidth()-2;
+        int x = currentHead.getX() - 1;
+        if (x == 0) {
+            x = this.area.getWidth() - 2;
         }
         Location nextHead = new Location(x,
                 currentHead.getY(), this.area);

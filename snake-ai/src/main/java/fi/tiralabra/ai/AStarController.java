@@ -14,6 +14,7 @@ import fi.tiralabra.game.GameEngine;
 import fi.tiralabra.game.Location;
 
 /**
+ * Control Snake using Astar.
  *
  * @author vili
  */
@@ -42,8 +43,8 @@ public class AStarController implements Controller {
             return value;
         } else {
             long start = System.currentTimeMillis();
-            LinkedList<Location> locPath = AStar.path(engine.getSnake());
-            this.timePassed = (int) (System.currentTimeMillis() - start);
+            AStar aStar = new AStar(engine.getSnake());
+            LinkedList<Location> locPath = aStar.path();
             if (locPath.isEmpty()) {
                 return Survive.getSafeDirection(engine.getSnake());
             }
@@ -52,6 +53,7 @@ public class AStarController implements Controller {
             if (this.directions.isEmpty()) {
                 return Survive.getSafeDirection(engine.getSnake());
             }
+            this.timePassed = (int) (System.currentTimeMillis() - start);
             return this.directions.poll();
         }
 

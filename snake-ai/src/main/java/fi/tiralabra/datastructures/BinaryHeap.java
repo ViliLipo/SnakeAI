@@ -8,7 +8,8 @@ package fi.tiralabra.datastructures;
 import java.util.Comparator;
 
 /**
- * Binary heap that functions as a minHeap
+ * Typed Binary heap that functions as a minHeap
+ *
  * @author vili
  */
 public class BinaryHeap<E> {
@@ -16,9 +17,9 @@ public class BinaryHeap<E> {
     private E[] table;
     private int heapSize;
     private Comparator comp;
-    
+
     /**
-     * 
+     *
      * @param s size
      * @param comp comparator that is used in ordering
      */
@@ -68,7 +69,7 @@ public class BinaryHeap<E> {
     /**
      * Build a heap from array of elements
      *
-     * @param array
+     * @param array Build this array into a heap.
      */
     public void buildHeap(E[] array) {
         this.heapSize = 0;
@@ -92,9 +93,9 @@ public class BinaryHeap<E> {
     }
 
     /**
-     * Add a Location to this heap
+     * Add a Element to this heap
      *
-     * @param e
+     * @param e Element to be added
      */
     public void insert(E e) {
         this.heapSize++;
@@ -106,9 +107,9 @@ public class BinaryHeap<E> {
     }
 
     /**
-     * Get the Location in heap closest to the goal
+     * Get the element with the smallest comparator value.
      *
-     * @return the Closest Location, if heap is empty then null
+     * @return The element with the smallest comparator value.
      */
     public E extract() {
         if (this.heapSize <= 0) {

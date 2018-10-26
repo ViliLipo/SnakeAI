@@ -116,9 +116,8 @@ public class GameAreaTest {
         assertFalse(area.checkApple(5, 5));
         area.placeApple(loc);
         assertTrue(area.checkApple(5, 5));
-        
-    }
 
+    }
 
     /**
      * Test of toString method, of class GameArea.
@@ -126,6 +125,5 @@ public class GameAreaTest {
     @Test
     public void testToString() {
     }
-
 
 }

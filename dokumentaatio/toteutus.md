@@ -44,7 +44,7 @@ joukkoa on mallinnettu taulukoilla sekä binäärikeolla. A\* valittiin Djikstra
 sijasta sillä, kartan eli verkon jokainen ruutujen välinen kaari on yhden
 painoinen jos siitä voi kulkea ja äärettömän painoinen jos siitä ei voi kulkea.
 A\* algoritmin avoin joukko on toteutettu yhdistelmänä taulukoita ja kekoa.
-Keossa madot arvioidaan siis A* algoritmin F-scoren mukaan, joka on yhdistelmä
+Keossa madot arvioidaan siis A\* algoritmin F-scoren mukaan, joka on yhdistelmä
 madon pään etäisyyttä alkuun, sekä arvioitua etäisyyttä maaliin. Kun solmun
 arvoa löysätään merkitään sitä keossa merkitsevä AStarElement-olio invalidiksi,
 jolloin kun se tulee ulos keosta sitä ei käsitellä. Tämän jälkeen solmun
@@ -117,7 +117,9 @@ voidaan manipuloida turn-metodilla.
 ### Luokka-Apple
 Apple-luokka mahdollistaa satunnaisen omenan asettamisen kartalle.
 Omena asetetaan selvittämällä vapaat ruudut kartasta ja sen jälkeen listan sisällöstä
-arvotaan sijainti johon omena asetetaan.
+arvotaan sijainti johon omena asetetaan. Jos omena ei
+enää mahdu kartalle voidaan madon ajatella voittaneen
+pelin.
 
 ### Luokka-GameEngine
 Tämä luokka tarjoaa metodin cycle(), jolla peliä edistetään yksi tikki.
@@ -149,7 +151,7 @@ laskennallisesti tehokasta tapaa varmistaa, että polku päätyy omenan syömise
 jälkeen sellaiseen tilaan josta mato voi selvitä. Ainoat ratkaisut
 joita keksin olivat aikavaativuudeltaan selvittävien vuorojen määrä potenssiin
 neljä. Tilanteet joissa mato kuolee ovat usein niitä, joissa mato päätyy
-kerälle ja voi selvitä kymmeniä vuoroja kuolematta, mutta silti löytämättä
+kerälle ja voi selvitä kymmeniä vuoroja kuolematta, mutta silti olla löytämättä
 reittiä seuraavalle omenalle.
 Matopeliä voisi helposti pelata algoritmilla, joka vain menee
 järjestyksessä koko pelikentän läpi kuolematta ja näin täyttää koko
