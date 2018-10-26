@@ -3,11 +3,11 @@
 ## Esittely
 SnakeAI on projekti, jossa matopeliä pelaavaa tekoälyä vertaillaan
 perustuen eri algoritmeihin. Projekti toteutetaan Java-ohjelmointikielellä.
-Projektinhallintaan käytetään Maven-työkalua. Sovellukseen tulee kaksi näkymää:
-Normaali pelinäkymä ja algoritmin etenemisen visualisointi.
+Projektinhallintaan käytetään Maven-työkalua.
 ## Algoritmit
 Matopelin pelaaminen on ongelma, jossa madon tulee päästä omenan luokse
-osumatta itseensä tai pelialueen seiniin.
+osumatta itseensä. Mato voi mennä seinien läpi perinteiseen
+matopeli tyyliin.
 Ongelmaa ratkaistaan alustavasti leveysuuntainen
  läpikäynti-,ja A*-
 algoritmeilla. Jokainen uusi omena asetetaan kartalle satunnaisesti.

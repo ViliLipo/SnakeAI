@@ -140,6 +140,8 @@ jos peli ei ole pysäytettynä.
 
 ![kaavio](https://raw.githubusercontent.com/ViliLipo/SnakeAI/master/images/classdiagram.png)
 
+Huom! Tämä on yksinkertaistettu esitys, jossa on esillä
+vain toiminnan kannalta keskeiset osat.
 
 ## Puutteet
 Algoritmit eivät takaa madon selviämistä omenan syömisen jälkeen. En löytänyt
@@ -152,6 +154,9 @@ reittiä seuraavalle omenalle.
 Matopeliä voisi helposti pelata algoritmilla, joka vain menee
 järjestyksessä koko pelikentän läpi kuolematta ja näin täyttää koko
 pelikentän madolla, mutta tämä tapa on epäinhimmillen ja tylsä.
+### Optimointi
+Sovelluksen A\*-algoritmin toimintaa voisi tehostaa
+vaihtamalla binäärikeko fibonacci-kekoon.
 
 ## Saavutukset
 Madon toiminnan seuraaminen on rauhoittavaa ja on kuin
