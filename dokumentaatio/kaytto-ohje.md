@@ -3,7 +3,7 @@
 ## Esivaatimukset
   Tämä ohje olettaa, että kohdelaitteen käyttöjärjestelmä on GNU/Linux-pohjainen
   ja että siihen on asennettu seuraavat ohjelmistot: openjdk-8, openjfx, Maven2
-  ja git.
+  ja git. Sovellus myös olettaa että sitä ajetaan javan versiolla 8.
 ## Käyttöönotto
 Käyttöön otto alkaa repositoryn kloonaamisella. Mene terminaalilla hakemistoon
 johon haluat ladata ohjelman ja suorita:
@@ -43,4 +43,5 @@ Pelin simuloimisen voi aloittaa painamalla RUN-painiketta.
 Tämän alapuolisesta valintalaatikosta voi valita käytettävän algoritmin.
 Sen alapuolella on tietoja algoritmin toiminnasta.
 Pause-nappulasta voi pysäyttää simuloinnin.
-Liukukytkintä säätämällä voidaan muuttaa pelin nopeutta.
+Liukukytkintä säätämällä voidaan muuttaa pelin nopeutta. Huom nopeus vaihtuu
+vasta kun säädintä klikkaa.

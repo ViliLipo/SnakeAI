@@ -43,11 +43,12 @@ public class AStarController implements Controller {
         } else {
             long start = System.currentTimeMillis();
             LinkedList<Location> locPath = AStar.path(engine.getSnake());
+            this.timePassed = (int) (System.currentTimeMillis() - start);
             if (locPath.isEmpty()) {
                 return Survive.getSafeDirection(engine.getSnake());
             }
             this.directions = MapTools.locationPathToDirectionPath(locPath, this.engine.getSnake().getArea());
-            this.timePassed = (int) (System.currentTimeMillis() - start);
+
             if (this.directions.isEmpty()) {
                 return Survive.getSafeDirection(engine.getSnake());
             }

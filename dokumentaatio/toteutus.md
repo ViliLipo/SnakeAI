@@ -3,6 +3,9 @@ Snake-ai on toteutetty käyttäen JavaFX-canvasta ja itse kirjoitettuja
 reitinhakualgoritmeja.
 Ohjelma ei tällä hetkellä käytä ulkopuolisia tietorakenteita.
 Ohjelman käyttöliittymästä voi seurata algoritmin suorituskykytietoja.
+Ongelmassa mielenkiintoista on reitinhakualgoritmin soveltaminen tilanteessa
+jossa esteet liikkuvat. Eli madon häntä poistuu samaan aikaan, kun madon pää
+liikkuu kohti omenaa.
 
 ## Algoritmit
 ### BFS
@@ -12,7 +15,7 @@ leveyssuuntaisesta läpikäynnistä siten, että kaikki epäkelvot
 polut hylätään heti ja niiden tutkimista ei jatketa. Tämä algoritmi löytää
 aina varmasti lyhimmän reitin, mutta on aikavaativuudeltaan raskas. Algoritmi
 ei myöskään voi varmistaa sitä, ettei mato jossain kohtaa kuole, sillä se
-ei arvio pelitilannetta omenan syömisen jälkeen
+ei arvio pelitilannetta omenan syömisen jälkeen.
 
 ```
   bfs(start, goal):
@@ -42,7 +45,12 @@ sijasta sillä, kartan eli verkon jokainen ruutujen välinen kaari on yhden
 painoinen jos siitä voi kulkea ja äärettömän painoinen jos siitä ei voi kulkea.
 A\* algoritmin avoin joukko on toteutettu yhdistelmänä taulukoita ja kekoa.
 Keossa madot arvioidaan siis A* algoritmin F-scoren mukaan, joka on yhdistelmä
-madon pään etäisyyttä alkuun, sekä arvioitua etäisyyttä maaliin.
+madon pään etäisyyttä alkuun, sekä arvioitua etäisyyttä maaliin. Kun solmun
+arvoa löysätään merkitään sitä keossa merkitsevä AStarElement-olio invalidiksi,
+jolloin kun se tulee ulos keosta sitä ei käsitellä. Tämän jälkeen solmun
+uudella F-arvolla lisätään uusi elementti kekoon. Tämän keon uudelleen
+järjestämisen puuttuminen aiheutti aikaisemman pitkäaikaisen bugin A*-algoritmin
+toimintaan, jossa mato törmäsi häntäänsä ilman syytä.
 Algoritmin aikavaativuus on O(|E| + |V|). Kuitenkin se saavuttaa parempia
 tapauksia huomattavasti useammin kuin BFS.
 #### Pseudokoodiesitys
@@ -138,6 +146,13 @@ Algoritmit eivät takaa madon selviämistä omenan syömisen jälkeen. En löyt�
 laskennallisesti tehokasta tapaa varmistaa, että polku päätyy omenan syömisen
 jälkeen sellaiseen tilaan josta mato voi selvitä. Ainoat ratkaisut
 joita keksin olivat aikavaativuudeltaan selvittävien vuorojen määrä potenssiin
-neljä. Matopeliä voisi helposti pelata algoritmilla, joka vain menee
+neljä. Tilanteet joissa mato kuolee ovat usein niitä, joissa mato päätyy
+kerälle ja voi selvitä kymmeniä vuoroja kuolematta, mutta silti löytämättä
+reittiä seuraavalle omenalle.
+Matopeliä voisi helposti pelata algoritmilla, joka vain menee
 järjestyksessä koko pelikentän läpi kuolematta ja näin täyttää koko
 pelikentän madolla, mutta tämä tapa on epäinhimmillen ja tylsä.
+
+## Saavutukset
+Madon toiminnan seuraaminen on rauhoittavaa ja on kuin
+köyhän opiskelijan Amos Rex TeamLab näyttely.

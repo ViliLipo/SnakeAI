@@ -13,6 +13,16 @@ Ongelmaa ratkaistaan alustavasti leveysuuntainen
 algoritmeilla. Jokainen uusi omena asetetaan kartalle satunnaisesti.
 Mato toteutetaan jono-tietorakenteella, joka pohjautuu linkitettylista
 implementaatioon.
+## Tietorakenteet
+### Linkitettylista
+Sovellukseen toteutetaan tyypitetty linkitettylista joka toteuttaa oleelliset osat
+java.util.list rajapintaa. Listaa käytetään yleisesti ohjelmassa kun listoja
+tarvitaan. Se toimii myös madon-logiikan kannalta keskeisessä jonossa ja
+BFS-algoritmissa, koska se toteuttetaan iteratiivisella mallilla.
+## Binäärikeko
+Sovellukseen toteutetetaan A\*-algoritmin järjestämiseen keko. Keko on
+tyypitetty ja voi vertailla olioita eri parametrein, Comparator-rajapinnan
+täyttävien olioiden avulla.
 ## Syötteet
 Syötteenä ohjelmalle annetaan algoritmin valinta ja simuloinnin nopeus.
 ## Aika- ja tilavaativuudet
