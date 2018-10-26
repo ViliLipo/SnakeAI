@@ -99,8 +99,9 @@ Testauksen tavoitteena oli osoittaa, että A\* on keskimääräisessä tapaukses
 huomattavasti BFS-algoritmia nopeampi. Testaus osoittaa tämän, sillä
 A\*:n viemä aika on vain 20% BFS:n keskimäärin viemästä ajasta.
 
-Onnistumisen visualisointi
+Onnistumisen visualisointi y-akselilla aika millisekuntteina.
 
+![kuva](https://raw.githubusercontent.com/ViliLipo/SnakeAI/master/images/timeResults.png)
 
 ## Graafinen käyttöliittymä
 Graafinen käyttöliittymä sekä rendreröinti on jätetty yksikkötestauksen ulkopuolelle.
