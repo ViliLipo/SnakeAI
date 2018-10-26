@@ -47,6 +47,7 @@ public final class MapTools {
         Location startPoint = path.getFirst();
         while (it.hasNext()) {
             Location loc = it.next();
+            // First 4 cases handle going through walls.
             if (startPoint.getX() == area.getWidth() - 2 && loc.getX() == 1) {
                 newPath.add(Snake.RIGHT);
             } else if (startPoint.getX() == 1 && loc.getX() == area.getWidth() - 2) {
@@ -70,7 +71,7 @@ public final class MapTools {
     }
 
     /**
-     * Get snakes that are viable next steps
+     * Get snakes that are viable next steps aka neighbors.
      *
      * @param snake
      * @return List of snakes

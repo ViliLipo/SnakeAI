@@ -48,6 +48,13 @@ DeterministicApple-luokkaa, jolla voidaan asettaa aina samat omenat.
 Integraatiotason testit suorituskykytestauksessa kuitenkin osoittavat
 algoritmin toimivuuden yleisissä tapauksissa.
 
+|Testitapaus| Tulos| Huomioita|
+|:---------| :-: | :---------:|
+|BFS Lyhin reitti löytyy| 1| syöte omena:(8,8)|
+|A* Lyhin reitti löytyy| 1| syöte omena:(8,8)|
+|BFS Ei törmäyksiä ja kaikki omenat löytyy|1| syöte omenat:([5-10],6), (10,[5=20]), (12,22), (7,21)|
+|A* Ei törmäyksiä ja kaikki omenat löytyy|1| syöte omenat:([5-10],6), (10,[5=20]), (12,22), (7,21)|
+
 
 
 ## Suorituskykytestaus
