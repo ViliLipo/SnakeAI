@@ -14,8 +14,8 @@ algoritmeilla. Jokainen uusi omena asetetaan kartalle satunnaisesti.
 Mato toteutetaan jono-tietorakenteella, joka pohjautuu linkitettylista
 implementaatioon.
 ## Tietorakenteet
-### Linkitettylista
-Sovellukseen toteutetaan tyypitetty linkitettylista joka toteuttaa oleelliset osat
+### Linkitetty lista
+Sovellukseen toteutetaan tyypitetty linkitetty lista joka toteuttaa oleelliset osat
 java.util.list rajapintaa. Listaa käytetään yleisesti ohjelmassa kun listoja
 tarvitaan. Se toimii myös madon-logiikan kannalta keskeisessä jonossa ja
 BFS-algoritmissa, koska se toteuttetaan iteratiivisella mallilla. Listan tulee olla kahteen suuntaan linkitetty,

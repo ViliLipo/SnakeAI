@@ -82,7 +82,7 @@
           <version>0.8.0</version>
           <configuration>
               <excludes>
-                  <exclude>fi/otm/wellnessapp/ui/*</exclude>
+                  <exclude>fi/tiralabra/app/*</exclude>
                   <exclude>org/*</exclude>
               </excludes>
           </configuration>

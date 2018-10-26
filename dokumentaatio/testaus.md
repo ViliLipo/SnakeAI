@@ -14,6 +14,8 @@ Testikattavuuden visualisointi on saatavilla komenolla
   mvn test jacoco:report
 ```
 Tällä myös selviää mitä on testattu.
+Kun käyttöliittymä jätetään pois testikattavuudesta on projektin testien
+rivikattavuus 93% ja haarauma kattavuus 87%.
 
 ## Yksikkötestaus
 ### Pelilogiikka
