@@ -20,3 +20,6 @@ Projektin hallinnassa käytetään Maven2 työkalua.
 - [4.viikko](https://github.com/ViliLipo/SnakeAI/blob/master/raportit/viikko4.md)
 - [5.viikko](https://github.com/ViliLipo/SnakeAI/blob/master/raportit/viikko5.md)
 - [6.viikko](https://github.com/ViliLipo/SnakeAI/blob/master/raportit/viikko6.md)
+
+## Ajettava jar
+- [Jar-Tiedosto](https://github.com/ViliLipo/SnakeAI/releases/tag/1.0)
